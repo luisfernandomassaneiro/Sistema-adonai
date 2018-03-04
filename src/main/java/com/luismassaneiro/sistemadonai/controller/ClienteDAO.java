@@ -60,7 +60,7 @@ public class ClienteDAO extends GenericDAO<Cliente> {
         } 
     }
     
-     public boolean codigoProdutoDisponivel(String codigo) throws ValidateException {
+     public boolean codigoClienteDisponivel(String codigo) throws ValidateException {
         try {
             Map<String, Object> parameters = new HashMap<>();
             StringBuilder hql = new StringBuilder();

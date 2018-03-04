@@ -9,12 +9,20 @@ public class DAOFactory {
     private static ProdutoDAO produtoDAO;
     private static PedidoDAO pedidoDAO;
     private static PedidoItemDAO pedidoItemDAO;
+    private static ClienteDAO clienteDAO;
     
     public static CategoriaDAO criaCategoriaDAO() {
         if(categoriaDAO == null) {
             categoriaDAO = new CategoriaDAO();
         }
         return categoriaDAO;
+    }
+    
+    public static ClienteDAO criaClienteDAO() {
+        if(clienteDAO == null)
+            clienteDAO = new ClienteDAO();
+        
+        return clienteDAO;
     }
     
     public static MovimentoEstoqueDAO criaMovimentoEstoqueDAO() {
