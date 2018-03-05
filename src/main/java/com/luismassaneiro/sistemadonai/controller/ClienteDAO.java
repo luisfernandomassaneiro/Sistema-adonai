@@ -24,7 +24,7 @@ public class ClienteDAO extends GenericDAO<Cliente> {
                 hql.append(" where ");
                 if(StringUtils.isNotEmpty(codigo)) {
                     hql.append(" c.codigo like :codigo ");
-                    parameters.put("codigo", codigo);
+                    parameters.put("codigo", codigo.concat("%"));
                     hql.append(StringUtils.isNotEmpty(nome) || somenteAtivo ? " and " : "");
                 }
                 if(StringUtils.isNotEmpty(nome)) {

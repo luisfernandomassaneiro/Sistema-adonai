@@ -31,6 +31,9 @@ public class Cliente extends Base implements BusinessEntity{
     @Column(name="CLI_NOME",nullable=false)
     private String nome;    
 
+    @Column(name="CLI_DOCUMENTO")
+    private String documento;
+    
     @Column(name="CLI_RESIDENCIAL")
     private String telefoneResidencial;
     
@@ -159,6 +162,14 @@ public class Cliente extends Base implements BusinessEntity{
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(String documento) {
+        this.documento = documento;
     }
 
 }
