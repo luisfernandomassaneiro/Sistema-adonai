@@ -10,6 +10,7 @@ import com.luismassaneiro.sistemadonai.controller.CategoriaDAO;
 import com.luismassaneiro.sistemadonai.controller.DAOFactory;
 import com.luismassaneiro.sistemadonai.controller.GenericDAO;
 import com.luismassaneiro.sistemadonai.view.cadastro.CategoriaBrowser;
+import com.luismassaneiro.sistemadonai.view.cadastro.ClienteBrowser;
 import com.luismassaneiro.sistemadonai.view.cadastro.ProdutoBrowser;
 import com.luismassaneiro.sistemadonai.view.consultas.ProdutosBaixaEstoque;
 import com.luismassaneiro.sistemadonai.view.consultas.Vendas;
@@ -50,7 +51,7 @@ public class MenuWindow extends javax.swing.JFrame {
         desktopPane = new javax.swing.JDesktopPane();
         menuBar = new javax.swing.JMenuBar();
         cadastroMenu = new javax.swing.JMenu();
-        categoriaMenuItem = new javax.swing.JMenuItem();
+        clienteMenuItem = new javax.swing.JMenuItem();
         produtoMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
@@ -70,15 +71,15 @@ public class MenuWindow extends javax.swing.JFrame {
         cadastroMenu.setMnemonic('c');
         cadastroMenu.setText("Cadastro");
 
-        categoriaMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.CTRL_MASK));
-        categoriaMenuItem.setMnemonic('c');
-        categoriaMenuItem.setText("Categoria");
-        categoriaMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        clienteMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.CTRL_MASK));
+        clienteMenuItem.setMnemonic('c');
+        clienteMenuItem.setText("Cliente");
+        clienteMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                categoriaMenuItemActionPerformed(evt);
+                clienteMenuItemActionPerformed(evt);
             }
         });
-        cadastroMenu.add(categoriaMenuItem);
+        cadastroMenu.add(clienteMenuItem);
 
         produtoMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, java.awt.event.InputEvent.CTRL_MASK));
         produtoMenuItem.setMnemonic('c');
@@ -184,9 +185,9 @@ public class MenuWindow extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
-    private void categoriaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoriaMenuItemActionPerformed
-        GerenciadorJanelas.getInstance().abrirJanela(new CategoriaBrowser()).setVisible(true);
-    }//GEN-LAST:event_categoriaMenuItemActionPerformed
+    private void clienteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clienteMenuItemActionPerformed
+        GerenciadorJanelas.getInstance().abrirJanela(new ClienteBrowser()).setVisible(true);
+    }//GEN-LAST:event_clienteMenuItemActionPerformed
 
     private void produtoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtoMenuItemActionPerformed
         ProdutoBrowser produto = (ProdutoBrowser) GerenciadorJanelas.getInstance().abrirJanela(new ProdutoBrowser());
@@ -254,7 +255,7 @@ public class MenuWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenu cadastroMenu;
-    private javax.swing.JMenuItem categoriaMenuItem;
+    private javax.swing.JMenuItem clienteMenuItem;
     private javax.swing.JMenuItem cutMenuItem1;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu editMenu;

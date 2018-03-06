@@ -36,7 +36,7 @@ public class ClienteDAO extends GenericDAO<Cliente> {
                     hql.append(" c.ativo = 1 ");
                 }
             }
-            hql.append(" order by p.nome ");
+            hql.append(" order by c.nome ");
             return list(hql.toString(), parameters);
         } catch (Exception e) {
             String erro = TrataExcecao.trataMensagemErro(e, ClienteDAO.class);
