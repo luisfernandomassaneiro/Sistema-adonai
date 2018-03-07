@@ -233,10 +233,8 @@ public class ProdutosBaixaEstoque extends javax.swing.JInternalFrame {
             for(Produto umProduto: listaProduto) {
                 String linha = String.format("%s;%s;%s;%s;%s",
                         umProduto.getCodigo(),
-                        umProduto.getDescricao(),
-                        umProduto.getEstoque().getQtdeAtual(),
-                        umProduto.getEstoque().getQtdeMinima(),
-                        umProduto.getCategoria() == null ? "" : umProduto.getCategoria().getDescricao());
+                        umProduto.getDescricao()
+                );
                 linhasArquivo.add(linha);
             }
             ExportadorTabelas exportador = (ExportadorTabelas) GerenciadorJanelas.getInstance().abrirJanela(new ExportadorTabelas());

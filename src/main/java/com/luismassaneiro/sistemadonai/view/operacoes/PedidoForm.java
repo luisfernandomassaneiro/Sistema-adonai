@@ -521,8 +521,8 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                     PedidoItem novoItem = new PedidoItem();
                     novoItem.setProduto(produto);
                     novoItem.setQuantidade(quantidade);
-                    BigDecimal valorVenda = produto.getValorVenda().multiply(new BigDecimal(quantidade));
-                    BigDecimal valorCompra = produto.getValorCompra().multiply(new BigDecimal(quantidade));
+                    BigDecimal valorVenda = produto.getValor().multiply(new BigDecimal(quantidade));
+                    BigDecimal valorCompra = produto.getValor().multiply(new BigDecimal(quantidade));
                     novoItem.setValorVenda(valorVenda);
                     novoItem.setValorCompra(valorCompra);
                     if(CollectionUtils.isEmpty(pedido.getItens()))

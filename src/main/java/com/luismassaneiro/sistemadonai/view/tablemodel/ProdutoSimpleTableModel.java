@@ -64,12 +64,12 @@ public class ProdutoSimpleTableModel extends AbstractTableModel {
                     return p.getCodigo();
                 case 1:
                     return p.getDescricao();
-                case 2:
-                    return p.getEstoque().getQtdeAtual();
-                case 3:
-                    return p.getEstoque().getQtdeMinima();
-                case 4:
-                    return p.getCategoria().getDescricao();
+//                case 2:
+//                    return p.getEstoque().getQtdeAtual();
+//                case 3:
+//                    return p.getEstoque().getQtdeMinima();
+//                case 4:
+//                    return p.getCategoria().getDescricao();
 		default:
 			return null;
 		}

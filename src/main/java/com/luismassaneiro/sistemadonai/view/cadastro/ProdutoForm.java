@@ -5,26 +5,18 @@
  */
 package com.luismassaneiro.sistemadonai.view.cadastro;
 
-import com.luismassaneiro.sistemadonai.controller.CategoriaDAO;
 import com.luismassaneiro.sistemadonai.controller.DAOFactory;
 import com.luismassaneiro.sistemadonai.controller.ProdutoDAO;
 import static com.luismassaneiro.sistemadonai.enums.MensagemFixas.CAMPO_EXISTENTE;
 import static com.luismassaneiro.sistemadonai.enums.MensagemFixas.CAMPO_OBRIGATORIO;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.helper.ProdutoHelper;
-import com.luismassaneiro.sistemadonai.model.Categoria;
 import com.luismassaneiro.sistemadonai.model.Produto;
 import com.luismassaneiro.sistemadonai.utils.FormatUtils;
 import com.luismassaneiro.sistemadonai.utils.TrataExcecao;
-import com.luismassaneiro.sistemadonai.view.desktop.GerenciadorJanelas;
-import java.text.ParseException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.NumberUtils;
 
 /**
  *
@@ -34,7 +26,6 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
 
     private Produto model;
     private final ProdutoDAO dao = DAOFactory.criaProdutoDAO();
-    private final CategoriaDAO categoriaDAO = DAOFactory.criaCategoriaDAO();
     
     public ProdutoForm() {
         initComponents();
@@ -49,25 +40,17 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         botao_Gravar = new javax.swing.JButton();
-        combo_Categoria = new javax.swing.JComboBox();
         botao_Cancelar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         checkBox_Ativo = new javax.swing.JCheckBox();
-        jLabel5 = new javax.swing.JLabel();
-        texto_ValorVenda = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         texto_Descricao = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        texto_ValorCompra = new javax.swing.JFormattedTextField();
+        texto_valor = new javax.swing.JFormattedTextField();
         lbMessages = new javax.swing.JLabel();
         texto_Codigo = new javax.swing.JTextField();
-        botao_CodigoBarras = new javax.swing.JButton();
         botao_Novo = new javax.swing.JButton();
-        texto_QtdeMinima = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -94,8 +77,6 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel6.setText("Valor venda");
-
         jLabel1.setText("Código");
 
         botao_Gravar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/save.png"))); // NOI18N
@@ -106,8 +87,6 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
             }
         });
 
-        combo_Categoria.setName(""); // NOI18N
-
         botao_Cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/cancel-24.png"))); // NOI18N
         botao_Cancelar.setText("Cancelar");
         botao_Cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -115,8 +94,6 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
                 botao_CancelarActionPerformed(evt);
             }
         });
-
-        jLabel4.setText("Categoria");
 
         checkBox_Ativo.setSelected(true);
         checkBox_Ativo.setText("Ativo");
@@ -126,31 +103,18 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel5.setText("Quantidade mínima");
-
-        texto_ValorVenda.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-
         jLabel2.setText("Descrição");
 
-        jLabel7.setText("Código de barras");
+        jLabel3.setText("Valor");
 
-        jLabel3.setText("Valor compra");
-
-        texto_ValorCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        texto_ValorCompra.setToolTipText("");
+        texto_valor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        texto_valor.setToolTipText("");
 
         lbMessages.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbMessages.setForeground(new java.awt.Color(255, 0, 0));
         lbMessages.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbMessages.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbMessages.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-
-        botao_CodigoBarras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/barcode-48.png"))); // NOI18N
-        botao_CodigoBarras.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botao_CodigoBarrasActionPerformed(evt);
-            }
-        });
 
         botao_Novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/new.png"))); // NOI18N
         botao_Novo.setText("Novo");
@@ -159,8 +123,6 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
                 botao_NovoActionPerformed(evt);
             }
         });
-
-        texto_QtdeMinima.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,45 +135,26 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel1)
-                                            .addComponent(texto_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(texto_Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel4)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(botao_Gravar)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(botao_Cancelar)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(botao_Novo))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel3)
-                                                    .addComponent(jLabel5)
-                                                    .addComponent(texto_ValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel6)
-                                                    .addComponent(texto_ValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addComponent(checkBox_Ativo))
+                                .addComponent(botao_Gravar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botao_Cancelar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botao_Novo)
+                                .addGap(0, 188, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(combo_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(texto_valor, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(texto_Codigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(texto_Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(checkBox_Ativo))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(botao_CodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)
-                            .addComponent(texto_QtdeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,33 +172,15 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(texto_Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addGap(3, 3, 3)
-                .addComponent(botao_CodigoBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(texto_ValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(texto_ValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(texto_QtdeMinima, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(combo_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(texto_valor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botao_Gravar)
                     .addComponent(botao_Cancelar)
                     .addComponent(botao_Novo))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -263,15 +188,10 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
 
     private void botao_GravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_GravarActionPerformed
         try {
-            model.setCategoria(getCategoriaSelecionadaID());
             model.setCodigo(texto_Codigo.getText());
             model.setAtivo(checkBox_Ativo.isSelected());
             model.setDescricao(texto_Descricao.getText());
-            if(NumberUtils.isNumber(texto_QtdeMinima.getText()))
-                model.getEstoque().setQtdeMinima(Integer.valueOf(texto_QtdeMinima.getText()));
-
-            model.setValorCompra(FormatUtils.parseBigDecimal(texto_ValorCompra.getText()));
-            model.setValorVenda(FormatUtils.parseBigDecimal(texto_ValorVenda.getText()));
+            model.setValor(FormatUtils.parseBigDecimal(texto_valor.getText()));
             ProdutoHelper.getInstance().validaCamposObrigatorios(model);
             lbMessages.setText("");
             pack();
@@ -319,55 +239,32 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_checkBox_AtivoActionPerformed
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-        populaComboCategoria();
     }//GEN-LAST:event_formInternalFrameActivated
-
-    private void botao_CodigoBarrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_CodigoBarrasActionPerformed
-        if(model != null && model.getId() != null) {
-            CodigoBarrasBrowser codigoBarrasBrowser = (CodigoBarrasBrowser) GerenciadorJanelas.getInstance().abrirJanela(new CodigoBarrasBrowser());
-            codigoBarrasBrowser.setProduto(model);
-            codigoBarrasBrowser.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor, cadastre um produto antes de informar o código de barras!", "Alerta", JOptionPane.INFORMATION_MESSAGE);
-        }           
-        
-    }//GEN-LAST:event_botao_CodigoBarrasActionPerformed
 
     private void botao_NovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_NovoActionPerformed
         limpar();
-        ativaBotaoCodigoBarras(false);
     }//GEN-LAST:event_botao_NovoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao_Cancelar;
-    private javax.swing.JButton botao_CodigoBarras;
     private javax.swing.JButton botao_Gravar;
     private javax.swing.JButton botao_Novo;
     private javax.swing.JCheckBox checkBox_Ativo;
-    private javax.swing.JComboBox combo_Categoria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel lbMessages;
     private javax.swing.JTextField texto_Codigo;
     private javax.swing.JTextField texto_Descricao;
-    private javax.swing.JFormattedTextField texto_QtdeMinima;
-    private javax.swing.JFormattedTextField texto_ValorCompra;
-    private javax.swing.JFormattedTextField texto_ValorVenda;
+    private javax.swing.JFormattedTextField texto_valor;
     // End of variables declaration//GEN-END:variables
 
     private void limpar() {
         model = new Produto();
         texto_Codigo.setText("");
         texto_Descricao.setText("");
-        texto_QtdeMinima.setText("");
-        texto_ValorCompra.setText("");
-        texto_ValorVenda.setText("");
+        texto_valor.setText("");
         checkBox_Ativo.setSelected(true);
         lbMessages.setText("");
         pack();
@@ -378,48 +275,12 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
         if(model != null) {
             texto_Codigo.setText(model.getCodigo());
             texto_Descricao.setText(model.getDescricao());
-            if(model.getEstoque().getQtdeMinima() != null)
-                texto_QtdeMinima.setText(model.getEstoque().getQtdeMinima().toString());
-            
-            texto_ValorCompra.setText(FormatUtils.formatBigDecimal(model.getValorCompra()));
-            texto_ValorVenda.setText(FormatUtils.formatBigDecimal(model.getValorVenda()));
-            combo_Categoria.setSelectedItem(model.getCategoria());
+            texto_valor.setText(FormatUtils.formatBigDecimal(model.getValor()));
             checkBox_Ativo.setSelected(model.isAtivo());
-            ativaBotaoCodigoBarras(true);
         } else {
             this.model = new Produto();
             limpar();
-            ativaBotaoCodigoBarras(false);
         }
     }
     
-    private void populaComboCategoria() {
-        combo_Categoria.removeAllItems();
-        List<Categoria> listaCategoria;
-        if(model.getCategoria() == null) {
-            listaCategoria = categoriaDAO.listarCategoriasAtivas();
-        } else {
-            listaCategoria = categoriaDAO.listarCategoria(model.getCategoria().getId());
-        }
-        
-        if(CollectionUtils.isNotEmpty(listaCategoria)) {
-            for (Categoria umaCategoria : listaCategoria) {
-                combo_Categoria.addItem(umaCategoria);
-            }
-        }
-        
-        if(model.getCategoria() != null) {
-            combo_Categoria.setSelectedItem(model.getCategoria());
-        }
-    }
-    
-    public Categoria getCategoriaSelecionadaID() {
-        Categoria categoria = (Categoria) combo_Categoria.getSelectedItem();
-        return categoria;
-    }
-
-    private void ativaBotaoCodigoBarras(boolean ativa) {
-        botao_CodigoBarras.setEnabled(ativa);
-    }
-
 }

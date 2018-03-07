@@ -27,7 +27,7 @@ import org.hibernate.internal.SessionFactoryImpl;
 public class GenericDAO<E extends BusinessEntity> {
 
     /*protected EntityManager em;*/
-    private static final String DEFAULT_PERSISTENCE_UNIT = "ControleEstoque_PU";
+    private static final String DEFAULT_PERSISTENCE_UNIT = "SistemaAdonai_PU";
     
     private EntityManagerFactory factory;
     private EntityManager em;

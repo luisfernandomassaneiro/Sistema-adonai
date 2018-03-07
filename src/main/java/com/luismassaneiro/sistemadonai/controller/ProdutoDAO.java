@@ -16,36 +16,26 @@ public class ProdutoDAO extends GenericDAO<Produto> {
 
     private List<Produto> listaProduto;
     
-    public List<Produto> recuperaProdutoComFiltros(String codigo, String descricao, Long categoriaID, boolean somenteAtivo, boolean somenteDispinivelEstoque) throws ValidateException {
+    public List<Produto> recuperaProdutoComFiltros(String codigo, String descricao, boolean somenteAtivo) throws ValidateException {
         try {
             Map<String, Object> parameters = new HashMap<>();
             StringBuilder hql = new StringBuilder();
             
             hql.append("select p from Produto as p ");
-            hql.append("join p.categoria c");
-            if(StringUtils.isNotEmpty(codigo) || StringUtils.isNotEmpty(descricao) || categoriaID != null || somenteAtivo) {
+            if(StringUtils.isNotEmpty(codigo) || StringUtils.isNotEmpty(descricao) || somenteAtivo) {
                 hql.append(" where ");
                 if(StringUtils.isNotEmpty(codigo)) {
                     hql.append(" p.codigo like :codigo ");
                     parameters.put("codigo", codigo);
-                    hql.append(StringUtils.isNotEmpty(descricao) || categoriaID != null || somenteAtivo ? " and " : "");
+                    hql.append(StringUtils.isNotEmpty(descricao) || somenteAtivo ? " and " : "");
                 }
                 if(StringUtils.isNotEmpty(descricao)) {
                     hql.append(" p.descricao like :descricao ");
                     parameters.put("descricao", descricao);
-                    hql.append(categoriaID != null || somenteAtivo ? " and " : "");
-                }
-                if(categoriaID != null) {
-                    hql.append(" c.id = :categoriaID ");
-                    parameters.put("categoriaID", categoriaID);
-                    hql.append( somenteAtivo || somenteDispinivelEstoque ? " and " : "");
+                    hql.append(somenteAtivo ? " and " : "");
                 }
                 if(somenteAtivo) {
                     hql.append(" p.ativo = 1 ");
-                    hql.append( somenteDispinivelEstoque ? " and " : "");
-                }
-                if(somenteDispinivelEstoque) {
-                    hql.append(" p.estoque.qtdeAtual > 0 ");
                 }
             }
             hql.append(" order by p.descricao ");

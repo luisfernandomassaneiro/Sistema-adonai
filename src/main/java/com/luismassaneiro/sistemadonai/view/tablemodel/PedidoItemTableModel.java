@@ -66,7 +66,7 @@ public class PedidoItemTableModel extends AbstractTableModel {
                 case 1:
                     return p.getProduto().getDescricao();
                 case 2:
-                    return FormatUtils.formatBigDecimal(p.getProduto().getValorVenda());
+                    return FormatUtils.formatBigDecimal(p.getProduto().getValor());
                 case 3:
                     return p.getQuantidade();
                 case 4:

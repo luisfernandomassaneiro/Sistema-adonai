@@ -21,9 +21,9 @@ public class ProdutoTableModel extends AbstractTableModel {
 
 	private List<Produto> produtos;
 	
-	private String[] colNomes = { "Código", "Descrição", "Qtd. atual", "Valor", "Categoria" };
+	private String[] colNomes = { "Código", "Descrição", "Valor"};
 	
-	private Class<?>[] colTipos = { String.class, String.class, Integer.class, String.class, String.class };
+	private Class<?>[] colTipos = { String.class, String.class, String.class};
 	
 	public ProdutoTableModel(){}
 	
@@ -40,7 +40,7 @@ public class ProdutoTableModel extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {
-		return 5;
+		return 3;
 	}
 
 	@Override
@@ -65,11 +65,7 @@ public class ProdutoTableModel extends AbstractTableModel {
                 case 1:
                     return p.getDescricao();
                 case 2:
-                    return p.getEstoque().getQtdeAtual();
-                case 3:
-                    return FormatUtils.formatBigDecimal(p.getValorVenda());
-                case 4:
-                    return p.getCategoria().getDescricao();
+                    return FormatUtils.formatBigDecimal(p.getValor());
 		default:
 			return null;
 		}

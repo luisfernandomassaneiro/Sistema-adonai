@@ -5,11 +5,9 @@
  */
 package com.luismassaneiro.sistemadonai.view.cadastro;
 
-import com.luismassaneiro.sistemadonai.controller.CategoriaDAO;
 import com.luismassaneiro.sistemadonai.controller.DAOFactory;
 import com.luismassaneiro.sistemadonai.controller.ProdutoDAO;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
-import com.luismassaneiro.sistemadonai.model.Categoria;
 import com.luismassaneiro.sistemadonai.model.Produto;
 import com.luismassaneiro.sistemadonai.view.tablemodel.ProdutoTableModel;
 import com.luismassaneiro.sistemadonai.view.Selecionador;
@@ -27,7 +25,6 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
-import org.apache.commons.collections.CollectionUtils;
 
 /**
  *
@@ -37,7 +34,6 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
 
     private ProdutoForm form;
     private final ProdutoDAO dao = DAOFactory.criaProdutoDAO();
-    private final CategoriaDAO categoriaDAO = DAOFactory.criaCategoriaDAO();
     private Selecionador<Produto> formSelecionador;
     
     public ProdutoBrowser() {
@@ -56,18 +52,15 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         texto_Codigo = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
         tabela_Produto = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
         botao_Novo = new javax.swing.JButton();
         botao_Pesquisar = new javax.swing.JButton();
-        combo_Categoria = new javax.swing.JComboBox();
         texto_Descricao = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         flagAtivo = new javax.swing.JCheckBox();
         botao_Retornar = new javax.swing.JButton();
-        flagSomenteDisponivelEstoque = new javax.swing.JCheckBox();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -110,8 +103,6 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
             }
         });
 
-        jLabel3.setText("Categoria");
-
         tabela_Produto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -138,8 +129,6 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
             }
         });
 
-        combo_Categoria.setName(""); // NOI18N
-
         texto_Descricao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 texto_DescricaoKeyReleased(evt);
@@ -164,14 +153,6 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
             }
         });
 
-        flagSomenteDisponivelEstoque.setSelected(true);
-        flagSomenteDisponivelEstoque.setText("Somente disponível em estoque");
-        flagSomenteDisponivelEstoque.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                flagSomenteDisponivelEstoqueActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -189,17 +170,11 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
                                 .addGap(46, 46, 46)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
-                                    .addComponent(texto_Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(combo_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 342, Short.MAX_VALUE)
-                                .addComponent(flagSomenteDisponivelEstoque))
+                                    .addComponent(texto_Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(botao_Retornar)))
-                        .addGap(6, 6, 6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(flagAtivo)
                             .addComponent(botao_Pesquisar)))
@@ -208,7 +183,9 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
                         .addComponent(botao_Novo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton2))
-                    .addComponent(scrollPane))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -221,9 +198,7 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(flagAtivo)
-                            .addComponent(flagSomenteDisponivelEstoque))
+                        .addComponent(flagAtivo, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(jLabel2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -231,13 +206,9 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(texto_Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(26, 26, 26))
-                    .addComponent(combo_Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(texto_Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
@@ -277,7 +248,6 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
     }//GEN-LAST:event_flagAtivoActionPerformed
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-        populaComboCategoria();
         pesquisar();
         if(formSelecionador != null) {
             botao_Retornar.setVisible(true);
@@ -308,22 +278,15 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
         }
     }//GEN-LAST:event_botao_RetornarActionPerformed
 
-    private void flagSomenteDisponivelEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_flagSomenteDisponivelEstoqueActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_flagSomenteDisponivelEstoqueActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao_Novo;
     private javax.swing.JButton botao_Pesquisar;
     private javax.swing.JButton botao_Retornar;
-    private javax.swing.JComboBox combo_Categoria;
     private javax.swing.JCheckBox flagAtivo;
-    private javax.swing.JCheckBox flagSomenteDisponivelEstoque;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JScrollPane scrollPane;
     public javax.swing.JTable tabela_Produto;
@@ -337,7 +300,7 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
             String descricao = texto_Descricao.getText();
             ProdutoTableModel modelo = new ProdutoTableModel();
             List<Produto> listaProduto;
-            listaProduto = dao.recuperaProdutoComFiltros(codigo.concat("%"), descricao.concat("%"), getCategoriaSelecionadaID(), flagAtivo.isSelected(), flagSomenteDisponivelEstoque.isSelected());
+            listaProduto = dao.recuperaProdutoComFiltros(codigo, descricao.concat("%"), flagAtivo.isSelected());
             modelo.reload(listaProduto);
             tabela_Produto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             tabela_Produto.setModel(modelo);
@@ -364,23 +327,6 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
         return produtoSelecionado;
     }
   
-    private void populaComboCategoria() {
-        combo_Categoria.removeAllItems();
-        List<Categoria> listaCategoria = categoriaDAO.listarCategoriasAtivas();
-        if(CollectionUtils.isNotEmpty(listaCategoria)) {
-            combo_Categoria.addItem(new Categoria(null, "Selecione..."));
-            for (Categoria umaCategoria : listaCategoria) {
-                combo_Categoria.addItem(umaCategoria);
-            }
-        }
-        
-    }
-    
-    private Long getCategoriaSelecionadaID() {
-        Categoria categoria = (Categoria) combo_Categoria.getSelectedItem();
-        return categoria.getId();
-    }
-    
     private void defineRenderers() {  
         DefaultTableCellRenderer rendererCentro = new DefaultTableCellRenderer();  
         rendererCentro.setHorizontalAlignment(SwingConstants.CENTER);  
@@ -401,17 +347,10 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
         modeloDaColuna.getColumn(1).setCellRenderer(rendererEsquerda);  
         modeloDaColuna.getColumn(1).setMinWidth(150);  
         
-        //Quantidade atual
+        //Valor
         modeloDaColuna.getColumn(2).setCellRenderer(rendererCentro);  
-        modeloDaColuna.getColumn(2).setMinWidth(15);  
+        modeloDaColuna.getColumn(2).setMinWidth(25);  
         
-        //Valor venda
-        modeloDaColuna.getColumn(3).setCellRenderer(rendererCentro);  
-        modeloDaColuna.getColumn(3).setMinWidth(25);  
-        
-        //Categoria
-        modeloDaColuna.getColumn(4).setCellRenderer(rendererEsquerda);  
-        modeloDaColuna.getColumn(4).setMinWidth(150);  
     }
 
     @Override

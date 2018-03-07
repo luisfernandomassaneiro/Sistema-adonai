@@ -44,14 +44,9 @@ public class ProdutoHelper {
             if (StringUtils.isEmpty(produto.getDescricao())) 
                 erros.put("descrição", "- Descrição.");
 
-            if (produto.getCategoria() == null) 
-                erros.put("categoria", "- Categoria.");
+            if(produto.getValor() == null) 
+                erros.put("valor", "- Valor.");
             
-            if(produto.getValorCompra() == null) 
-                erros.put("valorCompra", "- Valor de compra.");
-            
-            if(produto.getValorVenda() == null) 
-                erros.put("valorVenda", "- Valor de venda.");
         }
         
         if (!erros.isEmpty())
@@ -85,24 +80,6 @@ public class ProdutoHelper {
     
     public void atualizaQuantidadeAtual(Produto produto, Integer quantidade, boolean isEntrada) throws ValidateException {
         if(produto != null && produto.getId() != null) {
-            if(produto.getEstoque() != null) {
-                MovimentoEstoque movimentoEstoque = new MovimentoEstoque();
-                movimentoEstoque.setProduto(produto);
-                movimentoEstoque.setQuantidade(quantidade);
-                Integer qtdeAtual = produto.getEstoque().getQtdeAtual() != null ? produto.getEstoque().getQtdeAtual() : 0;
-                //Caso for cancelamento de pedido, devolvo o produto para o estoque
-                if(isEntrada) {
-                    movimentoEstoque.setTipoMovimentacao(TipoMovimentacao.ENTRADA);
-                    qtdeAtual += quantidade;
-                } else {
-                    movimentoEstoque.setTipoMovimentacao(TipoMovimentacao.SAIDA);
-                    qtdeAtual -= quantidade;
-                }
-                produto.getEstoque().setQtdeAtual(qtdeAtual);
-                produtoDAO.atualizar(produto);
-                MovimentoEstoqueDAO movimentoDAO = DAOFactory.criaMovimentoEstoqueDAO();
-                movimentoDAO.atualizar(movimentoEstoque);
-            }
         }
     }
     

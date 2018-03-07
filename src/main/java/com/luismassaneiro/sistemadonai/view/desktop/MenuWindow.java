@@ -6,10 +6,7 @@
 
 package com.luismassaneiro.sistemadonai.view.desktop;
 
-import com.luismassaneiro.sistemadonai.controller.CategoriaDAO;
 import com.luismassaneiro.sistemadonai.controller.DAOFactory;
-import com.luismassaneiro.sistemadonai.controller.GenericDAO;
-import com.luismassaneiro.sistemadonai.view.cadastro.CategoriaBrowser;
 import com.luismassaneiro.sistemadonai.view.cadastro.ClienteBrowser;
 import com.luismassaneiro.sistemadonai.view.cadastro.ProdutoBrowser;
 import com.luismassaneiro.sistemadonai.view.consultas.ProdutosBaixaEstoque;
@@ -17,8 +14,6 @@ import com.luismassaneiro.sistemadonai.view.consultas.Vendas;
 import com.luismassaneiro.sistemadonai.view.help.About;
 import com.luismassaneiro.sistemadonai.view.operacoes.MovimentacaoEstoque;
 import com.luismassaneiro.sistemadonai.view.operacoes.PedidoBrowser;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -32,7 +27,7 @@ public class MenuWindow extends javax.swing.JFrame {
     public MenuWindow() {
         initComponents();
         try {
-            DAOFactory.criaCategoriaDAO().getConnection();
+            DAOFactory.criaClienteDAO().getConnection();
         } catch (Exception ex){      
         }
         this.setExtendedState(MAXIMIZED_BOTH);
