@@ -5,13 +5,10 @@
  */
 package com.luismassaneiro.sistemadonai.view.consultas;
 
-import com.luismassaneiro.sistemadonai.controller.CategoriaDAO;
 import com.luismassaneiro.sistemadonai.controller.DAOFactory;
 import com.luismassaneiro.sistemadonai.controller.ProdutoDAO;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
-import com.luismassaneiro.sistemadonai.model.Categoria;
 import com.luismassaneiro.sistemadonai.model.Produto;
-import com.luismassaneiro.sistemadonai.view.operacoes.MovimentacaoEstoque;
 import com.luismassaneiro.sistemadonai.view.desktop.GerenciadorJanelas;
 import com.luismassaneiro.sistemadonai.view.exportador.ExportadorTabelas;
 import com.luismassaneiro.sistemadonai.view.tablemodel.ProdutoSimpleTableModel;
@@ -36,7 +33,6 @@ import org.apache.commons.lang.StringUtils;
 public class ProdutosBaixaEstoque extends javax.swing.JInternalFrame {
 
     private final ProdutoDAO dao = DAOFactory.criaProdutoDAO();
-    private final CategoriaDAO categoriaDAO = DAOFactory.criaCategoriaDAO();
     private ProdutoSimpleTableModel modelo;
     private List<Produto> listaProduto = new ArrayList<>();
     
@@ -220,9 +216,6 @@ public class ProdutosBaixaEstoque extends javax.swing.JInternalFrame {
     private void botao_AtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_AtualizarActionPerformed
         Produto produtoSelecionado = getProdutoSelecionado();
         if(produtoSelecionado != null) {
-            MovimentacaoEstoque telaEstoque = (MovimentacaoEstoque) GerenciadorJanelas.getInstance().abrirJanela(new MovimentacaoEstoque());
-            telaEstoque.setSelecionado(produtoSelecionado);
-            telaEstoque.setVisible(true);
         }
     }//GEN-LAST:event_botao_AtualizarActionPerformed
 
@@ -308,19 +301,11 @@ public class ProdutosBaixaEstoque extends javax.swing.JInternalFrame {
     }
     
     private Long getCategoriaSelecionadaID() {
-        Categoria categoria = (Categoria) combo_Categoria.getSelectedItem();
-        return categoria.getId();
+        return null;
     }
     
     private void populaComboCategoria() {
         combo_Categoria.removeAllItems();
-        List<Categoria> listaCategoria = categoriaDAO.listarCategoriasAtivas();
-        if(CollectionUtils.isNotEmpty(listaCategoria)) {
-            combo_Categoria.addItem(new Categoria(null, "Selecione..."));
-            for (Categoria umaCategoria : listaCategoria) {
-                combo_Categoria.addItem(umaCategoria);
-            }
-        }
     }
     
     private void defineRenderers() {  

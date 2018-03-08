@@ -12,7 +12,6 @@ import com.luismassaneiro.sistemadonai.view.cadastro.ProdutoBrowser;
 import com.luismassaneiro.sistemadonai.view.consultas.ProdutosBaixaEstoque;
 import com.luismassaneiro.sistemadonai.view.consultas.Vendas;
 import com.luismassaneiro.sistemadonai.view.help.About;
-import com.luismassaneiro.sistemadonai.view.operacoes.MovimentacaoEstoque;
 import com.luismassaneiro.sistemadonai.view.operacoes.PedidoBrowser;
 
 /**
@@ -195,7 +194,6 @@ public class MenuWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_vendasMenuItemActionPerformed
 
     private void cutMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutMenuItem1ActionPerformed
-        GerenciadorJanelas.getInstance().abrirJanela(new MovimentacaoEstoque()).setVisible(true);
     }//GEN-LAST:event_cutMenuItem1ActionPerformed
 
     private void operacoesPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_operacoesPedidoActionPerformed

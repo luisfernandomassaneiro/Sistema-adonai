@@ -26,7 +26,6 @@ public class PedidoHelper {
         try {
             if(CollectionUtils.isNotEmpty(pedido.getItens())) {
                 for (PedidoItem umItem : pedido.getItens()) {
-                    ProdutoHelper.getInstance().atualizaQuantidadeAtual(umItem.getProduto(), umItem.getQuantidade(), true);
                 }
             }
             pedidoDAO.excluir(pedido);

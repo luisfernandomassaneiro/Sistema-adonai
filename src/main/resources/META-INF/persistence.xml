@@ -2,8 +2,6 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
   <persistence-unit name="SistemaAdonai_PU" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <class>com.luismassaneiro.sistemadonai.model.MovimentoEstoque</class>
-    <class>com.luismassaneiro.sistemadonai.model.CodigoBarra</class>
     <class>com.luismassaneiro.sistemadonai.model.Cliente</class>
     <class>com.luismassaneiro.sistemadonai.model.Produto</class>
     <class>com.luismassaneiro.sistemadonai.model.Pedido</class>

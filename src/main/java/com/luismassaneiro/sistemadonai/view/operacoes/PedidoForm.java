@@ -443,7 +443,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
             JOptionPane.showMessageDialog(this, "Nenhum item foi selecionado", "Erro!", JOptionPane.ERROR_MESSAGE);
         } else {
             try {
-                ProdutoHelper.getInstance().atualizaQuantidadeAtual(pedidoItemExcluir.getProduto(), pedidoItemExcluir.getQuantidade(), true);
+               // ProdutoHelper.getInstance().atualizaQuantidadeAtual(pedidoItemExcluir.getProduto(), pedidoItemExcluir.getQuantidade(), true);
                 totalCompra = totalCompra.subtract(pedidoItemExcluir.getValorVenda());
                 texto_TotalCompra.setText(FormatUtils.formatBigDecimal(totalCompra));
                 pedido.getItens().remove(pedidoItemExcluir);
@@ -516,8 +516,8 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
             Integer quantidade = Integer.valueOf(texto_Quantidade.getText());
             if(quantidade > 0) {
                 try {
-                    ProdutoHelper.getInstance().verificaQuantidadeEmEstoque(produto, quantidade);
-                    ProdutoHelper.getInstance().atualizaQuantidadeAtual(produto, quantidade, false);
+//                    ProdutoHelper.getInstance().verificaQuantidadeEmEstoque(produto, quantidade);
+                  //  ProdutoHelper.getInstance().atualizaQuantidadeAtual(produto, quantidade, false);
                     PedidoItem novoItem = new PedidoItem();
                     novoItem.setProduto(produto);
                     novoItem.setQuantidade(quantidade);
