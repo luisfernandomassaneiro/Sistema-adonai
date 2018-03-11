@@ -10,9 +10,8 @@ import com.luismassaneiro.sistemadonai.controller.DAOFactory;
 import com.luismassaneiro.sistemadonai.view.cadastro.ClienteBrowser;
 import com.luismassaneiro.sistemadonai.view.cadastro.ProdutoBrowser;
 import com.luismassaneiro.sistemadonai.view.consultas.ProdutosBaixaEstoque;
-import com.luismassaneiro.sistemadonai.view.consultas.Vendas;
 import com.luismassaneiro.sistemadonai.view.help.About;
-import com.luismassaneiro.sistemadonai.view.operacoes.PedidoBrowser;
+import com.luismassaneiro.sistemadonai.view.operacoes.PedidoForm;
 
 /**
  *
@@ -190,7 +189,7 @@ public class MenuWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_produtoMenuItemActionPerformed
 
     private void vendasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vendasMenuItemActionPerformed
-        GerenciadorJanelas.getInstance().abrirJanela(new Vendas()).setVisible(true);
+//        GerenciadorJanelas.getInstance().abrirJanela(new Vendas()).setVisible(true);
     }//GEN-LAST:event_vendasMenuItemActionPerformed
 
     private void cutMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutMenuItem1ActionPerformed
@@ -198,7 +197,7 @@ public class MenuWindow extends javax.swing.JFrame {
 
     private void operacoesPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_operacoesPedidoActionPerformed
         //GerenciadorJanelas.getInstance().abrirJanela(new PedidoForm()).setVisible(true);
-        GerenciadorJanelas.getInstance().abrirJanela(new PedidoBrowser()).setVisible(true);
+        GerenciadorJanelas.getInstance().abrirJanela(new PedidoForm()).setVisible(true);
     }//GEN-LAST:event_operacoesPedidoActionPerformed
 
     private void produtoFaltaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtoFaltaMenuItemActionPerformed

@@ -30,11 +30,11 @@ import javax.swing.table.TableColumnModel;
  *
  * @author luis.massaneiro
  */
-public class ProdutoBrowser extends javax.swing.JInternalFrame implements Selecionavel<Produto> {
+public class ProdutoBrowser extends javax.swing.JInternalFrame implements Selecionavel<Object> {
 
     private ProdutoForm form;
     private final ProdutoDAO dao = DAOFactory.criaProdutoDAO();
-    private Selecionador<Produto> formSelecionador;
+    private Selecionador<Object> formSelecionador;
     
     public ProdutoBrowser() {
         initComponents();
@@ -354,7 +354,7 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
     }
 
     @Override
-    public void showWindow(Selecionador<Produto> formSelecionador) {
+    public void showWindow(Selecionador<Object> formSelecionador) {
         this.formSelecionador = formSelecionador;
         if(formSelecionador != null) {
             botao_Retornar.setVisible(true);
@@ -363,11 +363,11 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
         }
     }
 
-    public Selecionador<Produto> getFormSelecionador() {
+    public Selecionador<Object> getFormSelecionador() {
         return formSelecionador;
     }
 
-    public void setFormSelecionador(Selecionador<Produto> formSelecionador) {
+    public void setFormSelecionador(Selecionador<Object> formSelecionador) {
         this.formSelecionador = formSelecionador;
     }
 }

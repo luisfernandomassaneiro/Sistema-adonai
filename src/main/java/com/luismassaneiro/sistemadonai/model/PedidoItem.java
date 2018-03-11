@@ -1,16 +1,22 @@
 package com.luismassaneiro.sistemadonai.model;
 
+import com.luismassaneiro.sistemadonai.enums.TipoFormaPagamento;
+import com.luismassaneiro.sistemadonai.enums.TipoSituacaoProduto;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -32,11 +38,19 @@ public class PedidoItem implements BusinessEntity{
     @Column(name="PIT_QNTDE", nullable=false)
     private Integer quantidade;
 
-    @Column(name="PIT_VALORVENDA", nullable=false)
-    private BigDecimal valorVenda;
+    @Column(name="PIT_VALOR", nullable=false)
+    private BigDecimal valor;
     
-    @Column(name="PIT_VALORCOMPRA", nullable=false)
-    private BigDecimal valorCompra;
+    @Column(name="PIT_DATA", nullable=false)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date data = new Date();
+    
+    @Column(name="PIT_OBSERVACAO")
+    private String observacao;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "PIT_SITUACAO", nullable = false)
+    private TipoSituacaoProduto tipoSituacaoProduto = TipoSituacaoProduto.EM_ABERTO;
     
     @Override
     public Long getId() {
@@ -68,58 +82,36 @@ public class PedidoItem implements BusinessEntity{
         return super.toString();
     }
 
-    public BigDecimal getValorVenda() {
-        return valorVenda;
+    public BigDecimal getValor() {
+        return valor;
     }
 
-    public void setValorVenda(BigDecimal valorVenda) {
-        this.valorVenda = valorVenda;
-    }
-    public BigDecimal getValorCompra() {
-        return valorCompra;
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
     }
 
-    public void setValorCompra(BigDecimal valorCompra) {
-        this.valorCompra = valorCompra;
+    public Date getData() {
+        return data;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 19 * hash + Objects.hashCode(this.id);
-        hash = 19 * hash + Objects.hashCode(this.produto);
-        hash = 19 * hash + Objects.hashCode(this.quantidade);
-        hash = 19 * hash + Objects.hashCode(this.valorVenda);
-        hash = 19 * hash + Objects.hashCode(this.valorCompra);
-        return hash;
+    public void setData(Date data) {
+        this.data = data;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final PedidoItem other = (PedidoItem) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        if (!Objects.equals(this.produto, other.produto)) {
-            return false;
-        }
-        if (!Objects.equals(this.quantidade, other.quantidade)) {
-            return false;
-        }
-        if (!Objects.equals(this.valorVenda, other.valorVenda)) {
-            return false;
-        }
-        if (!Objects.equals(this.valorCompra, other.valorCompra)) {
-            return false;
-        }
-        return true;
+    public String getObservacao() {
+        return observacao;
     }
 
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+
+    public TipoSituacaoProduto getTipoSituacaoProduto() {
+        return tipoSituacaoProduto;
+    }
+
+    public void setTipoSituacaoProduto(TipoSituacaoProduto tipoSituacaoProduto) {
+        this.tipoSituacaoProduto = tipoSituacaoProduto;
+    }
 
 }

@@ -31,80 +31,65 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jScrollPane1" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="220" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="texto_CodigoBarras" max="32767" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="55" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="texto_Quantidade" min="-2" pref="156" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel6" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="285" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel9" min="-2" pref="151" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="texto_Acrescimo" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="botao_ExcluirItem" min="-2" pref="31" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel1" pref="60" max="32767" attributes="0"/>
+                                              <Component id="texto_codigoProduto" alignment="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="texto_descricaoProduto" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="texto_codigoCliente" min="-2" pref="60" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="texto_nomeCliente" min="-2" pref="177" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
-                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                      <Component id="texto_Desconto" alignment="1" min="-2" pref="169" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="jLabel5" max="32767" attributes="0"/>
-                                              <Component id="jLabel4" max="32767" attributes="0"/>
-                                              <Component id="jLabel3" pref="150" max="32767" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="texto_TotalCompra" min="-2" pref="169" max="-2" attributes="0"/>
-                                              <Component id="texto_TotalRecebido" min="-2" pref="169" max="-2" attributes="0"/>
-                                              <Component id="texto_Troco" min="-2" pref="169" max="-2" attributes="0"/>
-                                          </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="botao_pesquisarProduto2" min="-2" pref="21" max="-2" attributes="0"/>
+                                      <Component id="botao_pesquisarProduto3" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jLabel10" max="32767" attributes="0"/>
+                                      <Component id="texto_quantidade" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="texto_observacao" min="-2" pref="210" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="botao_pesquisarProduto4" min="-2" pref="22" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel7" pref="198" max="32767" attributes="0"/>
-                          <Component id="jLabel8" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="combo_FormaPagamento" max="32767" attributes="0"/>
-                          <Component id="area_Observacao" min="-2" pref="242" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="12" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="302" max="-2" attributes="0"/>
-                      <Component id="botao_FinalizaPedido" min="-2" pref="184" max="-2" attributes="0"/>
-                      <EmptySpace pref="15" max="32767" attributes="0"/>
-                      <Component id="botao_CancelarPedido" min="-2" pref="189" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="211" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+                              <Component id="botao_FinalizaPedido" min="-2" pref="184" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="botao_CancelarPedido" min="-2" pref="189" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jLabel2" alignment="0" min="-2" pref="51" max="-2" attributes="0"/>
+                          <Component id="texto_total" alignment="0" min="-2" pref="51" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="botao_ExcluirItem" min="-2" pref="55" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -112,64 +97,46 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="texto_codigoCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="texto_nomeCliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="botao_pesquisarProduto2" pref="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="texto_Quantidade" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jButton1" alignment="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="texto_CodigoBarras" alignment="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="texto_codigoProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="texto_descricaoProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="botao_pesquisarProduto3" pref="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="texto_quantidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="texto_observacao" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="botao_pesquisarProduto4" alignment="0" pref="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="240" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="249" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="botao_ExcluirItem" min="-2" pref="40" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel3" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                          <Component id="texto_TotalCompra" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel4" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
-                          <Component id="texto_TotalRecebido" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel5" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="texto_Troco" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel6" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="texto_Desconto" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel9" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                          <Component id="texto_Acrescimo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="combo_FormaPagamento" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
-                          <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="area_Observacao" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-              </Group>
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="2" attributes="0">
-                  <Component id="botao_CancelarPedido" alignment="2" min="-2" pref="43" max="-2" attributes="0"/>
-                  <Component id="botao_FinalizaPedido" alignment="2" min="-2" pref="43" max="-2" attributes="0"/>
+              <Component id="botao_ExcluirItem" min="-2" pref="22" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="texto_total" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="botao_CancelarPedido" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                  <Component id="botao_FinalizaPedido" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -177,31 +144,6 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="C&#xf3;digo de barras"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="texto_CodigoBarras">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="24" style="0"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="texto_CodigoBarrasKeyReleased"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/com/luismassaneiro/controleestoque/imagens/search.png"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-      </Events>
-    </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -218,135 +160,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Quantidade"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JFormattedTextField" name="texto_Quantidade">
-      <Properties>
-        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-          <Format format="#0" subtype="-1" type="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="1"/>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="24" style="0"/>
-        </Property>
-        <Property name="verifyInputWhenFocusTarget" type="boolean" value="false"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="texto_QuantidadeActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="18" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Total da compra:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JFormattedTextField" name="texto_TotalCompra">
-      <Properties>
-        <Property name="editable" type="boolean" value="false"/>
-        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-          <Format format="#,##0.00" subtype="-1" type="0"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="18" style="0"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JFormattedTextField" name="texto_TotalRecebido">
-      <Properties>
-        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-          <Format format="#,##0.00" subtype="-1" type="0"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="18" style="0"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="texto_TotalRecebidoFocusLost"/>
-        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="texto_TotalRecebidoKeyPressed"/>
-        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="texto_TotalRecebidoKeyReleased"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel4">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="18" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Total recebido:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JFormattedTextField" name="texto_Troco">
-      <Properties>
-        <Property name="editable" type="boolean" value="false"/>
-        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-          <Format format="#,##0.00" subtype="-1" type="0"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="18" style="0"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="18" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Troco:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JFormattedTextField" name="texto_Desconto">
-      <Properties>
-        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-          <Format format="#,##0.00" subtype="-1" type="0"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="18" style="0"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="texto_DescontoActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel6">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="18" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Desconto:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel7">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="18" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Forma de pagamento:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="combo_FormaPagamento">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="14" style="0"/>
-        </Property>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
-        </Property>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel8">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="18" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Observa&#xe7;&#xe3;o:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JButton" name="botao_FinalizaPedido">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -367,42 +180,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_FinalizaPedidoActionPerformed"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="area_Observacao">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JTextArea" name="textArea_Observacao">
-          <Properties>
-            <Property name="columns" type="int" value="20"/>
-            <Property name="rows" type="int" value="5"/>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
-    <Component class="javax.swing.JLabel" name="jLabel9">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="18" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Acr&#xe9;scimo:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JFormattedTextField" name="texto_Acrescimo">
-      <Properties>
-        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-          <Format format="#,##0.00" subtype="-1" type="0"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="18" style="0"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="texto_AcrescimoActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="botao_CancelarPedido">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -420,12 +197,92 @@
     <Component class="javax.swing.JButton" name="botao_ExcluirItem">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/com/luismassaneiro/controleestoque/imagens/delete-32.png"/>
+          <Image iconType="3" name="/com/luismassaneiro/controleestoque/imagens/delete16.png"/>
         </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_ExcluirItemActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel12">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cliente"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="texto_codigoCliente">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="texto_codigoClienteActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="texto_nomeCliente">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="texto_nomeClienteActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="botao_pesquisarProduto2">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/luismassaneiro/controleestoque/imagens/search16.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_pesquisarProduto2ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Produto"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="texto_codigoProduto">
+    </Component>
+    <Component class="javax.swing.JTextField" name="texto_descricaoProduto">
+    </Component>
+    <Component class="javax.swing.JButton" name="botao_pesquisarProduto3">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/luismassaneiro/controleestoque/imagens/search16.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_pesquisarProduto3ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel10">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Quantidade"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JFormattedTextField" name="texto_quantidade">
+      <Properties>
+        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+          <Format subtype="1" type="0"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel13">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Observa&#xe7;&#xe3;o"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="texto_observacao">
+    </Component>
+    <Component class="javax.swing.JButton" name="botao_pesquisarProduto4">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/com/luismassaneiro/controleestoque/imagens/plus-green16.png"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_pesquisarProduto4ActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Total"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="texto_total">
     </Component>
   </SubComponents>
 </Form>

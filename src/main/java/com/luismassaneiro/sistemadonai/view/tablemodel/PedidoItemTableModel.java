@@ -70,7 +70,7 @@ public class PedidoItemTableModel extends AbstractTableModel {
                 case 3:
                     return p.getQuantidade();
                 case 4:
-                    return FormatUtils.formatBigDecimal(p.getValorVenda());
+                    return FormatUtils.formatBigDecimal(p.getValor());
 		default:
 			return null;
 		}

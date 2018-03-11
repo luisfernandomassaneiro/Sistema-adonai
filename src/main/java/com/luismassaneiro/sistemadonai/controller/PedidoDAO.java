@@ -77,7 +77,7 @@ public class PedidoDAO extends GenericDAO<Pedido>{
                     umPedido = new Pedido();
                     umPedido.setData(data);
                     umPedido.setQuantidadeProdutos(qtde);
-                    umPedido.setValorLucro(new BigDecimal(valorLucro));
+//                    umPedido.setValorLucro(new BigDecimal(valorLucro));
                     lPedidos.add(umPedido);
                 }
                 
