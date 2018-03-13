@@ -9,6 +9,8 @@ import com.luismassaneiro.sistemadonai.controller.ClienteDAO;
 import com.luismassaneiro.sistemadonai.controller.DAOFactory;
 import com.luismassaneiro.sistemadonai.model.Cliente;
 import com.luismassaneiro.sistemadonai.utils.TrataExcecao;
+import com.luismassaneiro.sistemadonai.view.Selecionador;
+import com.luismassaneiro.sistemadonai.view.Selecionavel;
 import com.luismassaneiro.sistemadonai.view.desktop.GerenciadorJanelas;
 import com.luismassaneiro.sistemadonai.view.tablemodel.ClienteSimpleTableModel;
 import java.awt.event.MouseAdapter;
@@ -17,15 +19,17 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 
-/**
+/**ow
  *
  * @author luis.massaneiro
  */
-public class ClienteBrowser extends javax.swing.JInternalFrame {
+public class ClienteBrowser extends javax.swing.JInternalFrame implements Selecionavel<Object> {
 
     private ClienteForm form;
     private final ClienteDAO dao = DAOFactory.criaClienteDAO();
+    private Selecionador<Object> formSelecionador;
     
     public ClienteBrowser() {
         initComponents();
@@ -51,6 +55,7 @@ public class ClienteBrowser extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         texto_codigo = new javax.swing.JTextField();
+        botao_Retornar = new javax.swing.JButton();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -136,41 +141,56 @@ public class ClienteBrowser extends javax.swing.JInternalFrame {
             }
         });
 
+        botao_Retornar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/return-24.png"))); // NOI18N
+        botao_Retornar.setText("Retornar");
+        botao_Retornar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_RetornarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(botao_Novo)
-                        .addGap(18, 18, 18)
-                        .addComponent(botao_Alterar))
-                    .addComponent(botao_Pesquisar))
-                .addContainerGap())
             .addComponent(jSeparator1)
             .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(texto_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
-                        .addComponent(texto_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(flagAtivo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(141, 141, 141)
-                        .addComponent(jLabel1)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(botao_Novo)
+                                .addGap(18, 18, 18)
+                                .addComponent(botao_Alterar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(botao_Retornar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botao_Pesquisar)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(texto_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(38, 38, 38)
+                                .addComponent(texto_nome, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(flagAtivo))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(141, 141, 141)
+                                .addComponent(jLabel1)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(botao_Pesquisar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botao_Pesquisar)
+                    .addComponent(botao_Retornar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -181,7 +201,7 @@ public class ClienteBrowser extends javax.swing.JInternalFrame {
                     .addComponent(texto_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(flagAtivo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
@@ -236,11 +256,22 @@ public class ClienteBrowser extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_texto_codigoKeyReleased
 
+    private void botao_RetornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_RetornarActionPerformed
+        Cliente clienteSelecionado = getClienteSelecionado();
+        if(clienteSelecionado == null) {
+            JOptionPane.showMessageDialog(this, "Nenhum cliente selecionado!", "Alerta", JOptionPane.WARNING_MESSAGE);
+        } else {
+            formSelecionador.setSelecionado(clienteSelecionado);
+            hide();
+        }
+    }//GEN-LAST:event_botao_RetornarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao_Alterar;
     private javax.swing.JButton botao_Novo;
     private javax.swing.JButton botao_Pesquisar;
+    private javax.swing.JButton botao_Retornar;
     private javax.swing.JCheckBox flagAtivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -259,7 +290,9 @@ public class ClienteBrowser extends javax.swing.JInternalFrame {
             List<Cliente> listaCliente;
             listaCliente = dao.recuperaClientesComFiltros(texto_codigo.getText(), texto_nome.getText(), somenteAtivo);
             modelo.reload(listaCliente);
+            tabela_cliente.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             tabela_cliente.setModel(modelo);
+            
         } catch (Exception ex) {
             Logger.getLogger(ProdutoBrowser.class.getName()).log(Level.SEVERE, null, ex);
             String mensagem = TrataExcecao.trataMensagemErro(ex, ClienteBrowser.class);
@@ -281,6 +314,24 @@ public class ClienteBrowser extends javax.swing.JInternalFrame {
         ClienteSimpleTableModel modelo = (ClienteSimpleTableModel) tabela_cliente.getModel();
         Cliente clienteSelecionado = modelo.getClienteAt(tabela_cliente.getSelectedRow());
         return clienteSelecionado;
+    }
+
+    @Override
+    public void showWindow(Selecionador<Object> formSelecionador) {
+        this.formSelecionador = formSelecionador;
+        if(formSelecionador != null) {
+            botao_Retornar.setVisible(true);
+        } else {
+            botao_Retornar.setVisible(false);
+        }
+    }
+
+    public Selecionador<Object> getFormSelecionador() {
+        return formSelecionador;
+    }
+
+    public void setFormSelecionador(Selecionador<Object> formSelecionador) {
+        this.formSelecionador = formSelecionador;
     }
     
 }

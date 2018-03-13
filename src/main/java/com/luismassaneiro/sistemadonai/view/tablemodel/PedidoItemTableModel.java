@@ -22,7 +22,7 @@ public class PedidoItemTableModel extends AbstractTableModel {
 
 	private List<PedidoItem> pedidoItens;
 	
-	private String[] colNomes = { "Código", "Descrição", "Valor unitário", "Quantidade", "Valor total"};
+	private String[] colNomes = { "Código", "Descrição", "Valor", "Quantidade", "Data"};
 	
 	private Class<?>[] colTipos = { String.class, String.class, String.class, Integer.class, String.class};
 	
@@ -59,21 +59,21 @@ public class PedidoItemTableModel extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int linha, int coluna) {
-		PedidoItem p = pedidoItens.get(linha);
-		switch (coluna) {
-		case 0:
-                    return p.getProduto().getCodigo();
-                case 1:
-                    return p.getProduto().getDescricao();
-                case 2:
-                    return FormatUtils.formatBigDecimal(p.getProduto().getValor());
-                case 3:
-                    return p.getQuantidade();
-                case 4:
-                    return FormatUtils.formatBigDecimal(p.getValor());
-		default:
-			return null;
-		}
+            PedidoItem p = pedidoItens.get(linha);
+            switch (coluna) {
+            case 0:
+                return p.getProduto().getCodigo();
+            case 1:
+                return p.getProduto().getDescricao();
+            case 2:
+                return FormatUtils.formatBigDecimal(p.getProduto().getValor());
+            case 3:
+                return p.getQuantidade();
+            case 4:
+                return FormatUtils.formatDate(p.getData());
+            default:
+                    return null;
+            }
 	}
 	
 	@Override

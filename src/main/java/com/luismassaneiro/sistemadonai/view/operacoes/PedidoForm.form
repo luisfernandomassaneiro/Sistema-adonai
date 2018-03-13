@@ -54,8 +54,8 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="botao_pesquisarProduto2" min="-2" pref="21" max="-2" attributes="0"/>
-                                      <Component id="botao_pesquisarProduto3" pref="0" max="32767" attributes="0"/>
+                                      <Component id="botao_pesquisarCliente" min="-2" pref="21" max="-2" attributes="0"/>
+                                      <Component id="botao_pesquisarProduto" pref="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -68,7 +68,7 @@
                                       <Group type="102" attributes="0">
                                           <Component id="texto_observacao" min="-2" pref="210" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="botao_pesquisarProduto4" min="-2" pref="22" max="-2" attributes="0"/>
+                                          <Component id="botao_adicionarProduto" min="-2" pref="22" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -104,7 +104,7 @@
                       <Component id="texto_codigoCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="texto_nomeCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="botao_pesquisarProduto2" pref="0" max="32767" attributes="0"/>
+                  <Component id="botao_pesquisarCliente" pref="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -118,12 +118,12 @@
                       <Component id="texto_codigoProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="texto_descricaoProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="botao_pesquisarProduto3" pref="0" max="32767" attributes="0"/>
+                  <Component id="botao_pesquisarProduto" pref="0" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="texto_quantidade" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="texto_observacao" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="botao_pesquisarProduto4" alignment="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="botao_adicionarProduto" alignment="0" pref="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="249" max="-2" attributes="0"/>
@@ -219,14 +219,14 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="texto_nomeClienteActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="botao_pesquisarProduto2">
+    <Component class="javax.swing.JButton" name="botao_pesquisarCliente">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/luismassaneiro/controleestoque/imagens/search16.png"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_pesquisarProduto2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_pesquisarClienteActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
@@ -238,14 +238,14 @@
     </Component>
     <Component class="javax.swing.JTextField" name="texto_descricaoProduto">
     </Component>
-    <Component class="javax.swing.JButton" name="botao_pesquisarProduto3">
+    <Component class="javax.swing.JButton" name="botao_pesquisarProduto">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/luismassaneiro/controleestoque/imagens/search16.png"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_pesquisarProduto3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_pesquisarProdutoActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
@@ -267,14 +267,14 @@
     </Component>
     <Component class="javax.swing.JTextField" name="texto_observacao">
     </Component>
-    <Component class="javax.swing.JButton" name="botao_pesquisarProduto4">
+    <Component class="javax.swing.JButton" name="botao_adicionarProduto">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/com/luismassaneiro/controleestoque/imagens/plus-green16.png"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_pesquisarProduto4ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botao_adicionarProdutoActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
