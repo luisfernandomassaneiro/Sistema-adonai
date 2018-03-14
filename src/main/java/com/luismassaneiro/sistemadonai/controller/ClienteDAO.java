@@ -2,7 +2,6 @@ package com.luismassaneiro.sistemadonai.controller;
 
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.model.Cliente;
-import com.luismassaneiro.sistemadonai.model.Produto;
 import com.luismassaneiro.sistemadonai.utils.TrataExcecao;
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +43,7 @@ public class ClienteDAO extends GenericDAO<Cliente> {
         } 
     }
     
-    public Produto recuperaClientePeloCodigo (String codigo) throws ValidateException {
+    public Cliente recuperaClientePeloCodigo (String codigo) throws ValidateException {
         try {
             Map<String, Object> parameters = new HashMap<>();
             StringBuilder hql = new StringBuilder();

@@ -8,14 +8,15 @@ package com.luismassaneiro.sistemadonai.controller;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.model.Pedido;
 import com.luismassaneiro.sistemadonai.utils.TrataExcecao;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -98,4 +99,22 @@ public class PedidoDAO extends GenericDAO<Pedido>{
             throw new ValidateException(erro);
         }
     }
+    
+    public Pedido recuperaPedidoDoCliente(Long clienteID) throws ValidateException {
+        try {
+            Map<String, Object> parameters = new HashMap<>();
+            StringBuilder hql = new StringBuilder();
+            hql.append("select distinct ped from Pedido as ped ");
+            hql.append("join ped.itens pit ");
+            hql.append("join ped.cliente cli ");
+            hql.append(" where cli.id = :clienteID ");
+            parameters.put("clienteID", clienteID);
+            hql.append(" order by ped.data ");
+            return find(hql.toString(), parameters);
+        } catch (Exception e) {
+            String erro = TrataExcecao.trataMensagemErro(e, PedidoDAO.class);
+            throw new ValidateException(erro);
+        } 
+
+    }  
 }

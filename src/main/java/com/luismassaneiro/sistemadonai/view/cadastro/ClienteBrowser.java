@@ -238,6 +238,11 @@ public class ClienteBrowser extends javax.swing.JInternalFrame implements Seleci
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
         pesquisar();
+        if(formSelecionador != null) {
+            botao_Retornar.setVisible(true);
+        } else {
+            botao_Retornar.setVisible(false);
+        }
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
