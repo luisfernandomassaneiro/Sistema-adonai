@@ -98,6 +98,11 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
 
         jLabel12.setText("Cliente");
 
+        texto_codigoCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                texto_codigoClienteFocusLost(evt);
+            }
+        });
         texto_codigoCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 texto_codigoClienteActionPerformed(evt);
@@ -124,6 +129,11 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
 
         jLabel1.setText("Produto");
 
+        texto_codigoProduto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                texto_codigoProdutoFocusLost(evt);
+            }
+        });
         texto_codigoProduto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 texto_codigoProdutoKeyPressed(evt);
@@ -177,20 +187,18 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(botao_ExcluirItem, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel12)
+                                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                                            .addComponent(texto_codigoProduto))
+                                        .addComponent(texto_codigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jLabel12)
-                                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                                                .addComponent(texto_codigoProduto))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(texto_descricaoProduto))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(texto_codigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(texto_nomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(texto_nomeCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                                        .addComponent(texto_descricaoProduto))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(botao_pesquisarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -248,7 +256,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                 .addComponent(texto_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botao_novoPedido)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -298,47 +306,27 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
 
     private void texto_codigoProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_codigoProdutoKeyPressed
         if(evt.getKeyCode() == 9 || evt.getKeyCode() == 10) {
-            if(StringUtils.isNotEmpty(texto_codigoProduto.getText())) {
-                try {
-                    produtoLookup = produtoDAO.recuperaProdutoPeloCodigo(texto_codigoProduto.getText());
-                    if(produtoLookup != null) {
-                        texto_descricaoProduto.setText(produtoLookup.getDescricao());
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Produto não encontrado!", "Erro!", JOptionPane.ERROR_MESSAGE);
-                    }
-                } catch (ValidateException ex) {
-                    Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Informe um código de produto!", "Alerta!", JOptionPane.WARNING_MESSAGE);
-            }
+            carregaLookupProduto();
         }
     }//GEN-LAST:event_texto_codigoProdutoKeyPressed
 
     private void texto_codigoClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_codigoClienteKeyPressed
         if(evt.getKeyCode() == 9 || evt.getKeyCode() == 10) {
-            if(StringUtils.isNotEmpty(texto_codigoCliente.getText())) {
-                try {
-                    clienteLookup = clienteDAO.recuperaClientePeloCodigo(texto_codigoCliente.getText());
-                    if(clienteLookup != null) {
-                        texto_nomeCliente.setText(clienteLookup.getNome());
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Cliente não encontrado!", "Erro!", JOptionPane.ERROR_MESSAGE);
-                    }
-                } catch (ValidateException ex) {
-                    Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Informe um código de cliente!", "Alerta!", JOptionPane.WARNING_MESSAGE);
-            }
+            carregaLookupCliente();
         }
     }//GEN-LAST:event_texto_codigoClienteKeyPressed
 
     private void botao_novoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_novoPedidoActionPerformed
         limpar();
     }//GEN-LAST:event_botao_novoPedidoActionPerformed
+
+    private void texto_codigoClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_texto_codigoClienteFocusLost
+        carregaLookupCliente();
+    }//GEN-LAST:event_texto_codigoClienteFocusLost
+
+    private void texto_codigoProdutoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_texto_codigoProdutoFocusLost
+        carregaLookupProduto();
+    }//GEN-LAST:event_texto_codigoProdutoFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -382,6 +370,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                     reloadTable();
                     atualizaTotalCompra();
                     texto_codigoProduto.setText("");
+                    texto_descricaoProduto.setText("");
                     texto_quantidade.setText("1");
                     texto_observacao.setText("");
                 } catch (ValidateException ex) {
@@ -438,25 +427,23 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                 clienteLookup = (Cliente) obj;
                 texto_codigoCliente.setText(clienteLookup.getCodigo());
                 texto_nomeCliente.setText(clienteLookup.getNome());
-                try {
-                    carregaPedido(pedidoDAO.recuperaPedidoDoCliente(clienteLookup.getId()));
-                } catch (ValidateException ex) {
-                    Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
-                }
+                carregaPedido();
             }
         }
        
     }
 
-    public void carregaPedido(Pedido pedidoCarregar){
-        if(pedidoCarregar == null) {
-            pedido = new Pedido();
-        } else {
+    public void carregaPedido(){
+        if(clienteLookup != null && clienteLookup.getId() != null) {
             try {
-                pedido = pedidoDAO.buscar(pedidoCarregar.getId());
-                reloadTable();
-                atualizaTotalCompra();
+                pedido = pedidoDAO.recuperaPedidoDoCliente(clienteLookup.getId());
+                if(pedido == null) {
+                    pedido = new Pedido();
+                } else {
+                    pedido = pedidoDAO.buscar(pedido.getId());
+                    reloadTable();
+                    atualizaTotalCompra();
+                }
             } catch (ValidateException ex) {
                 Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro ao buscar o pedido!", JOptionPane.ERROR_MESSAGE);
@@ -472,5 +459,42 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
             }
         } 
         texto_total.setText(FormatUtils.formatBigDecimal(totalPedido));
+    }
+
+    private void carregaLookupCliente() {
+        if(StringUtils.isNotEmpty(texto_codigoCliente.getText())) {
+            try {
+                clienteLookup = clienteDAO.recuperaClientePeloCodigo(texto_codigoCliente.getText());
+                if(clienteLookup != null) {
+                    texto_nomeCliente.setText(clienteLookup.getNome());
+                    carregaPedido();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Cliente não encontrado!", "Erro!", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (ValidateException ex) {
+                Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Informe um código de cliente!", "Alerta!", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+    
+    private void carregaLookupProduto() {
+        if(StringUtils.isNotEmpty(texto_codigoProduto.getText())) {
+            try {
+                produtoLookup = produtoDAO.recuperaProdutoPeloCodigo(texto_codigoProduto.getText());
+                if(produtoLookup != null) {
+                    texto_descricaoProduto.setText(produtoLookup.getDescricao());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Produto não encontrado!", "Erro!", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (ValidateException ex) {
+                Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Informe um código de produto!", "Alerta!", JOptionPane.WARNING_MESSAGE);
+        }
     }
 }

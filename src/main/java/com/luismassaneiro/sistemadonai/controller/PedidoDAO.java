@@ -104,7 +104,7 @@ public class PedidoDAO extends GenericDAO<Pedido>{
         try {
             Map<String, Object> parameters = new HashMap<>();
             StringBuilder hql = new StringBuilder();
-            hql.append("select distinct ped from Pedido as ped ");
+            hql.append("select ped from Pedido as ped ");
             hql.append("join ped.itens pit ");
             hql.append("join ped.cliente cli ");
             hql.append(" where cli.id = :clienteID ");

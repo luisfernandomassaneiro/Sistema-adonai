@@ -52,7 +52,6 @@ public class ProdutoDAO extends GenericDAO<Produto> {
             StringBuilder hql = new StringBuilder();
             
             hql.append("select p from Produto as p ");
-            hql.append("join p.categoria c");
             hql.append(" where ");
             hql.append(" p.codigo = :codigo ");
             parameters.put("codigo", codigo);
