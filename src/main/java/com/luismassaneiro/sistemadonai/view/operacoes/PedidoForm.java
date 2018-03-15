@@ -140,6 +140,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         jLabel10.setText("Quantidade");
 
         texto_quantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        texto_quantidade.setText("1");
 
         jLabel13.setText("Observação");
 
@@ -154,6 +155,11 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
 
         botao_novoPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/new.png"))); // NOI18N
         botao_novoPedido.setText("Novo pedido");
+        botao_novoPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_novoPedidoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -287,7 +293,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
     }//GEN-LAST:event_botao_pesquisarProdutoActionPerformed
 
     private void botao_adicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_adicionarProdutoActionPerformed
-        
+        adicionaProduto(produtoLookup);
     }//GEN-LAST:event_botao_adicionarProdutoActionPerformed
 
     private void texto_codigoProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_codigoProdutoKeyPressed
@@ -330,6 +336,10 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         }
     }//GEN-LAST:event_texto_codigoClienteKeyPressed
 
+    private void botao_novoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_novoPedidoActionPerformed
+        limpar();
+    }//GEN-LAST:event_botao_novoPedidoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao_ExcluirItem;
@@ -367,6 +377,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                         pedido.setItens(new ArrayList<PedidoItem>());
                     
                     pedido.getItens().add(novoItem);
+                    pedido.setCliente(clienteLookup);
                     pedido = pedidoDAO.atualizar(pedido);
                     reloadTable();
                     atualizaTotalCompra();
@@ -403,6 +414,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         PedidoItemTableModel modelo = (PedidoItemTableModel) tabela_PedidoItem.getModel();
         modelo.reload(pedido.getItens());
         tabela_PedidoItem.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
         tabela_PedidoItem.setModel(modelo);
     }
 
@@ -438,7 +450,6 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
     }
 
     public void carregaPedido(Pedido pedidoCarregar){
-        limpar();
         if(pedidoCarregar == null) {
             pedido = new Pedido();
         } else {

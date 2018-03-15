@@ -70,7 +70,7 @@ public class PedidoItemTableModel extends AbstractTableModel {
             case 3:
                 return p.getQuantidade();
             case 4:
-                return FormatUtils.formatDate(p.getData());
+                return FormatUtils.formatDate(p.getDataCompra());
             default:
                     return null;
             }

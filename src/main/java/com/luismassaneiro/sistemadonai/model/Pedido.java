@@ -42,15 +42,6 @@ public class Pedido implements BusinessEntity{
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date data = new Date();
     
-    @Column(name="PED_VALORTOTAL", nullable=false)
-    private BigDecimal valorTotal = BigDecimal.ZERO;
-    
-    @Column(name="PED_VALORPAGO", nullable=false)
-    private BigDecimal valorPago = BigDecimal.ZERO;
-    
-    @Column(name="PED_OBSERVACAO")
-    private String observacao;
-    
     @Transient
     private Long quantidadeProdutos;
     
@@ -67,14 +58,6 @@ public class Pedido implements BusinessEntity{
         return data;
     }
 
-    public BigDecimal getValorTotal() {
-        return valorTotal;
-    }
-
-    public BigDecimal getValorPago() {
-        return valorPago;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -85,22 +68,6 @@ public class Pedido implements BusinessEntity{
 
     public void setData(Date data) {
         this.data = data;
-    }
-
-    public void setValorTotal(BigDecimal valorTotal) {
-        this.valorTotal = valorTotal;
-    }
-
-    public void setValorPago(BigDecimal valorPago) {
-        this.valorPago = valorPago;
-    }
-
-    public String getObservacao() {
-        return observacao;
-    }
-
-    public void setObservacao(String observacao) {
-        this.observacao = observacao;
     }
 
     public Long getQuantidadeProdutos() {

@@ -43,7 +43,7 @@ public class PedidoItem implements BusinessEntity{
     
     @Column(name="PIT_DATA", nullable=false)
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date data = new Date();
+    private Date dataCompra = new Date();
     
     @Column(name="PIT_OBSERVACAO")
     private String observacao;
@@ -51,6 +51,10 @@ public class PedidoItem implements BusinessEntity{
     @Enumerated(EnumType.STRING)
     @Column(name = "PIT_SITUACAO", nullable = false)
     private TipoSituacaoProduto tipoSituacaoProduto = TipoSituacaoProduto.EM_ABERTO;
+    
+    @Column(name="PIT_DATAPAGAMENTO")
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date dataPagamento = null;
     
     @Override
     public Long getId() {
@@ -90,12 +94,12 @@ public class PedidoItem implements BusinessEntity{
         this.valor = valor;
     }
 
-    public Date getData() {
-        return data;
+    public Date getDataCompra() {
+        return dataCompra;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setDataCompra(Date dataCompra) {
+        this.dataCompra = dataCompra;
     }
 
     public String getObservacao() {
@@ -112,6 +116,14 @@ public class PedidoItem implements BusinessEntity{
 
     public void setTipoSituacaoProduto(TipoSituacaoProduto tipoSituacaoProduto) {
         this.tipoSituacaoProduto = tipoSituacaoProduto;
+    }
+
+    public Date getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(Date dataPagamento) {
+        this.dataPagamento = dataPagamento;
     }
 
 }
