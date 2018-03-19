@@ -64,8 +64,6 @@ public class GenericDAO<E extends BusinessEntity> {
     public void excluir(E e) throws ValidateException {
         try {
             begin();
-            //e = em.merge(e);
-            //e = (E) em.getReference(e.getClass(), e.getId());
             em.remove(em.merge(e));
             commit();
         } catch (Exception ex) {

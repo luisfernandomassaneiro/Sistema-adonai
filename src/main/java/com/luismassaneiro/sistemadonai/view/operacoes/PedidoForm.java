@@ -78,6 +78,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         jLabel2 = new javax.swing.JLabel();
         texto_total = new javax.swing.JTextField();
         botao_novoPedido = new javax.swing.JButton();
+        botao_salvarPedido = new javax.swing.JButton();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -171,6 +172,13 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
             }
         });
 
+        botao_salvarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/save.png"))); // NOI18N
+        botao_salvarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_salvarPedidoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,7 +193,10 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(botao_ExcluirItem, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(botao_salvarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botao_ExcluirItem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -249,14 +260,16 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botao_ExcluirItem, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(botao_ExcluirItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botao_salvarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(texto_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botao_novoPedido)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
@@ -328,6 +341,15 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         carregaLookupProduto();
     }//GEN-LAST:event_texto_codigoProdutoFocusLost
 
+    private void botao_salvarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_salvarPedidoActionPerformed
+        if(pedido != null) {
+            gravaPedido();
+            JOptionPane.showMessageDialog(this, "Pedido gravado com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Não há pedidos para serem salvos!", "Erro!", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_botao_salvarPedidoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao_ExcluirItem;
@@ -335,6 +357,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
     private javax.swing.JButton botao_novoPedido;
     private javax.swing.JButton botao_pesquisarCliente;
     private javax.swing.JButton botao_pesquisarProduto;
+    private javax.swing.JButton botao_salvarPedido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -355,28 +378,21 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         if(StringUtils.isNotEmpty(texto_quantidade.getText()) && produto != null) {
             Integer quantidade = Integer.valueOf(texto_quantidade.getText());
             if(quantidade > 0) {
-                try {
-                    PedidoItem novoItem = new PedidoItem();
-                    novoItem.setProduto(produto);
-                    novoItem.setQuantidade(quantidade);
-                    novoItem.setObservacao(texto_observacao.getText());
-                    novoItem.setValor(produto.getValor());
-                    if(CollectionUtils.isEmpty(pedido.getItens()))
-                        pedido.setItens(new ArrayList<PedidoItem>());
-                    
-                    pedido.getItens().add(novoItem);
-                    pedido.setCliente(clienteLookup);
-                    pedido = pedidoDAO.atualizar(pedido);
-                    reloadTable();
-                    atualizaTotalCompra();
-                    texto_codigoProduto.setText("");
-                    texto_descricaoProduto.setText("");
-                    texto_quantidade.setText("1");
-                    texto_observacao.setText("");
-                } catch (ValidateException ex) {
-                    Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
-                }
+                PedidoItem novoItem = new PedidoItem();
+                novoItem.setProduto(produto);
+                novoItem.setQuantidade(quantidade);
+                novoItem.setObservacao(texto_observacao.getText());
+                novoItem.setValor(produto.getValor());
+                if(CollectionUtils.isEmpty(pedido.getItens()))
+                    pedido.setItens(new ArrayList<PedidoItem>());
+
+                pedido.getItens().add(novoItem);
+                pedido.setCliente(clienteLookup);
+                gravaPedido();
+                texto_codigoProduto.setText("");
+                texto_descricaoProduto.setText("");
+                texto_quantidade.setText("1");
+                texto_observacao.setText("");
             } else {
                 JOptionPane.showMessageDialog(this, "Quantidade informada deve ser maior que zero!", "Erro!", JOptionPane.ERROR_MESSAGE);
                 texto_quantidade.setText("1");
@@ -440,7 +456,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                 if(pedido == null) {
                     pedido = new Pedido();
                 } else {
-                    pedido = pedidoDAO.buscar(pedido.getId());
+//                    pedido = pedidoDAO.buscar(pedido.getId());
                     reloadTable();
                     atualizaTotalCompra();
                 }
@@ -495,6 +511,17 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
             }
         } else {
             JOptionPane.showMessageDialog(null, "Informe um código de produto!", "Alerta!", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private void gravaPedido() {
+        try {
+            pedido = pedidoDAO.atualizar(pedido);
+            reloadTable();
+            atualizaTotalCompra();
+        } catch (ValidateException ex) {
+            Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

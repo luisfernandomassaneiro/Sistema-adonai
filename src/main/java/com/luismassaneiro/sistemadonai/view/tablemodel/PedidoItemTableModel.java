@@ -1,30 +1,21 @@
 package com.luismassaneiro.sistemadonai.view.tablemodel;
 
 import com.luismassaneiro.sistemadonai.model.PedidoItem;
-import com.luismassaneiro.sistemadonai.model.Produto;
 import com.luismassaneiro.sistemadonai.utils.FormatUtils;
+import java.text.ParseException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.table.AbstractTableModel;
 
-/**
- * Define um TableModel para entidade <code>Produto</code>, considerando as colunas:
- * <ul>
- *   <li>Nome;</li>
- *   <li>Descrição;</li>
- *   <li>Preço;</li>
- *   <li>Quantidade;</li>
- * </ul> 
- * 
- * @author YaW Tecnologia
- */
 public class PedidoItemTableModel extends AbstractTableModel {
 
 	private List<PedidoItem> pedidoItens;
 	
-	private String[] colNomes = { "Código", "Descrição", "Valor", "Quantidade", "Data"};
+	private String[] colNomes = { "Código", "Descrição", "Valor", "Quantidade", "Data", "Observação"};
 	
-	private Class<?>[] colTipos = { String.class, String.class, String.class, Integer.class, String.class};
+	private Class<?>[] colTipos = { String.class, String.class, String.class, Integer.class, String.class, String.class};
 	
 	public PedidoItemTableModel(){}
 	
@@ -41,7 +32,7 @@ public class PedidoItemTableModel extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {
-		return 5;
+		return colNomes.length;
 	}
 
 	@Override
@@ -71,14 +62,39 @@ public class PedidoItemTableModel extends AbstractTableModel {
                 return p.getQuantidade();
             case 4:
                 return FormatUtils.formatDate(p.getDataCompra());
+            case 5:
+                return p.getObservacao();
             default:
-                    return null;
+                return null;
             }
 	}
+
+    @Override
+    public void setValueAt(Object valor, int linha, int coluna) {
+            try {
+                PedidoItem p = pedidoItens.get(linha);
+                switch (coluna) {
+                    case 2:
+                        p.getProduto().setValor(FormatUtils.parseBigDecimal((String) valor));
+                    case 5:
+                        p.setObservacao((String) valor);
+                }   
+            } catch (ParseException ex) {
+                Logger.getLogger(PedidoItemTableModel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
 	
+        
+        
 	@Override
-	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return false;
+	public boolean isCellEditable(int linha, int coluna) {
+            switch (coluna) {
+            case 2:
+            case 5:
+                return true;
+            default:
+                return false;
+            }
 	}
 	
 	public PedidoItem getPedidoItemAt(int index) {
