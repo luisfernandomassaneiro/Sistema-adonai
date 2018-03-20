@@ -104,15 +104,14 @@ public class PedidoDAO extends GenericDAO<Pedido>{
         try {
             Map<String, Object> parameters = new HashMap<>();
             StringBuilder hql = new StringBuilder();
-            hql.append("select ped, pit, pro, cli from Pedido as ped ");
+            hql.append("select ped from Pedido as ped ");
             hql.append(" inner join ped.itens pit ");
             hql.append(" inner join pit.produto pro ");
             hql.append(" inner join ped.cliente cli ");
             hql.append(" where cli.id = :clienteID ");
             parameters.put("clienteID", clienteID);
-            hql.append(" order by ped.data ");
-            Pedido p = find(hql.toString(), parameters);
-            return null;
+            hql.append(" order by pit.dataCompra ");
+            return find(hql.toString(), parameters);
         } catch (Exception e) {
             String erro = TrataExcecao.trataMensagemErro(e, PedidoDAO.class);
             throw new ValidateException(erro);

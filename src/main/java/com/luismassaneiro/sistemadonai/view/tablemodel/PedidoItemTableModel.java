@@ -57,7 +57,7 @@ public class PedidoItemTableModel extends AbstractTableModel {
             case 1:
                 return p.getProduto().getDescricao();
             case 2:
-                return FormatUtils.formatBigDecimal(p.getProduto().getValor());
+                return FormatUtils.formatBigDecimal(p.getValor());
             case 3:
                 return p.getQuantidade();
             case 4:
@@ -75,7 +75,7 @@ public class PedidoItemTableModel extends AbstractTableModel {
                 PedidoItem p = pedidoItens.get(linha);
                 switch (coluna) {
                     case 2:
-                        p.getProduto().setValor(FormatUtils.parseBigDecimal((String) valor));
+                        p.setValor(FormatUtils.parseBigDecimal((String) valor));
                     case 5:
                         p.setObservacao((String) valor);
                 }   
