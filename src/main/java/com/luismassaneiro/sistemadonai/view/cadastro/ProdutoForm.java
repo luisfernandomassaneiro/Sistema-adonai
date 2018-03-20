@@ -42,7 +42,6 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         botao_Gravar = new javax.swing.JButton();
-        botao_Cancelar = new javax.swing.JButton();
         checkBox_Ativo = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
         texto_Descricao = new javax.swing.JTextField();
@@ -51,6 +50,7 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
         lbMessages = new javax.swing.JLabel();
         texto_Codigo = new javax.swing.JTextField();
         botao_Novo = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -87,14 +87,6 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
             }
         });
 
-        botao_Cancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/cancel-24.png"))); // NOI18N
-        botao_Cancelar.setText("Cancelar");
-        botao_Cancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botao_CancelarActionPerformed(evt);
-            }
-        });
-
         checkBox_Ativo.setSelected(true);
         checkBox_Ativo.setText("Ativo");
         checkBox_Ativo.addActionListener(new java.awt.event.ActionListener() {
@@ -118,6 +110,9 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
 
         botao_Novo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/new.png"))); // NOI18N
         botao_Novo.setText("Novo");
+        botao_Novo.setMaximumSize(new java.awt.Dimension(93, 33));
+        botao_Novo.setMinimumSize(new java.awt.Dimension(93, 33));
+        botao_Novo.setPreferredSize(new java.awt.Dimension(93, 33));
         botao_Novo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botao_NovoActionPerformed(evt);
@@ -129,32 +124,29 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lbMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(texto_valor, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(texto_Codigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(botao_Gravar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(botao_Cancelar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(botao_Novo)
-                                .addGap(0, 188, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(texto_valor, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(texto_Codigo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(texto_Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel2)
+                            .addComponent(texto_Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(checkBox_Ativo))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botao_Gravar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botao_Novo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,12 +167,13 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(texto_valor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botao_Gravar)
-                    .addComponent(botao_Cancelar)
-                    .addComponent(botao_Novo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botao_Novo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -230,10 +223,6 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_botao_GravarActionPerformed
 
-    private void botao_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_CancelarActionPerformed
-        hide();
-    }//GEN-LAST:event_botao_CancelarActionPerformed
-
     private void checkBox_AtivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBox_AtivoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_checkBox_AtivoActionPerformed
@@ -247,13 +236,13 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botao_Cancelar;
     private javax.swing.JButton botao_Gravar;
     private javax.swing.JButton botao_Novo;
     private javax.swing.JCheckBox checkBox_Ativo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbMessages;
     private javax.swing.JTextField texto_Codigo;
     private javax.swing.JTextField texto_Descricao;
