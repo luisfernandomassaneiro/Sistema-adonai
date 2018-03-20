@@ -280,7 +280,9 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         if(pedidoItemExcluir == null) {
             JOptionPane.showMessageDialog(this, "Nenhum item foi selecionado", "Erro!", JOptionPane.ERROR_MESSAGE);
         } else {
-            try {
+            int resp = JOptionPane.showConfirmDialog(this, "Deseja realmente efetuar a exclusão do produto no pedido?");
+            if(resp == JOptionPane.YES_OPTION) {
+                try {
                 pedido.getItens().remove(pedidoItemExcluir);
                 pedido = pedidoDAO.atualizar(pedido); 
                 reloadTable();
@@ -288,6 +290,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
             } catch (ValidateException ex) {
                 Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+            }
             }
         }
 
@@ -314,7 +317,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
     }//GEN-LAST:event_botao_pesquisarProdutoActionPerformed
 
     private void botao_adicionarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_adicionarProdutoActionPerformed
-        adicionaProduto(produtoLookup);
+        adicionaProduto();
     }//GEN-LAST:event_botao_adicionarProdutoActionPerformed
 
     private void texto_codigoProdutoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_codigoProdutoKeyPressed
@@ -374,15 +377,15 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
     private javax.swing.JTextField texto_total;
     // End of variables declaration//GEN-END:variables
 
-    public void adicionaProduto(Produto produto){
-        if(StringUtils.isNotEmpty(texto_quantidade.getText()) && produto != null) {
+    public void adicionaProduto(){
+        if(StringUtils.isNotEmpty(texto_quantidade.getText()) && produtoLookup != null) {
             Integer quantidade = Integer.valueOf(texto_quantidade.getText());
             if(quantidade > 0) {
                 PedidoItem novoItem = new PedidoItem();
-                novoItem.setProduto(produto);
+                novoItem.setProduto(produtoLookup);
                 novoItem.setQuantidade(quantidade);
                 novoItem.setObservacao(texto_observacao.getText());
-                novoItem.setValor(produto.getValor());
+                novoItem.setValor(produtoLookup.getValor());
                 if(CollectionUtils.isEmpty(pedido.getItens()))
                     pedido.setItens(new ArrayList<PedidoItem>());
 
@@ -393,6 +396,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                 texto_descricaoProduto.setText("");
                 texto_quantidade.setText("1");
                 texto_observacao.setText("");
+                produtoLookup = null;
             } else {
                 JOptionPane.showMessageDialog(this, "Quantidade informada deve ser maior que zero!", "Erro!", JOptionPane.ERROR_MESSAGE);
                 texto_quantidade.setText("1");
