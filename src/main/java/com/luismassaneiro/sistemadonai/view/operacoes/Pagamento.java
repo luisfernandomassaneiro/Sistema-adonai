@@ -9,29 +9,27 @@ import com.luismassaneiro.sistemadonai.controller.DAOFactory;
 import com.luismassaneiro.sistemadonai.controller.PedidoDAO;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.model.Pedido;
+import com.luismassaneiro.sistemadonai.model.PedidoItem;
 import com.luismassaneiro.sistemadonai.utils.DataUtil;
-import com.luismassaneiro.sistemadonai.utils.FormatUtils;
-import com.luismassaneiro.sistemadonai.view.desktop.GerenciadorJanelas;
-import com.luismassaneiro.sistemadonai.view.exportador.ExportadorTabelas;
+import com.luismassaneiro.sistemadonai.view.tablemodel.PagamentoTableModel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.apache.commons.collections.CollectionUtils;
 
 /**
  *
  * @author luis.massaneiro
  */
-public class Pagamentos extends javax.swing.JInternalFrame {
+public class Pagamento extends javax.swing.JInternalFrame {
 
     private final PedidoDAO dao = DAOFactory.criaPedidoDAO();
-    private VendaTableModel modelo;
-    private List<Pedido> listaPedido = new ArrayList<>();
+    private PagamentoTableModel modelo;
+    private List<PedidoItem> listaPedido = new ArrayList<>();
     
-    public Pagamentos() {
+    public Pagamento() {
         initComponents();
     }
 
@@ -199,22 +197,7 @@ public class Pagamentos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botao_limparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_limparActionPerformed
-        if(CollectionUtils.isNotEmpty(listaPedido)) {
-            List<String> linhasArquivo = new ArrayList<>();
-            linhasArquivo.add("Data;Qtd. produtos;Valor lucro");
-            for(Pedido umPedido: listaPedido) {
-                String linha = String.format("%s;%s;%s;",
-                    FormatUtils.formatDate(umPedido.getData()),
-                    umPedido.getQuantidadeProdutos(),
-                    FormatUtils.formatBigDecimal(umPedido.getValorLucro()));
-                linhasArquivo.add(linha);
-            }
-            ExportadorTabelas exportador = (ExportadorTabelas) GerenciadorJanelas.getInstance().abrirJanela(new ExportadorTabelas());
-            exportador.adicionaListaLinhasArquivo(linhasArquivo, "vendas");
-            exportador.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "Não há registros para serem exportados!", "Atenção!", JOptionPane.WARNING_MESSAGE);
-        }
+        limpar();
     }//GEN-LAST:event_botao_limparActionPerformed
 
     private void botao_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_PesquisarActionPerformed
@@ -247,20 +230,26 @@ public class Pagamentos extends javax.swing.JInternalFrame {
 
     private void pesquisar(Date dataInicial, Date dataFinal) {
         try {
-            if((dataInicial == null && dataFinal != null) || (dataInicial != null && dataFinal == null)) {
-                JOptionPane.showMessageDialog(this, "Caso uma das datas seja informada, é obrigatório informar a outra", "Alerta!", JOptionPane.WARNING_MESSAGE);
-            }else if(dataInicial != null && dataFinal != null && DataUtil.compareTo(dataInicial, dataFinal) >= 0) {
+            if(dataInicial != null && dataFinal != null && DataUtil.compareTo(dataInicial, dataFinal) >= 0) {
                 JOptionPane.showMessageDialog(this, "Data inicial maior que data final", "Erro!", JOptionPane.ERROR_MESSAGE);
             } else {
-                modelo = new VendaTableModel();
+                modelo = new PagamentoTableModel();
                 listaPedido = dao.recuperaVendas(DataUtil.zeraHora(dataInicial), DataUtil.zeraHora(dataFinal));
                 modelo.reload(listaPedido);
                 tabela_Produto.setModel(modelo);
             }
         } catch (ValidateException ex) {
-            Logger.getLogger(Pagamentos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Pagamento.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    private void limpar() {
+        listaPedido = new ArrayList<>();
+        texto_codigo.setText("");
+        texto_nome.setText("");
+        texto_DataFinal.setDate(null);
+        texto_DataInicial.setDate(null);
     }
     
 }

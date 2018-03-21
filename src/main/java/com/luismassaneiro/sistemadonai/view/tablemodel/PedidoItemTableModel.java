@@ -98,7 +98,7 @@ public class PedidoItemTableModel extends AbstractTableModel {
 	}
 	
 	public PedidoItem getPedidoItemAt(int index) {
-		return pedidoItens.get(index);
+            return pedidoItens.get(index);
 	}
 	
 }

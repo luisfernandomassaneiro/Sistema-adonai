@@ -116,6 +116,24 @@ public class PedidoDAO extends GenericDAO<Pedido>{
             String erro = TrataExcecao.trataMensagemErro(e, PedidoDAO.class);
             throw new ValidateException(erro);
         } 
-
-    }  
+    }
+    
+    public List<Pedido> recuperaPedidoParaPagamento(String codigo, String nome, Date dataInicial, Date dataFinal) throws ValidateException {
+        try {
+            Map<String, Object> parameters = new HashMap<>();
+            StringBuilder hql = new StringBuilder();
+            hql.append("select ped from Pedido as ped ");
+            hql.append(" inner join ped.itens pit ");
+            hql.append(" inner join pit.produto pro ");
+            hql.append(" inner join ped.cliente cli ");
+            hql.append(" where pit.tipoSituacaoProduto = 'EM_ABERTO' ");
+            if(String'')
+            parameters.put("clienteID", clienteID);
+            hql.append(" order by pit.dataCompra ");
+            return list(hql.toString(), parameters);
+        } catch (Exception e) {
+            String erro = TrataExcecao.trataMensagemErro(e, PedidoDAO.class);
+            throw new ValidateException(erro);
+        } 
+    }
 }

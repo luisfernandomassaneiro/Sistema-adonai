@@ -1,10 +1,8 @@
 package com.luismassaneiro.sistemadonai.model;
 
-import com.luismassaneiro.sistemadonai.enums.TipoFormaPagamento;
 import com.luismassaneiro.sistemadonai.enums.TipoSituacaoProduto;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -55,6 +53,10 @@ public class PedidoItem implements BusinessEntity{
     @Column(name="PIT_DATAPAGAMENTO")
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dataPagamento = null;
+    
+    @ManyToOne
+    @JoinColumn(name = "PIT_PEDID")
+    private Pedido pedido;
     
     @Override
     public Long getId() {
@@ -124,6 +126,14 @@ public class PedidoItem implements BusinessEntity{
 
     public void setDataPagamento(Date dataPagamento) {
         this.dataPagamento = dataPagamento;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
 }
