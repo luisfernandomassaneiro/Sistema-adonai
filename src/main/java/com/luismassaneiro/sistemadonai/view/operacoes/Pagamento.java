@@ -8,7 +8,6 @@ package com.luismassaneiro.sistemadonai.view.operacoes;
 import com.luismassaneiro.sistemadonai.controller.DAOFactory;
 import com.luismassaneiro.sistemadonai.controller.PedidoDAO;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
-import com.luismassaneiro.sistemadonai.model.Pedido;
 import com.luismassaneiro.sistemadonai.model.PedidoItem;
 import com.luismassaneiro.sistemadonai.utils.DataUtil;
 import com.luismassaneiro.sistemadonai.view.tablemodel.PagamentoTableModel;
@@ -201,11 +200,10 @@ public class Pagamento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_botao_limparActionPerformed
 
     private void botao_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_PesquisarActionPerformed
-        pesquisar(texto_DataInicial.getDate(),texto_DataFinal.getDate());
+        pesquisar();
     }//GEN-LAST:event_botao_PesquisarActionPerformed
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-        pesquisar(null, null);
     }//GEN-LAST:event_formInternalFrameActivated
 
 
@@ -228,13 +226,15 @@ public class Pagamento extends javax.swing.JInternalFrame {
     private javax.swing.JTextField texto_nome;
     // End of variables declaration//GEN-END:variables
 
-    private void pesquisar(Date dataInicial, Date dataFinal) {
+    private void pesquisar() {
         try {
+            Date dataInicial = texto_DataInicial.getDate();
+            Date dataFinal = texto_DataFinal.getDate();
             if(dataInicial != null && dataFinal != null && DataUtil.compareTo(dataInicial, dataFinal) >= 0) {
                 JOptionPane.showMessageDialog(this, "Data inicial maior que data final", "Erro!", JOptionPane.ERROR_MESSAGE);
             } else {
                 modelo = new PagamentoTableModel();
-                listaPedido = dao.recuperaVendas(DataUtil.zeraHora(dataInicial), DataUtil.zeraHora(dataFinal));
+                listaPedido = dao.recuperaPedidosParaPagamento(texto_codigo.getText(),texto_nome.getText(), DataUtil.zeraHora(dataInicial), DataUtil.zeraHora(dataFinal));
                 modelo.reload(listaPedido);
                 tabela_Produto.setModel(modelo);
             }

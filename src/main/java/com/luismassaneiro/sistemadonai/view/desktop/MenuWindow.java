@@ -11,6 +11,7 @@ import com.luismassaneiro.sistemadonai.view.cadastro.ClienteBrowser;
 import com.luismassaneiro.sistemadonai.view.cadastro.ProdutoBrowser;
 import com.luismassaneiro.sistemadonai.view.consultas.ProdutosBaixaEstoque;
 import com.luismassaneiro.sistemadonai.view.help.About;
+import com.luismassaneiro.sistemadonai.view.operacoes.Pagamento;
 import com.luismassaneiro.sistemadonai.view.operacoes.PedidoForm;
 
 /**
@@ -51,7 +52,7 @@ public class MenuWindow extends javax.swing.JFrame {
         produtoFaltaMenuItem = new javax.swing.JMenuItem();
         vendasMenuItem = new javax.swing.JMenuItem();
         operacaoMenu = new javax.swing.JMenu();
-        cutMenuItem1 = new javax.swing.JMenuItem();
+        operacoesPagamento = new javax.swing.JMenuItem();
         operacoesPedido = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         aboutMenuItem = new javax.swing.JMenuItem();
@@ -121,14 +122,14 @@ public class MenuWindow extends javax.swing.JFrame {
         operacaoMenu.setMnemonic('o');
         operacaoMenu.setText("Operações");
 
-        cutMenuItem1.setMnemonic('t');
-        cutMenuItem1.setText("Estoque");
-        cutMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        operacoesPagamento.setMnemonic('t');
+        operacoesPagamento.setText("Pagamentos");
+        operacoesPagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cutMenuItem1ActionPerformed(evt);
+                operacoesPagamentoActionPerformed(evt);
             }
         });
-        operacaoMenu.add(cutMenuItem1);
+        operacaoMenu.add(operacoesPagamento);
 
         operacoesPedido.setMnemonic('y');
         operacoesPedido.setText("Pedido");
@@ -192,8 +193,9 @@ public class MenuWindow extends javax.swing.JFrame {
 //        GerenciadorJanelas.getInstance().abrirJanela(new Vendas()).setVisible(true);
     }//GEN-LAST:event_vendasMenuItemActionPerformed
 
-    private void cutMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutMenuItem1ActionPerformed
-    }//GEN-LAST:event_cutMenuItem1ActionPerformed
+    private void operacoesPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_operacoesPagamentoActionPerformed
+        GerenciadorJanelas.getInstance().abrirJanela(new Pagamento()).setVisible(true);
+    }//GEN-LAST:event_operacoesPagamentoActionPerformed
 
     private void operacoesPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_operacoesPedidoActionPerformed
         //GerenciadorJanelas.getInstance().abrirJanela(new PedidoForm()).setVisible(true);
@@ -248,13 +250,13 @@ public class MenuWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenu cadastroMenu;
     private javax.swing.JMenuItem clienteMenuItem;
-    private javax.swing.JMenuItem cutMenuItem1;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu operacaoMenu;
+    private javax.swing.JMenuItem operacoesPagamento;
     private javax.swing.JMenuItem operacoesPedido;
     private javax.swing.JMenuItem produtoFaltaMenuItem;
     private javax.swing.JMenuItem produtoMenuItem;
