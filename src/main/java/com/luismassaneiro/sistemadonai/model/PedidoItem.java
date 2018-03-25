@@ -1,6 +1,7 @@
 package com.luismassaneiro.sistemadonai.model;
 
 import com.luismassaneiro.sistemadonai.enums.TipoSituacaoProduto;
+import com.luismassaneiro.sistemadonai.utils.DataUtil;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.CascadeType;
@@ -55,7 +56,7 @@ public class PedidoItem implements BusinessEntity{
     private Date dataPagamento = null;
     
     @ManyToOne
-    @JoinColumn(name = "PIT_PEDID")
+    @JoinColumn(name="PIT_PEDID",insertable = false, updatable = false)
     private Pedido pedido;
     
     @Override
@@ -97,11 +98,11 @@ public class PedidoItem implements BusinessEntity{
     }
 
     public Date getDataCompra() {
-        return dataCompra;
+        return DataUtil.zeraHora(dataCompra);
     }
 
     public void setDataCompra(Date dataCompra) {
-        this.dataCompra = dataCompra;
+        this.dataCompra = DataUtil.zeraHora(dataCompra);
     }
 
     public String getObservacao() {

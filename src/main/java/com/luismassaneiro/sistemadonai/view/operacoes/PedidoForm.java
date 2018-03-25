@@ -501,8 +501,6 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                 Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Informe um código de cliente!", "Alerta!", JOptionPane.WARNING_MESSAGE);
         }
     }
     
@@ -519,8 +517,6 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                 Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Informe um código de produto!", "Alerta!", JOptionPane.WARNING_MESSAGE);
         }
     }
 

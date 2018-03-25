@@ -7,6 +7,7 @@ package com.luismassaneiro.sistemadonai.view.operacoes;
 
 import com.luismassaneiro.sistemadonai.controller.DAOFactory;
 import com.luismassaneiro.sistemadonai.controller.PedidoDAO;
+import com.luismassaneiro.sistemadonai.controller.PedidoItemDAO;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.model.PedidoItem;
 import com.luismassaneiro.sistemadonai.utils.DataUtil;
@@ -24,7 +25,7 @@ import javax.swing.JOptionPane;
  */
 public class Pagamento extends javax.swing.JInternalFrame {
 
-    private final PedidoDAO dao = DAOFactory.criaPedidoDAO();
+    private final PedidoItemDAO dao = DAOFactory.criaPedidoItemDAO();
     private PagamentoTableModel modelo;
     private List<PedidoItem> listaPedido = new ArrayList<>();
     
