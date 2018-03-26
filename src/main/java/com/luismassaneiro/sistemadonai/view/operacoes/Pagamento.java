@@ -6,18 +6,21 @@
 package com.luismassaneiro.sistemadonai.view.operacoes;
 
 import com.luismassaneiro.sistemadonai.controller.DAOFactory;
-import com.luismassaneiro.sistemadonai.controller.PedidoDAO;
 import com.luismassaneiro.sistemadonai.controller.PedidoItemDAO;
+import com.luismassaneiro.sistemadonai.enums.TipoSituacaoProduto;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.model.PedidoItem;
 import com.luismassaneiro.sistemadonai.utils.DataUtil;
 import com.luismassaneiro.sistemadonai.view.tablemodel.PagamentoTableModel;
+import com.luismassaneiro.sistemadonai.view.tablemodel.PedidoItemTableModel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
+import org.apache.commons.collections.CollectionUtils;
 
 /**
  *
@@ -48,7 +51,7 @@ public class Pagamento extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         scrollPane = new javax.swing.JScrollPane();
-        tabela_Produto = new javax.swing.JTable();
+        tabela_pagamento = new javax.swing.JTable();
         botao_Pesquisar = new javax.swing.JButton();
         texto_DataInicial = new com.toedter.calendar.JDateChooser();
         texto_DataFinal = new com.toedter.calendar.JDateChooser();
@@ -95,7 +98,7 @@ public class Pagamento extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Data inicial");
 
-        tabela_Produto.setModel(new javax.swing.table.DefaultTableModel(
+        tabela_pagamento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -103,7 +106,7 @@ public class Pagamento extends javax.swing.JInternalFrame {
 
             }
         ));
-        scrollPane.setViewportView(tabela_Produto);
+        scrollPane.setViewportView(tabela_pagamento);
 
         botao_Pesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/search26.png"))); // NOI18N
         botao_Pesquisar.setText("Pesquisar");
@@ -118,6 +121,11 @@ public class Pagamento extends javax.swing.JInternalFrame {
         jLabel4.setText("Nome");
 
         botao_realizarPagamento.setText("Realizar pagamento");
+        botao_realizarPagamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_realizarPagamentoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -207,6 +215,27 @@ public class Pagamento extends javax.swing.JInternalFrame {
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
     }//GEN-LAST:event_formInternalFrameActivated
 
+    private void botao_realizarPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_realizarPagamentoActionPerformed
+        if(CollectionUtils.isNotEmpty(listaPedido)) {
+            int resp = JOptionPane.showConfirmDialog(this, "Deseja realizar o pagamento dos itens?");
+            if(resp == JOptionPane.YES_OPTION) {
+                for (PedidoItem pedidoItem : listaPedido) {
+                    pedidoItem.setTipoSituacaoProduto(TipoSituacaoProduto.PAGO);
+                    try {
+                        dao.atualizar(pedidoItem);
+                    } catch (ValidateException ex) {
+                        Logger.getLogger(Pagamento.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                JOptionPane.showMessageDialog(this, "Pagamento realizado com sucesso!");
+                limpar();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Para realizar o pagamento, é necessário que tenha itens na lista.", "Erro!", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_botao_realizarPagamentoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao_Pesquisar;
@@ -220,7 +249,7 @@ public class Pagamento extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JScrollPane scrollPane;
-    public javax.swing.JTable tabela_Produto;
+    public javax.swing.JTable tabela_pagamento;
     private com.toedter.calendar.JDateChooser texto_DataFinal;
     private com.toedter.calendar.JDateChooser texto_DataInicial;
     private javax.swing.JTextField texto_codigo;
@@ -237,7 +266,7 @@ public class Pagamento extends javax.swing.JInternalFrame {
                 modelo = new PagamentoTableModel();
                 listaPedido = dao.recuperaPedidosParaPagamento(texto_codigo.getText(),texto_nome.getText(), DataUtil.zeraHora(dataInicial), DataUtil.zeraHora(dataFinal));
                 modelo.reload(listaPedido);
-                tabela_Produto.setModel(modelo);
+                tabela_pagamento.setModel(modelo);
             }
         } catch (ValidateException ex) {
             Logger.getLogger(Pagamento.class.getName()).log(Level.SEVERE, null, ex);
@@ -247,10 +276,17 @@ public class Pagamento extends javax.swing.JInternalFrame {
 
     private void limpar() {
         listaPedido = new ArrayList<>();
+        reloadTable();
         texto_codigo.setText("");
         texto_nome.setText("");
         texto_DataFinal.setDate(null);
         texto_DataInicial.setDate(null);
     }
     
+    private void reloadTable() {
+        PagamentoTableModel modelo = (PagamentoTableModel) tabela_pagamento.getModel();
+        modelo.reload(listaPedido);
+        tabela_pagamento.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tabela_pagamento.setModel(modelo);
+    }
 }

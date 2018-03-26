@@ -76,8 +76,10 @@ public class PedidoItemTableModel extends AbstractTableModel {
                 switch (coluna) {
                     case 2:
                         p.setValor(FormatUtils.parseBigDecimal((String) valor));
+                        break;
                     case 5:
                         p.setObservacao((String) valor);
+                        break;
                 }   
             } catch (ParseException ex) {
                 Logger.getLogger(PedidoItemTableModel.class.getName()).log(Level.SEVERE, null, ex);
@@ -90,6 +92,7 @@ public class PedidoItemTableModel extends AbstractTableModel {
 	public boolean isCellEditable(int linha, int coluna) {
             switch (coluna) {
             case 2:
+                return true;
             case 5:
                 return true;
             default:

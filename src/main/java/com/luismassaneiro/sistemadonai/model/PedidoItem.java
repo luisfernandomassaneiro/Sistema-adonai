@@ -41,7 +41,7 @@ public class PedidoItem implements BusinessEntity{
     private BigDecimal valor;
     
     @Column(name="PIT_DATA", nullable=false)
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCompra = new Date();
     
     @Column(name="PIT_OBSERVACAO")

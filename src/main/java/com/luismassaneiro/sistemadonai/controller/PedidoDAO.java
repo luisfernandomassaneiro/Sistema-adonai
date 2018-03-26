@@ -5,6 +5,7 @@
  */
 package com.luismassaneiro.sistemadonai.controller;
 
+import com.luismassaneiro.sistemadonai.enums.TipoSituacaoProduto;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.model.Pedido;
 import com.luismassaneiro.sistemadonai.model.PedidoItem;
@@ -34,7 +35,17 @@ public class PedidoDAO extends GenericDAO<Pedido>{
             hql.append(" where cli.id = :clienteID ");
             parameters.put("clienteID", clienteID);
             hql.append(" order by pit.dataCompra ");
-            return find(hql.toString(), parameters);
+            Pedido pedido = find(hql.toString(), parameters); 
+            if(pedido != null && CollectionUtils.isNotEmpty(pedido.getItens())) {
+                List<PedidoItem> itemPagoRemover = new ArrayList<>();
+                for (PedidoItem umItem : pedido.getItens()) {
+                    if(TipoSituacaoProduto.PAGO.equals(umItem.getTipoSituacaoProduto())) {
+                        itemPagoRemover.add(umItem);
+                    }
+                }
+                pedido.getItens().removeAll(itemPagoRemover);
+            }
+            return pedido;
         } catch (Exception e) {
             String erro = TrataExcecao.trataMensagemErro(e, PedidoDAO.class);
             throw new ValidateException(erro);
