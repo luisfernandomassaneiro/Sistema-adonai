@@ -9,6 +9,7 @@ package com.luismassaneiro.sistemadonai.view.desktop;
 import com.luismassaneiro.sistemadonai.controller.DAOFactory;
 import com.luismassaneiro.sistemadonai.view.cadastro.ClienteBrowser;
 import com.luismassaneiro.sistemadonai.view.cadastro.ProdutoBrowser;
+import com.luismassaneiro.sistemadonai.view.consultas.Inadimplencia;
 import com.luismassaneiro.sistemadonai.view.consultas.ProdutosBaixaEstoque;
 import com.luismassaneiro.sistemadonai.view.help.About;
 import com.luismassaneiro.sistemadonai.view.operacoes.Pagamento;
@@ -100,7 +101,7 @@ public class MenuWindow extends javax.swing.JFrame {
         editMenu.setText("Consultas");
 
         produtoFaltaMenuItem.setMnemonic('t');
-        produtoFaltaMenuItem.setText("Produtos em falta");
+        produtoFaltaMenuItem.setText("Inadimplências");
         produtoFaltaMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 produtoFaltaMenuItemActionPerformed(evt);
@@ -203,7 +204,7 @@ public class MenuWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_operacoesPedidoActionPerformed
 
     private void produtoFaltaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtoFaltaMenuItemActionPerformed
-        GerenciadorJanelas.getInstance().abrirJanela(new ProdutosBaixaEstoque()).setVisible(true);
+        GerenciadorJanelas.getInstance().abrirJanela(new Inadimplencia()).setVisible(true);
     }//GEN-LAST:event_produtoFaltaMenuItemActionPerformed
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
