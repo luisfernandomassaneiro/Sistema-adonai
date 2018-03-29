@@ -229,7 +229,7 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
                 linhasArquivo.add(linha);
             }
             ExportadorTabelas exportador = (ExportadorTabelas) GerenciadorJanelas.getInstance().abrirJanela(new ExportadorTabelas());
-            exportador.adicionaListaLinhasArquivo(linhasArquivo, "inadimplencia");
+            exportador.adicionaListaLinhasArquivo(linhasArquivo, "Inadimplências - "+FormatUtils.formatDateError(new Date()));
             exportador.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Não há registros para serem exportados!", "Atenção!", JOptionPane.WARNING_MESSAGE);

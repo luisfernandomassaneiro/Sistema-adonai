@@ -63,7 +63,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="vendasMenuItem">
               <Properties>
                 <Property name="mnemonic" type="int" value="121"/>
-                <Property name="text" type="java.lang.String" value="Vendas"/>
+                <Property name="text" type="java.lang.String" value="Detalhada"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="vendasMenuItemActionPerformed"/>

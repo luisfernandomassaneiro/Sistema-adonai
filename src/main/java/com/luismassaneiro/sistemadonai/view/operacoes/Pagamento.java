@@ -120,6 +120,7 @@ public class Pagamento extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Nome");
 
+        botao_realizarPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/money-24.png"))); // NOI18N
         botao_realizarPagamento.setText("Realizar pagamento");
         botao_realizarPagamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

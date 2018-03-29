@@ -456,7 +456,6 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                 carregaPedido();
             }
         }
-       
     }
 
     public void carregaPedido(){
