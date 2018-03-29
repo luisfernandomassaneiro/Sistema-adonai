@@ -30,7 +30,7 @@ public class Pedido implements BusinessEntity{
     @Column(name="PED_ID")
     private Long id;
     
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name="PIT_PEDID", nullable=false)
     private List<PedidoItem> itens;
     

@@ -11,12 +11,10 @@ import com.luismassaneiro.sistemadonai.model.Pedido;
 import com.luismassaneiro.sistemadonai.model.PedidoItem;
 import com.luismassaneiro.sistemadonai.utils.TrataExcecao;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
 
 /**
  *
@@ -29,9 +27,9 @@ public class PedidoDAO extends GenericDAO<Pedido>{
             Map<String, Object> parameters = new HashMap<>();
             StringBuilder hql = new StringBuilder();
             hql.append("select ped from Pedido as ped ");
-            hql.append(" inner join ped.itens pit ");
-            hql.append(" inner join pit.produto pro ");
-            hql.append(" inner join ped.cliente cli ");
+            hql.append(" inner join fetch ped.itens pit ");
+            hql.append(" inner join fetch pit.produto pro ");
+            hql.append(" inner join fetch ped.cliente cli ");
             hql.append(" where cli.id = :clienteID ");
             parameters.put("clienteID", clienteID);
             hql.append(" order by pit.dataCompra ");
