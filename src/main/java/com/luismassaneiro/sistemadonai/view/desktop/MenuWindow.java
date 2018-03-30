@@ -59,7 +59,7 @@ public class MenuWindow extends javax.swing.JFrame {
         aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Controle de estoque");
+        setTitle("Sistema Adonai");
 
         desktopPane.setAutoscrolls(true);
 
