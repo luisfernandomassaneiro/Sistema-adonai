@@ -4,7 +4,7 @@
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
     <Property name="defaultCloseOperation" type="int" value="1"/>
-    <Property name="title" type="java.lang.String" value="About"/>
+    <Property name="title" type="java.lang.String" value="Sobre"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -64,12 +64,12 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="O software Atalaia foi desenvolvido com intuito &#xfa;nico de ser um sistema de controle de estoque, sem nenhum envolvimento fiscal."/>
+        <Property name="text" type="java.lang.String" value="O sistema Adonai foi desenvolvido com intuito &#xfa;nico de ser um sistema de controle de pedidos, sem nenhum envolvimento fiscal."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Copyright &#xa9; 2016 - Luis Fernando Massaneiro. Todos os direitos reservados"/>
+        <Property name="text" type="java.lang.String" value="Copyright &#xa9; 2018 - Luis Fernando Massaneiro. Todos os direitos reservados"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
@@ -79,12 +79,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Contato: atalaiasoftware@gmail.com"/>
+        <Property name="text" type="java.lang.String" value="Contato: luis.f.massaneiro@gmail.com"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Vers&#xe3;o atual: 1.2"/>
+        <Property name="text" type="java.lang.String" value="Vers&#xe3;o atual: 1.0"/>
       </Properties>
     </Component>
   </SubComponents>

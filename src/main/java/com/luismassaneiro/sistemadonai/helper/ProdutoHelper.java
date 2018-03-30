@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.luismassaneiro.sistemadonai.helper;
 
 import com.luismassaneiro.sistemadonai.controller.DAOFactory;
@@ -14,13 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 
-/**
- *
- * @author Nando
- */
 public class ProdutoHelper {
     private static ProdutoHelper instance;
-    private static final ProdutoDAO produtoDAO = DAOFactory.criaProdutoDAO();
+    private final ProdutoDAO produtoDAO = DAOFactory.criaProdutoDAO();
     
     public static ProdutoHelper getInstance() {
         if(instance == null) {

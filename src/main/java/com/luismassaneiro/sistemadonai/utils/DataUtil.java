@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.luismassaneiro.sistemadonai.utils;
 
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- *
- * @author Nando
- */
 public class DataUtil {
      
     public static final Date zeraHora(Date data) {
@@ -43,6 +34,4 @@ public class DataUtil {
         dataHoraZerada.set(Calendar.SECOND, 0);
         return dataHoraZerada;
     }
-     
-     
 }

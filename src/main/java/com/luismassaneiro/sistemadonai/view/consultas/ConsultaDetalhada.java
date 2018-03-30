@@ -8,19 +8,18 @@ package com.luismassaneiro.sistemadonai.view.consultas;
 import com.luismassaneiro.sistemadonai.controller.ClienteDAO;
 import com.luismassaneiro.sistemadonai.controller.DAOFactory;
 import com.luismassaneiro.sistemadonai.controller.PedidoItemDAO;
-import com.luismassaneiro.sistemadonai.dto.InadimplenciaDTO;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.model.Cliente;
 import com.luismassaneiro.sistemadonai.model.PedidoItem;
 import com.luismassaneiro.sistemadonai.utils.DataUtil;
 import com.luismassaneiro.sistemadonai.utils.FormatUtils;
+import com.luismassaneiro.sistemadonai.utils.TrataExcecao;
 import com.luismassaneiro.sistemadonai.view.Selecionador;
 import com.luismassaneiro.sistemadonai.view.cadastro.ClienteBrowser;
 import com.luismassaneiro.sistemadonai.view.desktop.GerenciadorJanelas;
 import com.luismassaneiro.sistemadonai.view.exportador.ExportadorTabelas;
 import com.luismassaneiro.sistemadonai.view.operacoes.PedidoForm;
 import com.luismassaneiro.sistemadonai.view.tablemodel.ConsultaDetalhadaTableModel;
-import com.luismassaneiro.sistemadonai.view.tablemodel.InadimplenciaTableModel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -191,8 +190,7 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel4)
-                                .addGap(36, 36, 36))
+                                .addComponent(jLabel4))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(texto_codigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -200,8 +198,8 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(botao_pesquisarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(combo_situacaoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)))
+                                .addComponent(combo_situacaoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(texto_DataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
@@ -229,10 +227,12 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                 .addComponent(botao_Pesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -243,8 +243,7 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(texto_DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(texto_DataInicial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -362,7 +361,8 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                 }
             } catch (ValidateException ex) {
                 Logger.getLogger(ConsultaDetalhada.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+                String mensagem = TrataExcecao.trataMensagemErro(ex, ConsultaDetalhada.class);
+                JOptionPane.showMessageDialog(this, mensagem, "Erro!", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, informe um cliente antes de pesquisar", "Erro!", JOptionPane.ERROR_MESSAGE);
@@ -371,6 +371,7 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
 
     private void limpar() {
         listaDetalhada = new ArrayList<>();
+        clienteLookup = null;
         reloadTable();
         texto_codigoCliente.setText("");
         texto_nomeCliente.setText("");
@@ -408,7 +409,8 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                 }
             } catch (ValidateException ex) {
                 Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+                String mensagem = TrataExcecao.trataMensagemErro(ex, ConsultaDetalhada.class);
+                JOptionPane.showMessageDialog(this, mensagem, "Erro!", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

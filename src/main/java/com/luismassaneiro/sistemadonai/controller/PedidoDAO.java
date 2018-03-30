@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.luismassaneiro.sistemadonai.controller;
 
 import com.luismassaneiro.sistemadonai.enums.TipoSituacaoProduto;
@@ -16,10 +11,6 @@ import java.util.List;
 import java.util.Map;
 import org.apache.commons.collections.CollectionUtils;
 
-/**
- *
- * @author Redes
- */
 public class PedidoDAO extends GenericDAO<Pedido>{
 
     public Pedido recuperaPedidoDoCliente(Long clienteID) throws ValidateException {

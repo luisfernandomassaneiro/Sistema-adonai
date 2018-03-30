@@ -9,10 +9,12 @@ import com.luismassaneiro.sistemadonai.controller.DAOFactory;
 import com.luismassaneiro.sistemadonai.controller.ProdutoDAO;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.model.Produto;
+import com.luismassaneiro.sistemadonai.utils.TrataExcecao;
 import com.luismassaneiro.sistemadonai.view.tablemodel.ProdutoTableModel;
 import com.luismassaneiro.sistemadonai.view.Selecionador;
 import com.luismassaneiro.sistemadonai.view.Selecionavel;
 import com.luismassaneiro.sistemadonai.view.desktop.GerenciadorJanelas;
+import com.luismassaneiro.sistemadonai.view.operacoes.PedidoForm;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -311,7 +313,8 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
             defineRenderers();
         } catch (ValidateException ex) {
             Logger.getLogger(ProdutoBrowser.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+            String mensagem = TrataExcecao.trataMensagemErro(ex, PedidoForm.class);
+            JOptionPane.showMessageDialog(this, mensagem, "Erro ao pesquisar!", JOptionPane.ERROR_MESSAGE);
         }
     }
  

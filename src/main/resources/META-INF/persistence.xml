@@ -8,7 +8,7 @@
     <class>com.luismassaneiro.sistemadonai.model.PedidoItem</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:file:C:/banco/adonai"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:file:C:/SistemaAdonai/BancoDeDados/adonai"/>
       <property name="javax.persistence.jdbc.user" value="SA"/>
       <property name="javax.persistence.jdbc.password" value=""/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>

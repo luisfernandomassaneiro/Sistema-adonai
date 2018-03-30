@@ -1,12 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.luismassaneiro.sistemadonai.utils;
 
-import com.luismassaneiro.sistemadonai.controller.GenericDAO;
-import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -14,12 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
-/**
- *
- * @author luis.massaneiro
- */
 public class TrataExcecao {
 
     public static String trataMensagemErro(Exception e, Class classe) {
@@ -34,19 +22,17 @@ public class TrataExcecao {
             erro.append(String.format("\n\t%s", traceElements[1].toString()));
             erro.append(String.format("\n\t%s", traceElements[2].toString()));
             erro.append(String.format("\n\t%s", traceElements[3].toString()));
-            File destino = new File("c:/temp/sistema/erros");
+            File destino = new File("C:/SistemaAdonai/Sistema/Logs");
             if (!destino.exists()) {
                 destino.mkdirs();
             }
             StringBuilder dataErro = new StringBuilder();
-            dataErro.append("ErroGeneric").append(FormatUtils.formatDateError(new Date()));
+            dataErro.append("ErroGeneric - ").append(FormatUtils.formatDateError(new Date()));
             dataErro.append(".txt");
             File arqProduto = new File(destino, dataErro.toString());
             PrintWriter pw = new PrintWriter(arqProduto,  "UTF-8");
             pw.println(erro.toString());
             pw.close();
-            e.printStackTrace();
-            //EmailUtils.getInstance().enviarEmail("Erro na classe " + classe.toString(), erro.toString());
             return erro.toString();
         } catch (FileNotFoundException | UnsupportedEncodingException ex) {
             Logger.getLogger(TrataExcecao.class.getName()).log(Level.SEVERE, null, ex);

@@ -11,8 +11,8 @@ import com.luismassaneiro.sistemadonai.enums.TipoSituacaoProduto;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.model.PedidoItem;
 import com.luismassaneiro.sistemadonai.utils.DataUtil;
+import com.luismassaneiro.sistemadonai.utils.TrataExcecao;
 import com.luismassaneiro.sistemadonai.view.tablemodel.PagamentoTableModel;
-import com.luismassaneiro.sistemadonai.view.tablemodel.PedidoItemTableModel;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -226,7 +226,8 @@ public class Pagamento extends javax.swing.JInternalFrame {
                         dao.atualizar(pedidoItem);
                     } catch (ValidateException ex) {
                         Logger.getLogger(Pagamento.class.getName()).log(Level.SEVERE, null, ex);
-                        JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+                        String mensagem = TrataExcecao.trataMensagemErro(ex, Pagamento.class);
+                        JOptionPane.showMessageDialog(this, mensagem, "Erro!", JOptionPane.ERROR_MESSAGE);
                     }
                 }
                 JOptionPane.showMessageDialog(this, "Pagamento realizado com sucesso!");
@@ -271,7 +272,8 @@ public class Pagamento extends javax.swing.JInternalFrame {
             }
         } catch (ValidateException ex) {
             Logger.getLogger(Pagamento.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+            String mensagem = TrataExcecao.trataMensagemErro(ex, Pagamento.class);
+            JOptionPane.showMessageDialog(this, mensagem, "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }
 

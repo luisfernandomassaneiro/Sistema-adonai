@@ -11,7 +11,6 @@ import com.luismassaneiro.sistemadonai.view.cadastro.ClienteBrowser;
 import com.luismassaneiro.sistemadonai.view.cadastro.ProdutoBrowser;
 import com.luismassaneiro.sistemadonai.view.consultas.ConsultaDetalhada;
 import com.luismassaneiro.sistemadonai.view.consultas.Inadimplencia;
-import com.luismassaneiro.sistemadonai.view.consultas.ProdutosBaixaEstoque;
 import com.luismassaneiro.sistemadonai.view.help.About;
 import com.luismassaneiro.sistemadonai.view.operacoes.Pagamento;
 import com.luismassaneiro.sistemadonai.view.operacoes.PedidoForm;
@@ -67,7 +66,6 @@ public class MenuWindow extends javax.swing.JFrame {
         cadastroMenu.setMnemonic('c');
         cadastroMenu.setText("Cadastro");
 
-        clienteMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.CTRL_MASK));
         clienteMenuItem.setMnemonic('c');
         clienteMenuItem.setText("Cliente");
         clienteMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -77,7 +75,6 @@ public class MenuWindow extends javax.swing.JFrame {
         });
         cadastroMenu.add(clienteMenuItem);
 
-        produtoMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, java.awt.event.InputEvent.CTRL_MASK));
         produtoMenuItem.setMnemonic('c');
         produtoMenuItem.setText("Produto");
         produtoMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -145,10 +142,10 @@ public class MenuWindow extends javax.swing.JFrame {
         menuBar.add(operacaoMenu);
 
         helpMenu.setMnemonic('h');
-        helpMenu.setText("Help");
+        helpMenu.setText("Ajuda");
 
         aboutMenuItem.setMnemonic('a');
-        aboutMenuItem.setText("About");
+        aboutMenuItem.setText("Sobre");
         aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aboutMenuItemActionPerformed(evt);

@@ -6,7 +6,7 @@ public enum TipoSituacaoProduto {
 
     @Override
     public String toString() {
-        return super.toString();
+        return getLabel();
     }
    
     private String label;

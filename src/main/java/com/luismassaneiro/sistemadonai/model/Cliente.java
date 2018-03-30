@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.luismassaneiro.sistemadonai.model;
 
 import java.util.Date;
@@ -13,10 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
-/**
- *
- * @author matheus_peressoni
- */
 @Entity
 @Table(name="TB_CLIENTE")
 public class Cliente extends Base implements BusinessEntity{

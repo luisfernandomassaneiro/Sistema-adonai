@@ -21,7 +21,7 @@ import org.apache.commons.lang.StringUtils;
  */
 public class ClienteHelper {
     private static ClienteHelper instance;
-    private static final ClienteDAO clienteDAO = DAOFactory.criaClienteDAO();
+    private final ClienteDAO clienteDAO = DAOFactory.criaClienteDAO();
     
     public static ClienteHelper getInstance() {
         if(instance == null) {

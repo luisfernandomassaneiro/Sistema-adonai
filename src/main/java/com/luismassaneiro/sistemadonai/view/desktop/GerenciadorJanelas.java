@@ -5,13 +5,7 @@ import java.util.Map;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 
-/**
- *
- * @author Aluno
- */
 public final class GerenciadorJanelas {
-
-    private final static String PACOTE_JANELAS = "com.luismassaneiro.controleestoque.view.desktop";
 
     private static GerenciadorJanelas INSTANCE;
     int contadorJanelas = 0;

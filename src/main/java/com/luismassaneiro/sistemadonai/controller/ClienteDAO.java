@@ -3,8 +3,6 @@ package com.luismassaneiro.sistemadonai.controller;
 import com.luismassaneiro.sistemadonai.dto.InadimplenciaDTO;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.model.Cliente;
-import com.luismassaneiro.sistemadonai.model.PedidoItem;
-import com.luismassaneiro.sistemadonai.utils.DataUtil;
 import com.luismassaneiro.sistemadonai.utils.TrataExcecao;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -59,8 +57,8 @@ public class ClienteDAO extends GenericDAO<Cliente> {
             StringBuilder hql = new StringBuilder();
             
             hql.append("select c from Cliente as c ");
-            hql.append(" where ");
-            hql.append(" c.codigo = :codigo ");
+            hql.append(" where c.ativo = 1 ");
+            hql.append(" and c.codigo = :codigo ");
             parameters.put("codigo", codigo);
             return find(hql.toString(), parameters);
         } catch (Exception e) {

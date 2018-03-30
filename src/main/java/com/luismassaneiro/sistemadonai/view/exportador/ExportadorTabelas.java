@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.luismassaneiro.sistemadonai.view.exportador;
 
 import java.io.File;
@@ -17,10 +12,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.apache.commons.lang.StringUtils;
 
-/**
- *
- * @author Nando
- */
 public class ExportadorTabelas extends javax.swing.JInternalFrame {
 
     private List<String> linhasArquivo = new ArrayList<>();

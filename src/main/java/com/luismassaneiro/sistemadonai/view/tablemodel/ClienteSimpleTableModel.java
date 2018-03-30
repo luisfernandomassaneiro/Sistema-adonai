@@ -28,7 +28,7 @@ public class ClienteSimpleTableModel extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {
-		return 3;
+		return clientes.size();
 	}
 
 	@Override

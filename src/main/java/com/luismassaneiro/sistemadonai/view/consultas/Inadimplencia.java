@@ -11,6 +11,7 @@ import com.luismassaneiro.sistemadonai.dto.InadimplenciaDTO;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.utils.DataUtil;
 import com.luismassaneiro.sistemadonai.utils.FormatUtils;
+import com.luismassaneiro.sistemadonai.utils.TrataExcecao;
 import com.luismassaneiro.sistemadonai.view.desktop.GerenciadorJanelas;
 import com.luismassaneiro.sistemadonai.view.exportador.ExportadorTabelas;
 import com.luismassaneiro.sistemadonai.view.tablemodel.InadimplenciaTableModel;
@@ -270,7 +271,8 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
             }
         } catch (ValidateException ex) {
             Logger.getLogger(Inadimplencia.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro!", JOptionPane.ERROR_MESSAGE);
+            String mensagem = TrataExcecao.trataMensagemErro(ex, Inadimplencia.class);
+            JOptionPane.showMessageDialog(this, mensagem, "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }
 
