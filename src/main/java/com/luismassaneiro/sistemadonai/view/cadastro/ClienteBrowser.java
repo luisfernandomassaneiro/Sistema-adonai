@@ -15,6 +15,7 @@ import com.luismassaneiro.sistemadonai.view.desktop.GerenciadorJanelas;
 import com.luismassaneiro.sistemadonai.view.tablemodel.ClienteSimpleTableModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +31,8 @@ public class ClienteBrowser extends javax.swing.JInternalFrame implements Seleci
     private ClienteForm form;
     private final ClienteDAO dao = DAOFactory.criaClienteDAO();
     private Selecionador<Object> formSelecionador;
+    private ClienteSimpleTableModel modelo = new ClienteSimpleTableModel();
+    private List<Cliente> listaCliente = new ArrayList<>();
     
     public ClienteBrowser() {
         initComponents();
@@ -57,6 +60,7 @@ public class ClienteBrowser extends javax.swing.JInternalFrame implements Seleci
         texto_codigo = new javax.swing.JTextField();
         botao_Retornar = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
+        botao_limpar = new javax.swing.JButton();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -137,6 +141,9 @@ public class ClienteBrowser extends javax.swing.JInternalFrame implements Seleci
         jLabel2.setText("Código");
 
         texto_codigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                texto_codigoKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 texto_codigoKeyReleased(evt);
             }
@@ -147,6 +154,14 @@ public class ClienteBrowser extends javax.swing.JInternalFrame implements Seleci
         botao_Retornar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botao_RetornarActionPerformed(evt);
+            }
+        });
+
+        botao_limpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/eraser-32.png"))); // NOI18N
+        botao_limpar.setText("Limpar");
+        botao_limpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_limparActionPerformed(evt);
             }
         });
 
@@ -176,10 +191,12 @@ public class ClienteBrowser extends javax.swing.JInternalFrame implements Seleci
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(botao_Novo)
-                                .addGap(18, 18, 18)
-                                .addComponent(botao_Alterar))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botao_Alterar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botao_limpar))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(botao_Retornar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -208,12 +225,13 @@ public class ClienteBrowser extends javax.swing.JInternalFrame implements Seleci
                     .addComponent(flagAtivo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGap(16, 16, 16)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botao_Novo)
-                    .addComponent(botao_Alterar))
+                    .addComponent(botao_Novo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botao_Alterar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botao_limpar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -277,12 +295,23 @@ public class ClienteBrowser extends javax.swing.JInternalFrame implements Seleci
         }
     }//GEN-LAST:event_botao_RetornarActionPerformed
 
+    private void botao_limparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_limparActionPerformed
+        limpar();
+    }//GEN-LAST:event_botao_limparActionPerformed
+
+    private void texto_codigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_codigoKeyPressed
+        if(evt.getKeyCode() == 10) {
+            pesquisar();
+        }
+    }//GEN-LAST:event_texto_codigoKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao_Alterar;
     private javax.swing.JButton botao_Novo;
     private javax.swing.JButton botao_Pesquisar;
     private javax.swing.JButton botao_Retornar;
+    private javax.swing.JButton botao_limpar;
     private javax.swing.JCheckBox flagAtivo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -296,15 +325,9 @@ public class ClienteBrowser extends javax.swing.JInternalFrame implements Seleci
 
     private void pesquisar() {
         try {
-            String nome = texto_nome.getText();
-            ClienteSimpleTableModel modelo = new ClienteSimpleTableModel();
             boolean somenteAtivo = flagAtivo.isSelected();
-            List<Cliente> listaCliente;
             listaCliente = dao.recuperaClientesComFiltros(texto_codigo.getText(), texto_nome.getText(), somenteAtivo);
-            modelo.reload(listaCliente);
-            tabela_cliente.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            tabela_cliente.setModel(modelo);
-            
+            reloadTable();
         } catch (Exception ex) {
             Logger.getLogger(ProdutoBrowser.class.getName()).log(Level.SEVERE, null, ex);
             String mensagem = TrataExcecao.trataMensagemErro(ex, ClienteBrowser.class);
@@ -312,9 +335,17 @@ public class ClienteBrowser extends javax.swing.JInternalFrame implements Seleci
         }
     }
  
+    private void reloadTable() {
+        modelo = new ClienteSimpleTableModel();
+        modelo.reload(listaCliente);
+        tabela_cliente.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tabela_cliente.setModel(modelo);
+    }
+    
     private void openForm(Cliente cliente) {
         if (form == null)
             form = new ClienteForm();
+        
         form.setModel(cliente);
         GerenciadorJanelas.getInstance().abrirJanela(form).setVisible(true);
     }
@@ -344,6 +375,13 @@ public class ClienteBrowser extends javax.swing.JInternalFrame implements Seleci
 
     public void setFormSelecionador(Selecionador<Object> formSelecionador) {
         this.formSelecionador = formSelecionador;
+    }
+
+    private void limpar() {
+        listaCliente = new ArrayList<>();
+        reloadTable();
+        texto_codigo.setText("");
+        texto_nome.setText("");
     }
     
 }

@@ -93,7 +93,10 @@ public final class FormatUtils {
 
     public static final Date parseDate(String value) throws ParseException {
         if (value != null) {
-            return formatDates.parse(value);
+            String valueAux = value.replace("/", "").trim();
+            if(StringUtils.isNotBlank(valueAux))
+                return formatDates.parse(value);
+            
         }
         return null;
     }

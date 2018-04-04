@@ -10,7 +10,6 @@ import com.luismassaneiro.sistemadonai.controller.DAOFactory;
 import com.luismassaneiro.sistemadonai.enums.MensagemFixas;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.model.Cliente;
-import com.luismassaneiro.sistemadonai.model.Produto;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.lang.StringUtils;
@@ -49,8 +48,8 @@ public class ClienteHelper {
         
     }
     
-    public void validaDuplicidade(Produto produto) throws ValidateException {
-        if(!clienteDAO.codigoClienteDisponivel(produto.getCodigo())) {
+    public void validaDuplicidade(Cliente cliente) throws ValidateException {
+        if(!clienteDAO.codigoClienteDisponivel(cliente.getCodigo(), cliente.getId())) {
             throw new ValidateException("Código de cliente informado já existe!", MensagemFixas.CAMPO_EXISTENTE);
         }
     }

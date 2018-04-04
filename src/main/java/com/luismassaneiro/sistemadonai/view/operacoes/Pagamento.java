@@ -34,6 +34,7 @@ public class Pagamento extends javax.swing.JInternalFrame {
     
     public Pagamento() {
         initComponents();
+        limpar();
     }
 
     /**
@@ -136,7 +137,6 @@ public class Pagamento extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator1)
                     .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,11 +144,11 @@ public class Pagamento extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(texto_nome)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
+                                .addGap(0, 287, Short.MAX_VALUE))
+                            .addComponent(texto_nome))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(texto_DataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -166,6 +166,7 @@ public class Pagamento extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(botao_limpar)))))
                 .addContainerGap())
+            .addComponent(jSeparator1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,7 +175,7 @@ public class Pagamento extends javax.swing.JInternalFrame {
                 .addComponent(botao_Pesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,6 +223,7 @@ public class Pagamento extends javax.swing.JInternalFrame {
             if(resp == JOptionPane.YES_OPTION) {
                 for (PedidoItem pedidoItem : listaPedido) {
                     pedidoItem.setTipoSituacaoProduto(TipoSituacaoProduto.PAGO);
+                    pedidoItem.setDataPagamento(new Date());
                     try {
                         dao.atualizar(pedidoItem);
                     } catch (ValidateException ex) {
@@ -265,10 +267,8 @@ public class Pagamento extends javax.swing.JInternalFrame {
             if(dataInicial != null && dataFinal != null && DataUtil.compareTo(dataInicial, dataFinal) >= 0) {
                 JOptionPane.showMessageDialog(this, "Data inicial maior que data final", "Erro!", JOptionPane.ERROR_MESSAGE);
             } else {
-                modelo = new PagamentoTableModel();
                 listaPedido = dao.recuperaPedidosParaPagamento(texto_codigo.getText(),texto_nome.getText(), DataUtil.zeraHora(dataInicial), DataUtil.zeraHora(dataFinal));
-                modelo.reload(listaPedido);
-                tabela_pagamento.setModel(modelo);
+                reloadTable();
             }
         } catch (ValidateException ex) {
             Logger.getLogger(Pagamento.class.getName()).log(Level.SEVERE, null, ex);
@@ -287,7 +287,7 @@ public class Pagamento extends javax.swing.JInternalFrame {
     }
     
     private void reloadTable() {
-        PagamentoTableModel modelo = (PagamentoTableModel) tabela_pagamento.getModel();
+        modelo = new PagamentoTableModel();
         modelo.reload(listaPedido);
         tabela_pagamento.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tabela_pagamento.setModel(modelo);

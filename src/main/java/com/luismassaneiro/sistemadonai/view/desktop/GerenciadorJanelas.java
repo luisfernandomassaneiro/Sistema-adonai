@@ -1,5 +1,6 @@
 package com.luismassaneiro.sistemadonai.view.desktop;
 
+import com.luismassaneiro.sistemadonai.view.help.About;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JDesktopPane;
@@ -33,7 +34,7 @@ public final class GerenciadorJanelas {
                 janela = janelasAtivas.get(janela.getClass().toString());
             }
             if(janela != null) {
-                //janela.setVisible(true);
+                alteraTamanhoPara80PorcentoDoDesktop(janela);
                 centraliza(janela);
                 janela.moveToFront();
             }
@@ -48,6 +49,15 @@ public final class GerenciadorJanelas {
         int lIFrame = janela.getWidth();  
         int aIFrame = janela.getHeight();  
         janela.setLocation(lDesk / 2 - lIFrame / 2, aDesk / 2 - aIFrame / 2);
+    }
+
+    private void alteraTamanhoPara80PorcentoDoDesktop(JInternalFrame janela) {
+        if(!janela.getClass().equals(About.class)) {
+            Double largura = desktop.getWidth() * 0.8;
+            Double altura = desktop.getHeight() * 0.8;
+            janela.setSize(largura.intValue(), altura.intValue());
+            janela.setPreferredSize(janela.getSize());
+        }
     }
     
 }

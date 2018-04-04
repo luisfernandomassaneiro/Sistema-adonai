@@ -67,14 +67,18 @@ public class ClienteDAO extends GenericDAO<Cliente> {
         } 
     }
     
-     public boolean codigoClienteDisponivel(String codigo) throws ValidateException {
+     public boolean codigoClienteDisponivel(String codigo, Long clienteID) throws ValidateException {
         try {
             Map<String, Object> parameters = new HashMap<>();
             StringBuilder hql = new StringBuilder();
             hql.append("select count(c.id) from Cliente as c ");
             hql.append(" where ");
-            hql.append(" c.codigo = :c ");
+            hql.append(" c.codigo = :codigo ");
             parameters.put("codigo", codigo);
+            if(clienteID != null) {
+                hql.append(" and c.id <> :clienteID ");
+                parameters.put("clienteID", clienteID);
+            }
             Long count = find(hql.toString(), parameters);
             return count == 0;
         } catch (Exception e) {
