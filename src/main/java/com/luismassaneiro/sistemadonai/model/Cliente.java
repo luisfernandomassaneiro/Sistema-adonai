@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import org.apache.commons.lang.StringUtils;
 
 @Entity
 @Table(name="TB_CLIENTE")
@@ -85,7 +86,7 @@ public class Cliente extends Base implements BusinessEntity{
     }
 
     public String getTelefoneResidencial() {
-        return telefoneResidencial;
+        return removeMascaraTelefone(telefoneResidencial);
     }
 
     public void setTelefoneResidencial(String telefoneResidencial) {
@@ -93,7 +94,7 @@ public class Cliente extends Base implements BusinessEntity{
     }
 
     public String getTelefoneCelular() {
-        return telefoneCelular;
+        return removeMascaraTelefone(telefoneCelular);
     }
 
     public void setTelefoneCelular(String telefoneCelular) {
@@ -164,4 +165,14 @@ public class Cliente extends Base implements BusinessEntity{
         this.documento = documento;
     }
 
+    private String removeMascaraTelefone(String telefone) {
+        if(StringUtils.isNotBlank(telefone)) {
+            String aux = telefone.replace("(", "").replace(")", "").replace("-", "").trim();
+            if(StringUtils.isNotBlank(aux))
+                return telefone;
+        
+        }
+        return "";
+            
+    }
 }

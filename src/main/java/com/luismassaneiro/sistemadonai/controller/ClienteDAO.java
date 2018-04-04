@@ -30,13 +30,13 @@ public class ClienteDAO extends GenericDAO<Cliente> {
             if(StringUtils.isNotEmpty(codigo) || StringUtils.isNotEmpty(nome) || somenteAtivo) {
                 hql.append(" where ");
                 if(StringUtils.isNotEmpty(codigo)) {
-                    hql.append(" c.codigo like :codigo ");
-                    parameters.put("codigo", codigo.concat("%"));
+                    hql.append(" c.codigo = :codigo ");
+                    parameters.put("codigo", codigo);
                     hql.append(StringUtils.isNotEmpty(nome) || somenteAtivo ? " and " : "");
                 }
                 if(StringUtils.isNotEmpty(nome)) {
                     hql.append(" c.nome like :nome ");
-                    parameters.put("nome", nome);
+                    parameters.put("nome", nome.concat("%"));
                     hql.append(somenteAtivo ? " and " : "");
                 }
                 if(somenteAtivo) {
