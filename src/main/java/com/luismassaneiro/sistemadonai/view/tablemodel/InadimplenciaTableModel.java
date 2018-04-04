@@ -30,7 +30,7 @@ public class InadimplenciaTableModel extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {
-		return 3;
+		return colNomes.length;
 	}
 
 	@Override

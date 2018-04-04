@@ -39,7 +39,7 @@ public class ProdutoLookupTableModel extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {
-		return 4;
+		return colNomes.length;
 	}
 
 	@Override
