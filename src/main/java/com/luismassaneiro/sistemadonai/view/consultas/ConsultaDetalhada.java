@@ -20,6 +20,7 @@ import com.luismassaneiro.sistemadonai.view.desktop.GerenciadorJanelas;
 import com.luismassaneiro.sistemadonai.view.exportador.ExportadorTabelas;
 import com.luismassaneiro.sistemadonai.view.operacoes.PedidoForm;
 import com.luismassaneiro.sistemadonai.view.tablemodel.ConsultaDetalhadaTableModel;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +45,7 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
     
     public ConsultaDetalhada() {
         initComponents();
+        limpar();
     }
 
     /**
@@ -63,8 +65,6 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
         scrollPane = new javax.swing.JScrollPane();
         tabela_detalhada = new javax.swing.JTable();
         botao_Pesquisar = new javax.swing.JButton();
-        texto_DataInicial = new com.toedter.calendar.JDateChooser();
-        texto_DataFinal = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         botao_exportar = new javax.swing.JButton();
@@ -73,6 +73,8 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
         botao_pesquisarCliente = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         combo_situacaoPagamento = new javax.swing.JComboBox<>();
+        texto_DataInicial = new javax.swing.JFormattedTextField();
+        texto_DataFinal = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -176,6 +178,20 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
             }
         });
 
+        try {
+            texto_DataInicial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        texto_DataInicial.setToolTipText("");
+
+        try {
+            texto_DataFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        texto_DataFinal.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -201,15 +217,14 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                                 .addComponent(combo_situacaoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(texto_DataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel2)
+                            .addComponent(texto_DataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(40, 40, 40)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(texto_DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 761, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(texto_DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30))
+                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,8 +242,13 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                 .addComponent(botao_Pesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(42, 42, 42))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
@@ -239,16 +259,12 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                                 .addComponent(texto_codigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(texto_nomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(botao_pesquisarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(combo_situacaoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(texto_DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(texto_DataInicial, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(combo_situacaoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(texto_DataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(texto_DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -340,8 +356,8 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JScrollPane scrollPane;
     public javax.swing.JTable tabela_detalhada;
-    private com.toedter.calendar.JDateChooser texto_DataFinal;
-    private com.toedter.calendar.JDateChooser texto_DataInicial;
+    private javax.swing.JFormattedTextField texto_DataFinal;
+    private javax.swing.JFormattedTextField texto_DataInicial;
     private javax.swing.JTextField texto_codigoCliente;
     private javax.swing.JTextField texto_nomeCliente;
     // End of variables declaration//GEN-END:variables
@@ -349,17 +365,15 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
     private void pesquisar() {
         if(clienteLookup != null && clienteLookup.getId() != null) {
             try {
-                Date dataInicial = texto_DataInicial.getDate();
-                Date dataFinal = texto_DataFinal.getDate();
+                Date dataInicial = FormatUtils.parseDate(texto_DataInicial.getText());
+                Date dataFinal = FormatUtils.parseDate(texto_DataFinal.getText());
                 if(dataInicial != null && dataFinal != null && DataUtil.compareTo(dataInicial, dataFinal) >= 0) {
                     JOptionPane.showMessageDialog(this, "Data inicial maior que data final", "Erro!", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    modelo = new ConsultaDetalhadaTableModel();
                     listaDetalhada = pedidoItemDAO.recuperaConsultaDetalhada(clienteLookup.getId(), DataUtil.zeraHora(dataInicial), DataUtil.zeraHora(dataFinal), (String) combo_situacaoPagamento.getSelectedItem());
-                    modelo.reload(listaDetalhada);
-                    tabela_detalhada.setModel(modelo);
+                    reloadTable();
                 }
-            } catch (ValidateException ex) {
+            } catch (ParseException | ValidateException ex) {
                 Logger.getLogger(ConsultaDetalhada.class.getName()).log(Level.SEVERE, null, ex);
                 String mensagem = TrataExcecao.trataMensagemErro(ex, ConsultaDetalhada.class);
                 JOptionPane.showMessageDialog(this, mensagem, "Erro!", JOptionPane.ERROR_MESSAGE);
@@ -375,12 +389,12 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
         reloadTable();
         texto_codigoCliente.setText("");
         texto_nomeCliente.setText("");
-        texto_DataFinal.setDate(null);
-        texto_DataInicial.setDate(null);
+        texto_DataFinal.setText("");
+        texto_DataInicial.setText("");
     }
     
     private void reloadTable() {
-        ConsultaDetalhadaTableModel modelo = (ConsultaDetalhadaTableModel) tabela_detalhada.getModel();
+        modelo = new ConsultaDetalhadaTableModel();
         modelo.reload(listaDetalhada);
         tabela_detalhada.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tabela_detalhada.setModel(modelo);
