@@ -57,7 +57,6 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jCalendar1 = new com.toedter.calendar.JCalendar();
         botao_limpar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -347,7 +346,6 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
     private javax.swing.JButton botao_limpar;
     private javax.swing.JButton botao_pesquisarCliente;
     private javax.swing.JComboBox<String> combo_situacaoPagamento;
-    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

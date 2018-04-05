@@ -49,8 +49,6 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jCalendar1 = new com.toedter.calendar.JCalendar();
-        jProgressBar1 = new javax.swing.JProgressBar();
         botao_limpar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -278,12 +276,10 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
     private javax.swing.JButton botao_Pesquisar;
     private javax.swing.JButton botao_exportar;
     private javax.swing.JButton botao_limpar;
-    private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JScrollPane scrollPane;
