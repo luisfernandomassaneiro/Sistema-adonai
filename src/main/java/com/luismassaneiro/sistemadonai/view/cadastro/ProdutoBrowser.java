@@ -43,7 +43,6 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
     
     public ProdutoBrowser() {
         initComponents();
-        limpar();
     }
 
     /**
@@ -325,7 +324,7 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
             String descricao = texto_Descricao.getText();
             listaProduto = dao.recuperaProdutoComFiltros(codigo, descricao.concat("%"), flagAtivo.isSelected());
             reloadTable();
-            defineRenderers();
+            //defineRenderers();
         } catch (ValidateException ex) {
             Logger.getLogger(ProdutoBrowser.class.getName()).log(Level.SEVERE, null, ex);
             String mensagem = TrataExcecao.trataMensagemErro(ex, PedidoForm.class);
@@ -393,7 +392,7 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
         this.formSelecionador = formSelecionador;
     }
 
-    private void limpar() {
+    public void limpar() {
         listaProduto = new ArrayList<>();
         reloadTable();
         texto_Codigo.setText("");

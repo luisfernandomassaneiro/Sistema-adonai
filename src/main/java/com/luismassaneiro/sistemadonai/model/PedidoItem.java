@@ -59,6 +59,9 @@ public class PedidoItem implements BusinessEntity{
     @JoinColumn(name="PIT_PEDID",insertable = false, updatable = false)
     private Pedido pedido;
     
+    @Column(name="PIT_VALORTOTAL", nullable=false)
+    private BigDecimal valorTotal;
+    
     @Override
     public Long getId() {
         return id;
@@ -135,6 +138,14 @@ public class PedidoItem implements BusinessEntity{
 
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
+    }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
 }

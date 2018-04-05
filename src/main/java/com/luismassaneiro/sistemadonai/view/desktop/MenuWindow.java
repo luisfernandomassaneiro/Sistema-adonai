@@ -179,30 +179,41 @@ public class MenuWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
     private void clienteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clienteMenuItemActionPerformed
-        GerenciadorJanelas.getInstance().abrirJanela(new ClienteBrowser()).setVisible(true);
+        ClienteBrowser clienteBrowser = (ClienteBrowser) GerenciadorJanelas.getInstance().abrirJanela(new ClienteBrowser());
+        clienteBrowser.limpar();
+        clienteBrowser.showWindow(null);
+        clienteBrowser.setVisible(true);
     }//GEN-LAST:event_clienteMenuItemActionPerformed
 
     private void produtoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtoMenuItemActionPerformed
         ProdutoBrowser produto = (ProdutoBrowser) GerenciadorJanelas.getInstance().abrirJanela(new ProdutoBrowser());
+        produto.limpar();
         produto.showWindow(null);
         produto.setVisible(true);
     }//GEN-LAST:event_produtoMenuItemActionPerformed
 
     private void vendasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vendasMenuItemActionPerformed
-        GerenciadorJanelas.getInstance().abrirJanela(new ConsultaDetalhada()).setVisible(true);
+        ConsultaDetalhada consultaDetalhada = (ConsultaDetalhada) GerenciadorJanelas.getInstance().abrirJanela(new ConsultaDetalhada());
+        consultaDetalhada.limpar();
+        consultaDetalhada.setVisible(true);
     }//GEN-LAST:event_vendasMenuItemActionPerformed
 
     private void operacoesPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_operacoesPagamentoActionPerformed
-        GerenciadorJanelas.getInstance().abrirJanela(new Pagamento()).setVisible(true);
+        Pagamento pagamento = (Pagamento) GerenciadorJanelas.getInstance().abrirJanela(new Pagamento());
+        pagamento.limpar();
+        pagamento.setVisible(true);
     }//GEN-LAST:event_operacoesPagamentoActionPerformed
 
     private void operacoesPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_operacoesPedidoActionPerformed
-        //GerenciadorJanelas.getInstance().abrirJanela(new PedidoForm()).setVisible(true);
-        GerenciadorJanelas.getInstance().abrirJanela(new PedidoForm()).setVisible(true);
+        PedidoForm pedidoForm = (PedidoForm) GerenciadorJanelas.getInstance().abrirJanela(new PedidoForm());
+        pedidoForm.limpar();
+        pedidoForm.setVisible(true);
     }//GEN-LAST:event_operacoesPedidoActionPerformed
 
     private void produtoFaltaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtoFaltaMenuItemActionPerformed
-        GerenciadorJanelas.getInstance().abrirJanela(new Inadimplencia()).setVisible(true);
+        Inadimplencia inadimplencia = (Inadimplencia) GerenciadorJanelas.getInstance().abrirJanela(new Inadimplencia());
+        inadimplencia.limpar();
+        inadimplencia.setVisible(true);
     }//GEN-LAST:event_produtoFaltaMenuItemActionPerformed
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed

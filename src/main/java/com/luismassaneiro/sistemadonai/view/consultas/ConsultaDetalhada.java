@@ -367,7 +367,7 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
             try {
                 Date dataInicial = FormatUtils.parseDate(texto_DataInicial.getText());
                 Date dataFinal = FormatUtils.parseDate(texto_DataFinal.getText());
-                if(dataInicial != null && dataFinal != null && DataUtil.compareTo(dataInicial, dataFinal) >= 0) {
+                if(dataInicial != null && dataFinal != null && DataUtil.compareTo(dataInicial, dataFinal) > 0) {
                     JOptionPane.showMessageDialog(this, "Data inicial maior que data final", "Erro!", JOptionPane.ERROR_MESSAGE);
                 } else {
                     listaDetalhada = pedidoItemDAO.recuperaConsultaDetalhada(clienteLookup.getId(), DataUtil.zeraHora(dataInicial), DataUtil.zeraHora(dataFinal), (String) combo_situacaoPagamento.getSelectedItem());
@@ -383,7 +383,7 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
         }
     }
 
-    private void limpar() {
+    public void limpar() {
         listaDetalhada = new ArrayList<>();
         clienteLookup = null;
         reloadTable();

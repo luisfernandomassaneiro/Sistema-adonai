@@ -15,6 +15,7 @@ import com.luismassaneiro.sistemadonai.utils.TrataExcecao;
 import com.luismassaneiro.sistemadonai.view.desktop.GerenciadorJanelas;
 import com.luismassaneiro.sistemadonai.view.exportador.ExportadorTabelas;
 import com.luismassaneiro.sistemadonai.view.tablemodel.InadimplenciaTableModel;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,6 +37,7 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
     
     public Inadimplencia() {
         initComponents();
+        limpar();
     }
 
     /**
@@ -48,21 +50,22 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jCalendar1 = new com.toedter.calendar.JCalendar();
+        jProgressBar1 = new javax.swing.JProgressBar();
         botao_limpar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         scrollPane = new javax.swing.JScrollPane();
-        tabela_pagamento = new javax.swing.JTable();
+        tabela_inadimplencia = new javax.swing.JTable();
         botao_Pesquisar = new javax.swing.JButton();
-        texto_DataInicial = new com.toedter.calendar.JDateChooser();
-        texto_DataFinal = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
         texto_codigo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         texto_nome = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         botao_exportar = new javax.swing.JButton();
+        texto_DataInicial = new javax.swing.JFormattedTextField();
+        texto_DataFinal = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -100,7 +103,7 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Data inicial");
 
-        tabela_pagamento.setModel(new javax.swing.table.DefaultTableModel(
+        tabela_inadimplencia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -108,7 +111,7 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
 
             }
         ));
-        scrollPane.setViewportView(tabela_pagamento);
+        scrollPane.setViewportView(tabela_inadimplencia);
 
         botao_Pesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/search26.png"))); // NOI18N
         botao_Pesquisar.setText("Pesquisar");
@@ -120,7 +123,19 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Codigo");
 
+        texto_codigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                texto_codigoKeyPressed(evt);
+            }
+        });
+
         jLabel4.setText("Nome");
+
+        texto_nome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                texto_nomeKeyPressed(evt);
+            }
+        });
 
         botao_exportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/export-24.png"))); // NOI18N
         botao_exportar.setText("Exportar");
@@ -129,6 +144,20 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
                 botao_exportarActionPerformed(evt);
             }
         });
+
+        try {
+            texto_DataInicial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        texto_DataInicial.setToolTipText("");
+
+        try {
+            texto_DataFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        texto_DataFinal.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -139,34 +168,32 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator1)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+                    .addComponent(scrollPane)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(texto_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel3)
+                            .addComponent(texto_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(texto_nome)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
+                            .addComponent(texto_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+                            .addComponent(jLabel4))
+                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(texto_DataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(texto_DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel2)))
+                            .addComponent(jLabel2)
+                            .addComponent(texto_DataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(texto_DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(147, 147, 147))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(botao_Pesquisar)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(botao_exportar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(botao_limpar)))))
+                                .addComponent(botao_limpar))
+                            .addComponent(botao_Pesquisar))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -177,24 +204,21 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel3))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(texto_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(texto_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(texto_DataFinal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(texto_DataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel3))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(texto_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(texto_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(texto_DataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(texto_DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -237,6 +261,18 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_botao_exportarActionPerformed
 
+    private void texto_codigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_codigoKeyPressed
+        if(evt.getKeyCode() == 10) {
+            pesquisar();
+        }
+    }//GEN-LAST:event_texto_codigoKeyPressed
+
+    private void texto_nomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_nomeKeyPressed
+        if(evt.getKeyCode() == 10) {
+            pesquisar();
+        }
+    }//GEN-LAST:event_texto_nomeKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao_Pesquisar;
@@ -247,48 +283,47 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JScrollPane scrollPane;
-    public javax.swing.JTable tabela_pagamento;
-    private com.toedter.calendar.JDateChooser texto_DataFinal;
-    private com.toedter.calendar.JDateChooser texto_DataInicial;
+    public javax.swing.JTable tabela_inadimplencia;
+    private javax.swing.JFormattedTextField texto_DataFinal;
+    private javax.swing.JFormattedTextField texto_DataInicial;
     private javax.swing.JTextField texto_codigo;
     private javax.swing.JTextField texto_nome;
     // End of variables declaration//GEN-END:variables
 
     private void pesquisar() {
         try {
-            Date dataInicial = texto_DataInicial.getDate();
-            Date dataFinal = texto_DataFinal.getDate();
-            if(dataInicial != null && dataFinal != null && DataUtil.compareTo(dataInicial, dataFinal) >= 0) {
+            Date dataInicial = FormatUtils.parseDate(texto_DataInicial.getText());
+            Date dataFinal = FormatUtils.parseDate(texto_DataFinal.getText());
+            if(dataInicial != null && dataFinal != null && DataUtil.compareTo(dataInicial, dataFinal) > 0) {
                 JOptionPane.showMessageDialog(this, "Data inicial maior que data final", "Erro!", JOptionPane.ERROR_MESSAGE);
             } else {
-                modelo = new InadimplenciaTableModel();
                 listaInadimplentes = dao.recuperaInadimplentes(texto_codigo.getText(),texto_nome.getText(), DataUtil.zeraHora(dataInicial), DataUtil.zeraHora(dataFinal));
-                modelo.reload(listaInadimplentes);
-                tabela_pagamento.setModel(modelo);
+                reloadTable();
             }
-        } catch (ValidateException ex) {
+        } catch (ParseException | ValidateException ex) {
             Logger.getLogger(Inadimplencia.class.getName()).log(Level.SEVERE, null, ex);
             String mensagem = TrataExcecao.trataMensagemErro(ex, Inadimplencia.class);
             JOptionPane.showMessageDialog(this, mensagem, "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void limpar() {
+    public void limpar() {
         listaInadimplentes = new ArrayList<>();
         reloadTable();
         texto_codigo.setText("");
         texto_nome.setText("");
-        texto_DataFinal.setDate(null);
-        texto_DataInicial.setDate(null);
+        texto_DataInicial.setText("");
+        texto_DataFinal.setText("");
     }
     
     private void reloadTable() {
-        InadimplenciaTableModel modelo = (InadimplenciaTableModel) tabela_pagamento.getModel();
+        modelo = new InadimplenciaTableModel();
         modelo.reload(listaInadimplentes);
-        tabela_pagamento.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tabela_pagamento.setModel(modelo);
+        tabela_inadimplencia.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tabela_inadimplencia.setModel(modelo);
     }
 }

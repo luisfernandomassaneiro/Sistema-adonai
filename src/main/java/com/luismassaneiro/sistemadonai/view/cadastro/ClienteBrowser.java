@@ -36,7 +36,6 @@ public class ClienteBrowser extends javax.swing.JInternalFrame implements Seleci
     
     public ClienteBrowser() {
         initComponents();
-        limpar();
     }
 
     /**
@@ -395,11 +394,10 @@ public class ClienteBrowser extends javax.swing.JInternalFrame implements Seleci
         this.formSelecionador = formSelecionador;
     }
 
-    private void limpar() {
+    public void limpar() {
         listaCliente = new ArrayList<>();
         reloadTable();
         texto_codigo.setText("");
         texto_nome.setText("");
     }
-    
 }

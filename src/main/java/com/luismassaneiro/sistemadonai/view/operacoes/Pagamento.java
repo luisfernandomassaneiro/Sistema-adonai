@@ -11,8 +11,10 @@ import com.luismassaneiro.sistemadonai.enums.TipoSituacaoProduto;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.model.PedidoItem;
 import com.luismassaneiro.sistemadonai.utils.DataUtil;
+import com.luismassaneiro.sistemadonai.utils.FormatUtils;
 import com.luismassaneiro.sistemadonai.utils.TrataExcecao;
 import com.luismassaneiro.sistemadonai.view.tablemodel.PagamentoTableModel;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -54,14 +56,14 @@ public class Pagamento extends javax.swing.JInternalFrame {
         scrollPane = new javax.swing.JScrollPane();
         tabela_pagamento = new javax.swing.JTable();
         botao_Pesquisar = new javax.swing.JButton();
-        texto_DataInicial = new com.toedter.calendar.JDateChooser();
-        texto_DataFinal = new com.toedter.calendar.JDateChooser();
         jLabel3 = new javax.swing.JLabel();
         texto_codigo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         texto_nome = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         botao_realizarPagamento = new javax.swing.JButton();
+        texto_DataFinal = new javax.swing.JFormattedTextField();
+        texto_DataInicial = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -119,7 +121,19 @@ public class Pagamento extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Codigo");
 
+        texto_codigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                texto_codigoKeyPressed(evt);
+            }
+        });
+
         jLabel4.setText("Nome");
+
+        texto_nome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                texto_nomeKeyPressed(evt);
+            }
+        });
 
         botao_realizarPagamento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/money-24.png"))); // NOI18N
         botao_realizarPagamento.setText("Realizar pagamento");
@@ -128,6 +142,20 @@ public class Pagamento extends javax.swing.JInternalFrame {
                 botao_realizarPagamentoActionPerformed(evt);
             }
         });
+
+        try {
+            texto_DataFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        texto_DataFinal.setToolTipText("");
+
+        try {
+            texto_DataInicial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        texto_DataInicial.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -140,31 +168,29 @@ public class Pagamento extends javax.swing.JInternalFrame {
                     .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(texto_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(texto_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(0, 287, Short.MAX_VALUE))
-                            .addComponent(texto_nome))
+                            .addComponent(texto_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(texto_DataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(texto_DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel2)))
+                            .addComponent(texto_DataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(texto_DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(51, 51, 51))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(botao_Pesquisar)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(botao_realizarPagamento)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(botao_limpar)))))
+                                .addComponent(botao_limpar))
+                            .addComponent(botao_Pesquisar))))
                 .addContainerGap())
             .addComponent(jSeparator1)
         );
@@ -176,31 +202,28 @@ public class Pagamento extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel3))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(texto_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(texto_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(texto_DataFinal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel3))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(texto_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(texto_nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(texto_DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(texto_DataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botao_limpar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botao_realizarPagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -240,6 +263,18 @@ public class Pagamento extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_botao_realizarPagamentoActionPerformed
 
+    private void texto_codigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_codigoKeyPressed
+        if(evt.getKeyCode() == 10) {
+            pesquisar();
+        }
+    }//GEN-LAST:event_texto_codigoKeyPressed
+
+    private void texto_nomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_nomeKeyPressed
+        if(evt.getKeyCode() == 10) {
+            pesquisar();
+        }
+    }//GEN-LAST:event_texto_nomeKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao_Pesquisar;
@@ -254,36 +289,36 @@ public class Pagamento extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JScrollPane scrollPane;
     public javax.swing.JTable tabela_pagamento;
-    private com.toedter.calendar.JDateChooser texto_DataFinal;
-    private com.toedter.calendar.JDateChooser texto_DataInicial;
+    private javax.swing.JFormattedTextField texto_DataFinal;
+    private javax.swing.JFormattedTextField texto_DataInicial;
     private javax.swing.JTextField texto_codigo;
     private javax.swing.JTextField texto_nome;
     // End of variables declaration//GEN-END:variables
 
     private void pesquisar() {
         try {
-            Date dataInicial = texto_DataInicial.getDate();
-            Date dataFinal = texto_DataFinal.getDate();
-            if(dataInicial != null && dataFinal != null && DataUtil.compareTo(dataInicial, dataFinal) >= 0) {
+            Date dataInicial = FormatUtils.parseDate(texto_DataInicial.getText());
+            Date dataFinal = FormatUtils.parseDate(texto_DataFinal.getText());
+            if(dataInicial != null && dataFinal != null && DataUtil.compareTo(dataInicial, dataFinal) > 0) {
                 JOptionPane.showMessageDialog(this, "Data inicial maior que data final", "Erro!", JOptionPane.ERROR_MESSAGE);
             } else {
                 listaPedido = dao.recuperaPedidosParaPagamento(texto_codigo.getText(),texto_nome.getText(), DataUtil.zeraHora(dataInicial), DataUtil.zeraHora(dataFinal));
                 reloadTable();
             }
-        } catch (ValidateException ex) {
+        } catch (ParseException | ValidateException ex) {
             Logger.getLogger(Pagamento.class.getName()).log(Level.SEVERE, null, ex);
             String mensagem = TrataExcecao.trataMensagemErro(ex, Pagamento.class);
             JOptionPane.showMessageDialog(this, mensagem, "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void limpar() {
+    public void limpar() {
         listaPedido = new ArrayList<>();
         reloadTable();
         texto_codigo.setText("");
         texto_nome.setText("");
-        texto_DataFinal.setDate(null);
-        texto_DataInicial.setDate(null);
+        texto_DataInicial.setText("");
+        texto_DataFinal.setText("");
     }
     
     private void reloadTable() {
