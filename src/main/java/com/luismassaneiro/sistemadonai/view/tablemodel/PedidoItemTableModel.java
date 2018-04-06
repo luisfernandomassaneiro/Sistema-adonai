@@ -1,5 +1,6 @@
 package com.luismassaneiro.sistemadonai.view.tablemodel;
 
+import com.luismassaneiro.sistemadonai.enums.TipoSituacaoProduto;
 import com.luismassaneiro.sistemadonai.model.PedidoItem;
 import com.luismassaneiro.sistemadonai.utils.FormatUtils;
 import java.math.BigDecimal;

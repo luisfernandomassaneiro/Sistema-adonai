@@ -23,8 +23,9 @@ public class PedidoDAO extends GenericDAO<Pedido>{
             hql.append(" inner join fetch ped.cliente cli ");
             hql.append(" where cli.id = :clienteID ");
             parameters.put("clienteID", clienteID);
+            hql.append(" and pit.tipoSituacaoProduto = 'EM_ABERTO' ");
             hql.append(" order by pit.dataCompra ");
-            Pedido pedido = find(hql.toString(), parameters); 
+            /*Pedido pedido = find(hql.toString(), parameters); 
             if(pedido != null && CollectionUtils.isNotEmpty(pedido.getItens())) {
                 List<PedidoItem> itemPagoRemover = new ArrayList<>();
                 for (PedidoItem umItem : pedido.getItens()) {
@@ -33,8 +34,8 @@ public class PedidoDAO extends GenericDAO<Pedido>{
                     }
                 }
                 pedido.getItens().removeAll(itemPagoRemover);
-            }
-            return pedido;
+            }*/
+            return find(hql.toString(), parameters);
         } catch (Exception e) {
             String erro = TrataExcecao.trataMensagemErro(e, PedidoDAO.class);
             throw new ValidateException(erro);

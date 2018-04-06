@@ -36,7 +36,6 @@ public class Pagamento extends javax.swing.JInternalFrame {
     
     public Pagamento() {
         initComponents();
-        limpar();
     }
 
     /**

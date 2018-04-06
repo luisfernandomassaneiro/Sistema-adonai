@@ -39,7 +39,7 @@ public class PedidoItemDAO extends GenericDAO<PedidoItem>{
                 parameters.put("dataFinal", DataUtil.zeraHora(dataFinal));
             }
 
-            hql.append(" order by pit.dataCompra ");
+            hql.append(" order by pit.dataCompra, cli.nome ");
             List<PedidoItem> itens = list(hql.toString(), parameters);
             return itens;
         } catch (Exception e) {

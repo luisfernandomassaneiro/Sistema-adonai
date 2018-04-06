@@ -7,14 +7,14 @@ package com.luismassaneiro.sistemadonai.view.consultas;
 
 import com.luismassaneiro.sistemadonai.controller.ClienteDAO;
 import com.luismassaneiro.sistemadonai.controller.DAOFactory;
-import com.luismassaneiro.sistemadonai.dto.InadimplenciaDTO;
+import com.luismassaneiro.sistemadonai.dto.ConsultaEmAbertoDTO;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.utils.DataUtil;
 import com.luismassaneiro.sistemadonai.utils.FormatUtils;
 import com.luismassaneiro.sistemadonai.utils.TrataExcecao;
 import com.luismassaneiro.sistemadonai.view.desktop.GerenciadorJanelas;
 import com.luismassaneiro.sistemadonai.view.exportador.ExportadorTabelas;
-import com.luismassaneiro.sistemadonai.view.tablemodel.InadimplenciaTableModel;
+import com.luismassaneiro.sistemadonai.view.tablemodel.ConsultaEmAbertoTableModel;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,13 +29,13 @@ import org.apache.commons.collections.CollectionUtils;
  *
  * @author luis.massaneiro
  */
-public class Inadimplencia extends javax.swing.JInternalFrame {
+public class ConsultaEmAberto extends javax.swing.JInternalFrame {
 
     private final ClienteDAO dao = DAOFactory.criaClienteDAO();
-    private InadimplenciaTableModel modelo;
-    private List<InadimplenciaDTO> listaInadimplentes = new ArrayList<>();
+    private ConsultaEmAbertoTableModel modelo;
+    private List<ConsultaEmAbertoDTO> listaInadimplentes = new ArrayList<>();
     
-    public Inadimplencia() {
+    public ConsultaEmAberto() {
         initComponents();
         limpar();
     }
@@ -54,7 +54,7 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         scrollPane = new javax.swing.JScrollPane();
-        tabela_inadimplencia = new javax.swing.JTable();
+        tabela_emAberto = new javax.swing.JTable();
         botao_Pesquisar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         texto_codigo = new javax.swing.JTextField();
@@ -101,7 +101,7 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Data inicial");
 
-        tabela_inadimplencia.setModel(new javax.swing.table.DefaultTableModel(
+        tabela_emAberto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -109,7 +109,7 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
 
             }
         ));
-        scrollPane.setViewportView(tabela_inadimplencia);
+        scrollPane.setViewportView(tabela_emAberto);
 
         botao_Pesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/search26.png"))); // NOI18N
         botao_Pesquisar.setText("Pesquisar");
@@ -244,7 +244,7 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
         if(CollectionUtils.isNotEmpty(listaInadimplentes)) {
             List<String> linhasArquivo = new ArrayList<>();
             linhasArquivo.add("Codigo;Nome;Valor devido");
-            for(InadimplenciaDTO umInadimplente: listaInadimplentes) {
+            for(ConsultaEmAbertoDTO umInadimplente: listaInadimplentes) {
                 String linha = String.format("%s;%s;%s;",
                     umInadimplente.getCodigoCliente(),
                     umInadimplente.getNomeCliente(),
@@ -283,7 +283,7 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JScrollPane scrollPane;
-    public javax.swing.JTable tabela_inadimplencia;
+    public javax.swing.JTable tabela_emAberto;
     private javax.swing.JFormattedTextField texto_DataFinal;
     private javax.swing.JFormattedTextField texto_DataInicial;
     private javax.swing.JTextField texto_codigo;
@@ -301,8 +301,8 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
                 reloadTable();
             }
         } catch (ParseException | ValidateException ex) {
-            Logger.getLogger(Inadimplencia.class.getName()).log(Level.SEVERE, null, ex);
-            String mensagem = TrataExcecao.trataMensagemErro(ex, Inadimplencia.class);
+            Logger.getLogger(ConsultaEmAberto.class.getName()).log(Level.SEVERE, null, ex);
+            String mensagem = TrataExcecao.trataMensagemErro(ex, ConsultaEmAberto.class);
             JOptionPane.showMessageDialog(this, mensagem, "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -317,9 +317,9 @@ public class Inadimplencia extends javax.swing.JInternalFrame {
     }
     
     private void reloadTable() {
-        modelo = new InadimplenciaTableModel();
+        modelo = new ConsultaEmAbertoTableModel();
         modelo.reload(listaInadimplentes);
-        tabela_inadimplencia.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tabela_inadimplencia.setModel(modelo);
+        tabela_emAberto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tabela_emAberto.setModel(modelo);
     }
 }

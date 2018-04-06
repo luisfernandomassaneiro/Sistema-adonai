@@ -1,23 +1,22 @@
 package com.luismassaneiro.sistemadonai.view.tablemodel;
 
-import com.luismassaneiro.sistemadonai.dto.InadimplenciaDTO;
-import com.luismassaneiro.sistemadonai.model.Pedido;
+import com.luismassaneiro.sistemadonai.dto.ConsultaEmAbertoDTO;
 import com.luismassaneiro.sistemadonai.utils.FormatUtils;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-public class InadimplenciaTableModel extends AbstractTableModel {
+public class ConsultaEmAbertoTableModel extends AbstractTableModel {
 
-	private List<InadimplenciaDTO> lInadimplentes;
+	private List<ConsultaEmAbertoDTO> lInadimplentes;
 	
 	private String[] colNomes = { "Código", "Nome", "Valor devido"};
 	
 	private Class<?>[] colTipos = { String.class, String.class, String.class};
 	
-	public InadimplenciaTableModel(){}
+	public ConsultaEmAbertoTableModel(){}
 	
-	public void reload(List<InadimplenciaDTO> lInadimplentes) {
+	public void reload(List<ConsultaEmAbertoDTO> lInadimplentes) {
 		this.lInadimplentes = lInadimplentes;
 		//atualiza o componente na tela
 		fireTableDataChanged();
@@ -48,14 +47,14 @@ public class InadimplenciaTableModel extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int linha, int coluna) {
-		InadimplenciaDTO inadimplencia = lInadimplentes.get(linha);
+		ConsultaEmAbertoDTO dto = lInadimplentes.get(linha);
 		switch (coluna) {
 		case 0:
-                    return inadimplencia.getCodigoCliente();
+                    return dto.getCodigoCliente();
                 case 1:
-                    return inadimplencia.getNomeCliente();
+                    return dto.getNomeCliente();
                 case 2:
-                    return FormatUtils.formatBigDecimal(inadimplencia.getValorTotalDevido());
+                    return FormatUtils.formatBigDecimal(dto.getValorTotalDevido());
 		default:
                     return null;
 		}
@@ -66,7 +65,7 @@ public class InadimplenciaTableModel extends AbstractTableModel {
 		return false;
 	}
 	
-	public InadimplenciaDTO getPedidoAt(int index) {
+	public ConsultaEmAbertoDTO getPedidoAt(int index) {
             return lInadimplentes.get(index);
 	}
 }

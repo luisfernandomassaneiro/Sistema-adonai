@@ -1,6 +1,6 @@
 package com.luismassaneiro.sistemadonai.controller;
 
-import com.luismassaneiro.sistemadonai.dto.InadimplenciaDTO;
+import com.luismassaneiro.sistemadonai.dto.ConsultaEmAbertoDTO;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.model.Cliente;
 import com.luismassaneiro.sistemadonai.utils.TrataExcecao;
@@ -87,7 +87,7 @@ public class ClienteDAO extends GenericDAO<Cliente> {
         } 
     }
      
-     public List<InadimplenciaDTO> recuperaInadimplentes(String codigo, String nome, Date dataInicial, Date dataFinal) throws ValidateException {
+     public List<ConsultaEmAbertoDTO> recuperaInadimplentes(String codigo, String nome, Date dataInicial, Date dataFinal) throws ValidateException {
         try {
             Map<String, Integer> mapParametros = new HashMap<>();
             StringBuilder hql = new StringBuilder();
@@ -122,7 +122,7 @@ public class ClienteDAO extends GenericDAO<Cliente> {
             
             Connection conn = null;
             PreparedStatement ps = null;
-            List<InadimplenciaDTO> lInadimplentes = new ArrayList<>();
+            List<ConsultaEmAbertoDTO> lInadimplentes = new ArrayList<>();
             try {
                 conn = getConnection();
                 ps = conn.prepareStatement(hql.toString());
@@ -137,12 +137,12 @@ public class ClienteDAO extends GenericDAO<Cliente> {
                 }
                 
                 ResultSet rs = ps.executeQuery();
-                InadimplenciaDTO umInadimplente;
+                ConsultaEmAbertoDTO umInadimplente;
                 while (rs.next()) {
                     String codigoCliente = rs.getString(1);
                     String nomeCliente = rs.getString(2);
                     Double valorDevido = rs.getDouble(3);
-                    umInadimplente = new InadimplenciaDTO();
+                    umInadimplente = new ConsultaEmAbertoDTO();
                     umInadimplente.setCodigoCliente(codigoCliente);
                     umInadimplente.setNomeCliente(nomeCliente);
                     umInadimplente.setValorTotalDevido(new BigDecimal(valorDevido));

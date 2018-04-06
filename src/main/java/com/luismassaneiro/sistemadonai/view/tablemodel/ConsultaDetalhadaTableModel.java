@@ -5,14 +5,15 @@ import com.luismassaneiro.sistemadonai.utils.FormatUtils;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
+import org.apache.commons.lang.StringUtils;
 
 public class ConsultaDetalhadaTableModel extends AbstractTableModel {
 
     private List<PedidoItem> pedidoItens;
 
-    private String[] colNomes = { "Código", "Descrição", "Valor", "Quantidade", "Data da compra", "Data do pagamento", "Observação", "Situação de pagamento"};
+    private String[] colNomes = { "Data da compra", "Produto", "Quantidade", "Valor unitário", "Valor total", "Data do pagamento"};
 
-    private Class<?>[] colTipos = { String.class, String.class, String.class, Integer.class, String.class, String.class, String.class, String.class};
+    private Class<?>[] colTipos = { String.class, String.class, Integer.class, String.class, String.class, String.class};
 
     public ConsultaDetalhadaTableModel(){}
 
@@ -49,21 +50,17 @@ public class ConsultaDetalhadaTableModel extends AbstractTableModel {
         PedidoItem p = pedidoItens.get(linha);
         switch (coluna) {
         case 0:
-            return p.getProduto().getCodigo();
-        case 1:
-            return p.getProduto().getDescricao();
-        case 2:
-            return FormatUtils.formatBigDecimal(p.getValor());
-        case 3:
-            return p.getQuantidade();
-        case 4:
             return FormatUtils.formatDate(p.getDataCompra());
+        case 1:
+            return p.getProduto().getDescricao().concat(StringUtils.isNotBlank(p.getObservacao()) ? " - " + p.getObservacao() : "");
+        case 2:
+            return p.getQuantidade();
+        case 3:
+            return FormatUtils.formatBigDecimal(p.getValor());
+        case 4:
+            return FormatUtils.formatBigDecimal(p.getValorTotal());
         case 5:
             return FormatUtils.formatDate(p.getDataPagamento());
-        case 6:
-            return p.getObservacao();
-        case 7:
-            return p.getTipoSituacaoProduto().getLabel();
         default:
             return null;
         }

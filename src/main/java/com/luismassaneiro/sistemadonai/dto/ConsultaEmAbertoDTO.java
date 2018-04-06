@@ -2,7 +2,7 @@ package com.luismassaneiro.sistemadonai.dto;
 
 import java.math.BigDecimal;
 
-public class InadimplenciaDTO {
+public class ConsultaEmAbertoDTO {
     private String codigoCliente;
     private String nomeCliente;
     private BigDecimal valorTotalDevido;

@@ -8,6 +8,7 @@ package com.luismassaneiro.sistemadonai.view.consultas;
 import com.luismassaneiro.sistemadonai.controller.ClienteDAO;
 import com.luismassaneiro.sistemadonai.controller.DAOFactory;
 import com.luismassaneiro.sistemadonai.controller.PedidoItemDAO;
+import com.luismassaneiro.sistemadonai.enums.TipoSituacaoProduto;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.model.Cliente;
 import com.luismassaneiro.sistemadonai.model.PedidoItem;
@@ -20,6 +21,7 @@ import com.luismassaneiro.sistemadonai.view.desktop.GerenciadorJanelas;
 import com.luismassaneiro.sistemadonai.view.exportador.ExportadorTabelas;
 import com.luismassaneiro.sistemadonai.view.operacoes.PedidoForm;
 import com.luismassaneiro.sistemadonai.view.tablemodel.ConsultaDetalhadaTableModel;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +30,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -74,6 +86,11 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
         combo_situacaoPagamento = new javax.swing.JComboBox<>();
         texto_DataInicial = new javax.swing.JFormattedTextField();
         texto_DataFinal = new javax.swing.JFormattedTextField();
+        jLabel5 = new javax.swing.JLabel();
+        texto_totalEmAberto = new javax.swing.JTextField();
+        texto_totalPago = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        botao_gerarPDF = new javax.swing.JButton();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -171,11 +188,6 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
         jLabel4.setText("Situação de pagamento");
 
         combo_situacaoPagamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Em aberto", "Pago" }));
-        combo_situacaoPagamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                combo_situacaoPagamentoActionPerformed(evt);
-            }
-        });
 
         try {
             texto_DataInicial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -190,6 +202,22 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
             ex.printStackTrace();
         }
         texto_DataFinal.setToolTipText("");
+
+        jLabel5.setText("Total em aberto:");
+
+        texto_totalEmAberto.setEditable(false);
+
+        texto_totalPago.setEditable(false);
+
+        jLabel6.setText("Total pago:");
+
+        botao_gerarPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/pdf-red-24.png"))); // NOI18N
+        botao_gerarPDF.setText("Gerar PDF");
+        botao_gerarPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_gerarPDFActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -231,23 +259,34 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                                 .addComponent(botao_exportar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(botao_limpar))
-                            .addComponent(botao_Pesquisar, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(texto_totalEmAberto, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(texto_totalPago, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(botao_gerarPDF)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botao_Pesquisar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(botao_Pesquisar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botao_Pesquisar)
+                    .addComponent(botao_gerarPDF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(42, 42, 42))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
@@ -261,10 +300,18 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(combo_situacaoPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(texto_DataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(texto_DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                                .addComponent(texto_DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(22, 22, 22)
+                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(texto_totalEmAberto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(texto_totalPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -335,14 +382,24 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
         cliente.setVisible(true);
     }//GEN-LAST:event_botao_pesquisarClienteActionPerformed
 
-    private void combo_situacaoPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_situacaoPagamentoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_combo_situacaoPagamentoActionPerformed
+    private void botao_gerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_gerarPDFActionPerformed
+        try {
+            JasperDesign desenho = JRXmlLoader.load("C:/Users/luis.massaneiro/Documents/NetBeansProjects/Sistema-adonai/Sistema-adonai/src/main/resources/reports/consultaDetalhada.jrxml");
+            //JasperReport report = JasperCompileManager.compileReport(desenho);
+            String jasper = "C:/Users/luis.massaneiro/Documents/NetBeansProjects/Sistema-adonai/Sistema-adonai/src/main/resources/reports/consultaDetalhada.jasper";
+            JasperPrint print = JasperFillManager.fillReport(jasper, null, new JRBeanCollectionDataSource(listaDetalhada));
+            JasperExportManager.exportReportToPdfFile(print, "C:/temp/Relatorio_de_Clientes.pdf");
+            JasperPrintManager.printReport(print, iconable);
+        } catch (JRException ex) {
+            Logger.getLogger(ConsultaDetalhada.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_botao_gerarPDFActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao_Pesquisar;
     private javax.swing.JButton botao_exportar;
+    private javax.swing.JButton botao_gerarPDF;
     private javax.swing.JButton botao_limpar;
     private javax.swing.JButton botao_pesquisarCliente;
     private javax.swing.JComboBox<String> combo_situacaoPagamento;
@@ -350,6 +407,8 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JScrollPane scrollPane;
@@ -358,6 +417,8 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
     private javax.swing.JFormattedTextField texto_DataInicial;
     private javax.swing.JTextField texto_codigoCliente;
     private javax.swing.JTextField texto_nomeCliente;
+    private javax.swing.JTextField texto_totalEmAberto;
+    private javax.swing.JTextField texto_totalPago;
     // End of variables declaration//GEN-END:variables
 
     private void pesquisar() {
@@ -370,6 +431,7 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                 } else {
                     listaDetalhada = pedidoItemDAO.recuperaConsultaDetalhada(clienteLookup.getId(), DataUtil.zeraHora(dataInicial), DataUtil.zeraHora(dataFinal), (String) combo_situacaoPagamento.getSelectedItem());
                     reloadTable();
+                    atualizaTotal();
                 }
             } catch (ParseException | ValidateException ex) {
                 Logger.getLogger(ConsultaDetalhada.class.getName()).log(Level.SEVERE, null, ex);
@@ -385,10 +447,12 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
         listaDetalhada = new ArrayList<>();
         clienteLookup = null;
         reloadTable();
+        atualizaTotal();
         texto_codigoCliente.setText("");
         texto_nomeCliente.setText("");
         texto_DataFinal.setText("");
         texto_DataInicial.setText("");
+        combo_situacaoPagamento.setSelectedIndex(0);
     }
     
     private void reloadTable() {
@@ -396,7 +460,6 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
         modelo.reload(listaDetalhada);
         tabela_detalhada.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tabela_detalhada.setModel(modelo);
-        combo_situacaoPagamento.setSelectedIndex(0);
     }
     
     @Override
@@ -425,5 +488,22 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                 JOptionPane.showMessageDialog(this, mensagem, "Erro!", JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+    
+    private void atualizaTotal() {
+        BigDecimal totalEmAberto = BigDecimal.ZERO;
+        BigDecimal totalPago = BigDecimal.ZERO;
+        if(CollectionUtils.isNotEmpty(listaDetalhada)) {
+            for (PedidoItem umItem : listaDetalhada) {
+                if(TipoSituacaoProduto.EM_ABERTO.equals(umItem.getTipoSituacaoProduto()))
+                    totalEmAberto = totalEmAberto.add(umItem.getValorTotal());
+                
+                if(TipoSituacaoProduto.PAGO.equals(umItem.getTipoSituacaoProduto()))
+                    totalPago = totalPago.add(umItem.getValorTotal());
+                    
+            }
+        } 
+        texto_totalEmAberto.setText(FormatUtils.formatBigDecimal(totalEmAberto));
+        texto_totalPago.setText(FormatUtils.formatBigDecimal(totalPago));
     }
 }
