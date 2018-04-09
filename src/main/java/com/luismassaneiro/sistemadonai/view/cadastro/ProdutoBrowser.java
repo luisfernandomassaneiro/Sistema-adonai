@@ -266,7 +266,6 @@ public class ProdutoBrowser extends javax.swing.JInternalFrame implements Seleci
     }//GEN-LAST:event_flagAtivoActionPerformed
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-        pesquisar();
         if(formSelecionador != null) {
             botao_Retornar.setVisible(true);
         } else {

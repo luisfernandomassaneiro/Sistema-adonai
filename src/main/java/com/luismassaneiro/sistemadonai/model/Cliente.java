@@ -175,4 +175,8 @@ public class Cliente extends Base implements BusinessEntity{
         return "";
             
     }
+    
+    public String getCodigoNome() {
+        return codigo + " - " + nome;
+    }
 }

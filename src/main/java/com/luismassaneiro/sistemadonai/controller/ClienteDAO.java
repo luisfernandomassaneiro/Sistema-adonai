@@ -87,14 +87,14 @@ public class ClienteDAO extends GenericDAO<Cliente> {
         } 
     }
      
-     public List<ConsultaEmAbertoDTO> recuperaInadimplentes(String codigo, String nome, Date dataInicial, Date dataFinal) throws ValidateException {
+     public List<ConsultaEmAbertoDTO> recuperaClienteEmAberto(String codigo, String nome, Date dataInicial, Date dataFinal) throws ValidateException {
         try {
             Map<String, Integer> mapParametros = new HashMap<>();
             StringBuilder hql = new StringBuilder();
             hql.append("SELECT ");
             hql.append("CLI_CODIGO AS CODIGO, ");
             hql.append("CLI_NOME AS NOME, ");
-            hql.append("SUM(PIT_VALOR) AS VALOR_DEVIDO ");
+            hql.append("SUM(PIT_VALORTOTAL) AS VALOR_DEVIDO ");
             hql.append("FROM 	TB_PEDIDO ");
             hql.append("INNER JOIN TB_PEDIDO_ITEM ON PIT_PEDID = PED_ID ");
             hql.append("INNER JOIN TB_CLIENTE ON CLI_ID = PED_CLIID ");

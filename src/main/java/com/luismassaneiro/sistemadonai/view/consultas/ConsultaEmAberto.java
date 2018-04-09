@@ -9,12 +9,14 @@ import com.luismassaneiro.sistemadonai.controller.ClienteDAO;
 import com.luismassaneiro.sistemadonai.controller.DAOFactory;
 import com.luismassaneiro.sistemadonai.dto.ConsultaEmAbertoDTO;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
+import com.luismassaneiro.sistemadonai.model.PedidoItem;
 import com.luismassaneiro.sistemadonai.utils.DataUtil;
 import com.luismassaneiro.sistemadonai.utils.FormatUtils;
 import com.luismassaneiro.sistemadonai.utils.TrataExcecao;
 import com.luismassaneiro.sistemadonai.view.desktop.GerenciadorJanelas;
 import com.luismassaneiro.sistemadonai.view.exportador.ExportadorTabelas;
 import com.luismassaneiro.sistemadonai.view.tablemodel.ConsultaEmAbertoTableModel;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,11 +35,10 @@ public class ConsultaEmAberto extends javax.swing.JInternalFrame {
 
     private final ClienteDAO dao = DAOFactory.criaClienteDAO();
     private ConsultaEmAbertoTableModel modelo;
-    private List<ConsultaEmAbertoDTO> listaInadimplentes = new ArrayList<>();
+    private List<ConsultaEmAbertoDTO> listaEmAberto = new ArrayList<>();
     
     public ConsultaEmAberto() {
         initComponents();
-        limpar();
     }
 
     /**
@@ -64,13 +65,15 @@ public class ConsultaEmAberto extends javax.swing.JInternalFrame {
         botao_exportar = new javax.swing.JButton();
         texto_DataInicial = new javax.swing.JFormattedTextField();
         texto_DataFinal = new javax.swing.JFormattedTextField();
+        jLabel5 = new javax.swing.JLabel();
+        texto_total = new javax.swing.JTextField();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Inadimplência");
+        setTitle("Em aberto");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
                 formInternalFrameActivated(evt);
@@ -157,6 +160,10 @@ public class ConsultaEmAberto extends javax.swing.JInternalFrame {
         }
         texto_DataFinal.setToolTipText("");
 
+        jLabel5.setText("Total:");
+
+        texto_total.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -164,10 +171,10 @@ public class ConsultaEmAberto extends javax.swing.JInternalFrame {
             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jSeparator1)
-                    .addComponent(scrollPane)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(texto_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -184,14 +191,18 @@ public class ConsultaEmAberto extends javax.swing.JInternalFrame {
                             .addComponent(jLabel1)
                             .addComponent(texto_DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(147, 147, 147))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(botao_exportar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(botao_limpar))
-                            .addComponent(botao_Pesquisar))))
+                            .addComponent(botao_Pesquisar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(texto_total, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -201,7 +212,7 @@ public class ConsultaEmAberto extends javax.swing.JInternalFrame {
                 .addComponent(botao_Pesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
@@ -216,8 +227,12 @@ public class ConsultaEmAberto extends javax.swing.JInternalFrame {
                     .addComponent(texto_DataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(texto_DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(texto_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -241,10 +256,10 @@ public class ConsultaEmAberto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void botao_exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_exportarActionPerformed
-        if(CollectionUtils.isNotEmpty(listaInadimplentes)) {
+        if(CollectionUtils.isNotEmpty(listaEmAberto)) {
             List<String> linhasArquivo = new ArrayList<>();
             linhasArquivo.add("Codigo;Nome;Valor devido");
-            for(ConsultaEmAbertoDTO umInadimplente: listaInadimplentes) {
+            for(ConsultaEmAbertoDTO umInadimplente: listaEmAberto) {
                 String linha = String.format("%s;%s;%s;",
                     umInadimplente.getCodigoCliente(),
                     umInadimplente.getNomeCliente(),
@@ -280,6 +295,7 @@ public class ConsultaEmAberto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JScrollPane scrollPane;
@@ -288,6 +304,7 @@ public class ConsultaEmAberto extends javax.swing.JInternalFrame {
     private javax.swing.JFormattedTextField texto_DataInicial;
     private javax.swing.JTextField texto_codigo;
     private javax.swing.JTextField texto_nome;
+    private javax.swing.JTextField texto_total;
     // End of variables declaration//GEN-END:variables
 
     private void pesquisar() {
@@ -297,8 +314,9 @@ public class ConsultaEmAberto extends javax.swing.JInternalFrame {
             if(dataInicial != null && dataFinal != null && DataUtil.compareTo(dataInicial, dataFinal) > 0) {
                 JOptionPane.showMessageDialog(this, "Data inicial maior que data final", "Erro!", JOptionPane.ERROR_MESSAGE);
             } else {
-                listaInadimplentes = dao.recuperaInadimplentes(texto_codigo.getText(),texto_nome.getText(), DataUtil.zeraHora(dataInicial), DataUtil.zeraHora(dataFinal));
+                listaEmAberto = dao.recuperaClienteEmAberto(texto_codigo.getText(),texto_nome.getText(), DataUtil.zeraHora(dataInicial), DataUtil.zeraHora(dataFinal));
                 reloadTable();
+                atualizaTotal();
             }
         } catch (ParseException | ValidateException ex) {
             Logger.getLogger(ConsultaEmAberto.class.getName()).log(Level.SEVERE, null, ex);
@@ -308,8 +326,9 @@ public class ConsultaEmAberto extends javax.swing.JInternalFrame {
     }
 
     public void limpar() {
-        listaInadimplentes = new ArrayList<>();
+        listaEmAberto = new ArrayList<>();
         reloadTable();
+        atualizaTotal();
         texto_codigo.setText("");
         texto_nome.setText("");
         texto_DataInicial.setText("");
@@ -318,8 +337,18 @@ public class ConsultaEmAberto extends javax.swing.JInternalFrame {
     
     private void reloadTable() {
         modelo = new ConsultaEmAbertoTableModel();
-        modelo.reload(listaInadimplentes);
+        modelo.reload(listaEmAberto);
         tabela_emAberto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tabela_emAberto.setModel(modelo);
+    }
+    
+    private void atualizaTotal() {
+        BigDecimal total = BigDecimal.ZERO;
+        if(CollectionUtils.isNotEmpty(listaEmAberto)) {
+            for (ConsultaEmAbertoDTO umItem : listaEmAberto) {
+                total = total.add(umItem.getValorTotalDevido());
+            }
+        } 
+        texto_total.setText(FormatUtils.formatBigDecimal(total));
     }
 }

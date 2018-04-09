@@ -384,9 +384,7 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
 
     private void botao_gerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_gerarPDFActionPerformed
         try {
-            JasperDesign desenho = JRXmlLoader.load("C:/Users/luis.massaneiro/Documents/NetBeansProjects/Sistema-adonai/Sistema-adonai/src/main/resources/reports/consultaDetalhada.jrxml");
-            //JasperReport report = JasperCompileManager.compileReport(desenho);
-            String jasper = "C:/Users/luis.massaneiro/Documents/NetBeansProjects/Sistema-adonai/Sistema-adonai/src/main/resources/reports/consultaDetalhada.jasper";
+            String jasper = "./src/main/resources/reports/consultaDetalhada.jasper";
             JasperPrint print = JasperFillManager.fillReport(jasper, null, new JRBeanCollectionDataSource(listaDetalhada));
             JasperExportManager.exportReportToPdfFile(print, "C:/temp/Relatorio_de_Clientes.pdf");
             JasperPrintManager.printReport(print, iconable);
@@ -452,7 +450,7 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
         texto_nomeCliente.setText("");
         texto_DataFinal.setText("");
         texto_DataInicial.setText("");
-        combo_situacaoPagamento.setSelectedIndex(0);
+        combo_situacaoPagamento.setSelectedIndex(1);
     }
     
     private void reloadTable() {
