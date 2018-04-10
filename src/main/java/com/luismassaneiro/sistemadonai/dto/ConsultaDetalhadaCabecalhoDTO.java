@@ -1,5 +1,6 @@
 package com.luismassaneiro.sistemadonai.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ConsultaDetalhadaCabecalhoDTO {
@@ -38,5 +39,12 @@ public class ConsultaDetalhadaCabecalhoDTO {
 
     public void setSituacao(String situacao) {
         this.situacao = situacao;
+    }
+    
+    public void add(ConsultaDetalhadaDetalheDTO umDetalhe) {
+        if(detalhe == null)
+            detalhe = new ArrayList<>();
+        
+        detalhe.add(umDetalhe);
     }
 }

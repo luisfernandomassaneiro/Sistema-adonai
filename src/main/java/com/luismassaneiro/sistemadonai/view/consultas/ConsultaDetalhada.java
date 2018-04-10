@@ -8,10 +8,14 @@ package com.luismassaneiro.sistemadonai.view.consultas;
 import com.luismassaneiro.sistemadonai.controller.ClienteDAO;
 import com.luismassaneiro.sistemadonai.controller.DAOFactory;
 import com.luismassaneiro.sistemadonai.controller.PedidoItemDAO;
+import com.luismassaneiro.sistemadonai.dto.ConsultaDetalhadaCabecalhoDTO;
+import com.luismassaneiro.sistemadonai.dto.ConsultaDetalhadaDetalheDTO;
+import com.luismassaneiro.sistemadonai.enums.RelatorioDisponivel;
 import com.luismassaneiro.sistemadonai.enums.TipoSituacaoProduto;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.model.Cliente;
 import com.luismassaneiro.sistemadonai.model.PedidoItem;
+import com.luismassaneiro.sistemadonai.relatorio.GeradorRelatorio;
 import com.luismassaneiro.sistemadonai.utils.DataUtil;
 import com.luismassaneiro.sistemadonai.utils.FormatUtils;
 import com.luismassaneiro.sistemadonai.utils.TrataExcecao;
@@ -28,6 +32,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import net.sf.jasperreports.engine.JRException;
@@ -148,8 +153,8 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
 
         jLabel3.setText("Cliente");
 
-        botao_exportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/export-24.png"))); // NOI18N
-        botao_exportar.setText("Exportar");
+        botao_exportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/print-24.png"))); // NOI18N
+        botao_exportar.setText("Imprimir");
         botao_exportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botao_exportarActionPerformed(evt);
@@ -256,30 +261,27 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(botao_exportar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(botao_limpar))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(texto_totalEmAberto, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(texto_totalPago, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(botao_gerarPDF)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botao_Pesquisar)))
+                                .addComponent(texto_totalPago, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(botao_Pesquisar, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(botao_gerarPDF)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botao_exportar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botao_limpar)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botao_Pesquisar)
-                    .addComponent(botao_gerarPDF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(botao_Pesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -307,7 +309,7 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(texto_totalEmAberto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(texto_totalPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -316,7 +318,8 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(botao_limpar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botao_exportar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botao_exportar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botao_gerarPDF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -336,23 +339,13 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
 
     private void botao_exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_exportarActionPerformed
         if(CollectionUtils.isNotEmpty(listaDetalhada)) {
-            List<String> linhasArquivo = new ArrayList<>();
-            linhasArquivo.add("Codigo;Descrição;Valor;Quantidade;Data de compra;Data de pagamento;Observação;Situação de pagamento");
-            for(PedidoItem umDetalhe: listaDetalhada) {
-                String linha = String.format("%s;%s;%s;%s;%s;%s;%s;%s;",
-                    umDetalhe.getProduto().getCodigo(),
-                    umDetalhe.getProduto().getDescricao(),
-                    FormatUtils.formatBigDecimal(umDetalhe.getValor()),
-                    umDetalhe.getQuantidade().toString(),
-                    FormatUtils.formatDate(umDetalhe.getDataCompra()),
-                    FormatUtils.formatDate(umDetalhe.getDataPagamento()),
-                    umDetalhe.getObservacao(),
-                    umDetalhe.getTipoSituacaoProduto().getLabel());
-                linhasArquivo.add(linha);
+            try {
+                imprimirRelatorio();
+            } catch (JRException ex) {
+                Logger.getLogger(ConsultaDetalhada.class.getName()).log(Level.SEVERE, null, ex);
+                String mensagem = TrataExcecao.trataMensagemErro(ex, ConsultaDetalhada.class);
+                JOptionPane.showMessageDialog(this, mensagem, "Erro ao imprimir relatório!", JOptionPane.ERROR_MESSAGE);
             }
-            ExportadorTabelas exportador = (ExportadorTabelas) GerenciadorJanelas.getInstance().abrirJanela(new ExportadorTabelas());
-            exportador.adicionaListaLinhasArquivo(linhasArquivo, "Consulta Detalhada -" + clienteLookup.getNome()+ " - "+FormatUtils.formatDateError(new Date()));
-            exportador.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Não há registros para serem exportados!", "Atenção!", JOptionPane.WARNING_MESSAGE);
         }
@@ -383,13 +376,29 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
     }//GEN-LAST:event_botao_pesquisarClienteActionPerformed
 
     private void botao_gerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_gerarPDFActionPerformed
-        try {
-            String jasper = "./src/main/resources/reports/consultaDetalhada.jasper";
-            JasperPrint print = JasperFillManager.fillReport(jasper, null, new JRBeanCollectionDataSource(listaDetalhada));
-            JasperExportManager.exportReportToPdfFile(print, "C:/temp/Relatorio_de_Clientes.pdf");
-            JasperPrintManager.printReport(print, iconable);
+        if(CollectionUtils.isNotEmpty(listaDetalhada)) {
+            try {
+            JFileChooser jfc = new javax.swing.JFileChooser();  
+            jfc.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);  
+            jfc.setDialogTitle("Selecione o local do arquivo");
+            jfc.setApproveButtonText("Selecionar");
+            int res = jfc.showOpenDialog(this);
+            String caminhoSalvar = null;
+            if(res == JFileChooser.APPROVE_OPTION)
+                caminhoSalvar = jfc.getSelectedFile().getAbsolutePath();
+            
+            if(StringUtils.isNotBlank(caminhoSalvar)) {
+                gerarRelatorio(caminhoSalvar);
+            } else {
+               JOptionPane.showMessageDialog(this, "É necessário selecionar o local do arquivo!", "Atenção!", JOptionPane.WARNING_MESSAGE); 
+            }
         } catch (JRException ex) {
             Logger.getLogger(ConsultaDetalhada.class.getName()).log(Level.SEVERE, null, ex);
+            String mensagem = TrataExcecao.trataMensagemErro(ex, ConsultaDetalhada.class);
+            JOptionPane.showMessageDialog(this, mensagem, "Erro ao gerar relatório!", JOptionPane.ERROR_MESSAGE);
+        }
+        } else {
+            JOptionPane.showMessageDialog(this, "Não há registros para serem gerados!", "Atenção!", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_botao_gerarPDFActionPerformed
 
@@ -503,5 +512,37 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
         } 
         texto_totalEmAberto.setText(FormatUtils.formatBigDecimal(totalEmAberto));
         texto_totalPago.setText(FormatUtils.formatBigDecimal(totalPago));
+    }
+
+    private JasperPrint gerarRelatorio(String caminhoSalvar) throws JRException {
+        
+        List<ConsultaDetalhadaCabecalhoDTO> lista = new ArrayList<>();
+        ConsultaDetalhadaCabecalhoDTO cabecalho = null;
+        ConsultaDetalhadaDetalheDTO detalhe;
+        for (PedidoItem pedidoItem : listaDetalhada) {
+            if(cabecalho == null) {
+                cabecalho = new ConsultaDetalhadaCabecalhoDTO();
+                cabecalho.setCliente(clienteLookup.getNome());
+                cabecalho.setPeriodo("");
+                cabecalho.setSituacao((String) combo_situacaoPagamento.getSelectedItem());
+            }
+            
+            detalhe = new ConsultaDetalhadaDetalheDTO();
+            detalhe.setDataCompra(pedidoItem.getDataCompra());
+            detalhe.setDataPagamento(pedidoItem.getDataPagamento());
+            detalhe.setProduto(pedidoItem.getProduto().getDescricao());
+            detalhe.setQuantidade(pedidoItem.getQuantidade());
+            detalhe.setValorTotal(pedidoItem.getValorTotal());
+            detalhe.setValorUnitario(pedidoItem.getValor());
+            cabecalho.add(detalhe);
+        }
+        
+        lista.add(cabecalho);
+        return GeradorRelatorio.getInstance().gerarRelatorio(RelatorioDisponivel.CONSULTA_DETALHADA, lista, caminhoSalvar);
+    }
+    
+    private void imprimirRelatorio() throws JRException {
+        JasperPrint relatorio = GeradorRelatorio.getInstance().gerarRelatorio(RelatorioDisponivel.CONSULTA_DETALHADA, listaDetalhada, null);
+        GeradorRelatorio.getInstance().imprimirRelatorio(relatorio, iconable);
     }
 }
