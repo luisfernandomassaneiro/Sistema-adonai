@@ -388,7 +388,9 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                 caminhoSalvar = jfc.getSelectedFile().getAbsolutePath();
             
             if(StringUtils.isNotBlank(caminhoSalvar)) {
-                gerarRelatorio(caminhoSalvar);
+                if(gerarRelatorio(caminhoSalvar) != null) {
+                    JOptionPane.showMessageDialog(this, "Relatório gerado com sucesso!");
+                }
             } else {
                JOptionPane.showMessageDialog(this, "É necessário selecionar o local do arquivo!", "Atenção!", JOptionPane.WARNING_MESSAGE); 
             }
@@ -523,7 +525,19 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
             if(cabecalho == null) {
                 cabecalho = new ConsultaDetalhadaCabecalhoDTO();
                 cabecalho.setCliente(clienteLookup.getNome());
-                cabecalho.setPeriodo("");
+                String dataInicial = texto_DataInicial.getText().replace("/", "").trim();
+                String dataFinal = texto_DataFinal.getText().replace("/", "").trim();
+                StringBuilder periodo = new StringBuilder();
+                if(StringUtils.isNotBlank(dataInicial)) {
+                    periodo.append(texto_DataInicial.getText());
+                }
+                if(StringUtils.isNotBlank(dataFinal)) {
+                    if(StringUtils.isNotBlank(dataInicial)) {
+                        periodo.append(" até ");
+                    }
+                    periodo.append(texto_DataFinal.getText());
+                }
+                cabecalho.setPeriodo(periodo.toString());
                 cabecalho.setSituacao((String) combo_situacaoPagamento.getSelectedItem());
             }
             

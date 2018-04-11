@@ -13,7 +13,7 @@
 		<band height="20" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="0" y="0" width="100" height="20" uuid="ee012e60-f57f-44b5-8c15-b530d96499af"/>
-				<textElement verticalAlignment="Middle">
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dataCompra}]]></textFieldExpression>
@@ -24,23 +24,23 @@
 				<textFieldExpression><![CDATA[$F{produto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="281" y="0" width="56" height="20" uuid="dbaea430-e535-41bc-93a3-1c5aba36c407"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement x="281" y="0" width="40" height="20" uuid="dbaea430-e535-41bc-93a3-1c5aba36c407"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="337" y="0" width="59" height="20" uuid="1cc2da18-c1ab-425a-8103-27eb819658bb"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+			<textField pattern="#,##0.00">
+				<reportElement x="321" y="0" width="65" height="20" uuid="1cc2da18-c1ab-425a-8103-27eb819658bb"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{valorUnitario}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="396" y="0" width="59" height="20" uuid="a95ff1fc-355b-4f1c-9a38-0eefa2a595b7"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+			<textField pattern="#,##0.00">
+				<reportElement x="386" y="0" width="65" height="20" uuid="a95ff1fc-355b-4f1c-9a38-0eefa2a595b7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{valorTotal}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement x="455" y="0" width="100" height="20" uuid="8cee83db-666b-4728-ab10-58bfed5f27d7"/>
-				<textElement verticalAlignment="Middle">
+				<reportElement x="451" y="0" width="104" height="20" uuid="8cee83db-666b-4728-ab10-58bfed5f27d7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{dataPagamento}]]></textFieldExpression>
