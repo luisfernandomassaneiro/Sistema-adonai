@@ -26,6 +26,7 @@ import com.luismassaneiro.sistemadonai.view.exportador.ExportadorTabelas;
 import com.luismassaneiro.sistemadonai.view.operacoes.PedidoForm;
 import com.luismassaneiro.sistemadonai.view.tablemodel.ConsultaDetalhadaTableModel;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -96,13 +97,14 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
         texto_totalPago = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         botao_gerarPDF = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        texto_totalGeral = new javax.swing.JTextField();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         setIconifiable(true);
         setMaximizable(true);
-        setResizable(true);
-        setTitle("Consulta detalhada");
+        setTitle("Extrato de clientes");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
                 formInternalFrameActivated(evt);
@@ -224,6 +226,10 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
             }
         });
 
+        jLabel7.setText("Total geral:");
+
+        texto_totalGeral.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -274,7 +280,11 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(botao_exportar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(botao_limpar)))))
+                                .addComponent(botao_limpar))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(texto_totalGeral, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -304,16 +314,20 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                                 .addComponent(texto_DataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(texto_DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(22, 22, 22)
-                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(texto_totalEmAberto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(texto_totalPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(texto_totalGeral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -418,6 +432,7 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JScrollPane scrollPane;
@@ -427,6 +442,7 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
     private javax.swing.JTextField texto_codigoCliente;
     private javax.swing.JTextField texto_nomeCliente;
     private javax.swing.JTextField texto_totalEmAberto;
+    private javax.swing.JTextField texto_totalGeral;
     private javax.swing.JTextField texto_totalPago;
     // End of variables declaration//GEN-END:variables
 
@@ -502,6 +518,7 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
     private void atualizaTotal() {
         BigDecimal totalEmAberto = BigDecimal.ZERO;
         BigDecimal totalPago = BigDecimal.ZERO;
+        BigDecimal totalGeral = BigDecimal.ZERO;
         if(CollectionUtils.isNotEmpty(listaDetalhada)) {
             for (PedidoItem umItem : listaDetalhada) {
                 if(TipoSituacaoProduto.EM_ABERTO.equals(umItem.getTipoSituacaoProduto()))
@@ -509,18 +526,24 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                 
                 if(TipoSituacaoProduto.PAGO.equals(umItem.getTipoSituacaoProduto()))
                     totalPago = totalPago.add(umItem.getValorTotal());
-                    
+                
+                totalGeral = totalGeral.add(umItem.getValorTotal());
             }
         } 
         texto_totalEmAberto.setText(FormatUtils.formatBigDecimal(totalEmAberto));
         texto_totalPago.setText(FormatUtils.formatBigDecimal(totalPago));
+        texto_totalGeral.setText(FormatUtils.formatBigDecimal(totalGeral));
     }
 
     private JasperPrint gerarRelatorio(String caminhoSalvar) throws JRException {
-        
+        return GeradorRelatorio.getInstance().gerarRelatorio(RelatorioDisponivel.CONSULTA_DETALHADA, criaListaParaRelatorio(), caminhoSalvar);
+    }
+    
+    public List<ConsultaDetalhadaCabecalhoDTO> criaListaParaRelatorio() {
         List<ConsultaDetalhadaCabecalhoDTO> lista = new ArrayList<>();
         ConsultaDetalhadaCabecalhoDTO cabecalho = null;
         ConsultaDetalhadaDetalheDTO detalhe;
+        Integer count = 1;
         for (PedidoItem pedidoItem : listaDetalhada) {
             if(cabecalho == null) {
                 cabecalho = new ConsultaDetalhadaCabecalhoDTO();
@@ -548,15 +571,16 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
             detalhe.setQuantidade(pedidoItem.getQuantidade());
             detalhe.setValorTotal(pedidoItem.getValorTotal());
             detalhe.setValorUnitario(pedidoItem.getValor());
+            detalhe.setCount(count++);
             cabecalho.add(detalhe);
         }
         
         lista.add(cabecalho);
-        return GeradorRelatorio.getInstance().gerarRelatorio(RelatorioDisponivel.CONSULTA_DETALHADA, lista, caminhoSalvar);
+        return lista;
     }
     
     private void imprimirRelatorio() throws JRException {
-        JasperPrint relatorio = GeradorRelatorio.getInstance().gerarRelatorio(RelatorioDisponivel.CONSULTA_DETALHADA, listaDetalhada, null);
+        JasperPrint relatorio = GeradorRelatorio.getInstance().gerarRelatorio(RelatorioDisponivel.CONSULTA_DETALHADA, criaListaParaRelatorio(), null);
         GeradorRelatorio.getInstance().imprimirRelatorio(relatorio, iconable);
     }
 }

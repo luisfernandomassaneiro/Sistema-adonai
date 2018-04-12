@@ -8,7 +8,7 @@ public class ConsultaDetalhadaCabecalhoDTO {
     private String periodo;
     private String situacao;
     private List<ConsultaDetalhadaDetalheDTO> detalhe;
-
+    
     public String getCliente() {
         return cliente;
     }
@@ -47,4 +47,5 @@ public class ConsultaDetalhadaCabecalhoDTO {
         
         detalhe.add(umDetalhe);
     }
+
 }

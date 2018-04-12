@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="consultaDetalhada_detalhe" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="6233b7c6-4216-43da-8ce4-99b7bd6a8ea6">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<field name="dataCompra" class="java.util.Date"/>
@@ -9,8 +9,23 @@
 	<field name="quantidade" class="java.lang.Integer"/>
 	<field name="valorUnitario" class="java.math.BigDecimal"/>
 	<field name="valorTotal" class="java.math.BigDecimal"/>
+	<field name="count" class="java.lang.Integer"/>
+	<variable name="count" class="java.lang.Integer" resetType="Column" incrementType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{produto}]]></variableExpression>
+	</variable>
+	<variable name="total" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorTotal}]]></variableExpression>
+	</variable>
 	<detail>
 		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="20" backcolor="#CCCCCC" uuid="42a541a6-9162-40fd-abc6-1f992f456cf4">
+					<printWhenExpression><![CDATA[($F{count}.intValue() % 2) == 0 ? true : false]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="0" y="0" width="100" height="20" uuid="ee012e60-f57f-44b5-8c15-b530d96499af"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -47,4 +62,29 @@
 			</textField>
 		</band>
 	</detail>
+	<lastPageFooter>
+		<band height="20">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="20" backcolor="#999999" uuid="1993a6fd-1cb2-4adb-8e0b-3f3747f41b78"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField pattern="#,##0.00">
+				<reportElement x="386" y="0" width="65" height="20" uuid="4344bce3-c678-47ee-8c2e-5cd745f922e8"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="321" y="0" width="65" height="20" uuid="5131ef73-c035-4f57-a38f-89ec956a5265"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="f181a141-ac8f-4797-b347-cf39db00f0ff"/>
+			</line>
+		</band>
+	</lastPageFooter>
 </jasperReport>

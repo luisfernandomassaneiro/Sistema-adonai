@@ -108,7 +108,7 @@ public class MenuWindow extends javax.swing.JFrame {
         editMenu.add(produtoFaltaMenuItem);
 
         vendasMenuItem.setMnemonic('y');
-        vendasMenuItem.setText("Detalhada");
+        vendasMenuItem.setText("Extrato de clientes");
         vendasMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 vendasMenuItemActionPerformed(evt);

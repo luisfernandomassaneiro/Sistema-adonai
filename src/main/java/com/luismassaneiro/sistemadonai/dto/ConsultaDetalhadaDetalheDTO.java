@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class ConsultaDetalhadaDetalheDTO {
+    private Integer count;
     private Date dataCompra;
     private String produto;
     private Integer quantidade;
@@ -57,5 +58,13 @@ public class ConsultaDetalhadaDetalheDTO {
 
     public void setDataPagamento(Date dataPagamento) {
         this.dataPagamento = dataPagamento;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }

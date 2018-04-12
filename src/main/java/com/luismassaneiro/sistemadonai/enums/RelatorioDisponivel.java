@@ -11,7 +11,7 @@ package com.luismassaneiro.sistemadonai.enums;
  */
 public enum RelatorioDisponivel {
     CONSULTA_DETALHADA("consultaDetalhada.jasper", "Extrato de clientes"),
-    CONSULTA_EM_ABERTO("consultaEmAberto.jasper", "Consulta em aberto");
+    CONSULTA_EM_ABERTO("consultaEmAberto.jasper", "Clientes em aberto");
 
     private String nomeRelatorio;
     private String descricaoRelatorio;
