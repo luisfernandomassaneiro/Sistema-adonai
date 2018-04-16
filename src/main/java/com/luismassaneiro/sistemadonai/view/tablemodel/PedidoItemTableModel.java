@@ -1,13 +1,15 @@
 package com.luismassaneiro.sistemadonai.view.tablemodel;
 
-import com.luismassaneiro.sistemadonai.enums.TipoSituacaoProduto;
 import com.luismassaneiro.sistemadonai.model.PedidoItem;
 import com.luismassaneiro.sistemadonai.utils.FormatUtils;
+import com.luismassaneiro.sistemadonai.utils.TrataExcecao;
+import com.luismassaneiro.sistemadonai.view.operacoes.PedidoForm;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -82,12 +84,18 @@ public class PedidoItemTableModel extends AbstractTableModel {
                     p.setValor(FormatUtils.parseBigDecimal((String) valor));
                     p.setValorTotal(p.getValor().multiply(new BigDecimal(p.getQuantidade())));
                     break;
-                case 5:
+                case 3:
+                    p.setQuantidade((Integer) valor);
+                    p.setValorTotal(p.getValor().multiply(new BigDecimal(p.getQuantidade())));
+                    break;
+                case 6:
                     p.setObservacao((String) valor);
                     break;
             }   
         } catch (ParseException ex) {
             Logger.getLogger(PedidoItemTableModel.class.getName()).log(Level.SEVERE, null, ex);
+            String mensagem = TrataExcecao.trataMensagemErro(ex, PedidoItemTableModel.class);
+            JOptionPane.showMessageDialog(null, mensagem, "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }
         
@@ -96,7 +104,9 @@ public class PedidoItemTableModel extends AbstractTableModel {
         switch (coluna) {
         case 2:
             return true;
-        case 5:
+        case 3:
+            return true;
+        case 6:
             return true;
         default:
             return false;

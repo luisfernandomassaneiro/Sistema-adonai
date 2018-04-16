@@ -170,6 +170,11 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
 
         texto_quantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
         texto_quantidade.setText("1");
+        texto_quantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                texto_quantidadeKeyPressed(evt);
+            }
+        });
 
         jLabel13.setText("Observação");
 
@@ -398,6 +403,12 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         
     }//GEN-LAST:event_formInternalFrameActivated
 
+    private void texto_quantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_quantidadeKeyPressed
+        if(evt.getKeyCode() == 10) {
+           adicionaProduto();
+        }
+    }//GEN-LAST:event_texto_quantidadeKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao_ExcluirItem;
@@ -497,8 +508,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         if(obj != null) {
             if(obj instanceof Produto) {
                 produtoLookup = (Produto) obj;
-                texto_codigoProduto.setText(produtoLookup.getCodigo());
-                texto_descricaoProduto.setText(produtoLookup.getDescricao());
+                carregaInformacoesProduto();
             } else if(obj instanceof Cliente) {
                 clienteLookup = (Cliente) obj;
                 texto_codigoCliente.setText(clienteLookup.getCodigo());
@@ -508,6 +518,15 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         }
     }
 
+    public void carregaInformacoesProduto() {
+        if(produtoLookup != null) {
+            texto_codigoProduto.setText(produtoLookup.getCodigo());
+                texto_descricaoProduto.setText(produtoLookup.getDescricao());
+                texto_valor.setText(FormatUtils.formatBigDecimal(produtoLookup.getValor()));
+                texto_quantidade.grabFocus();
+        }
+    }
+    
     public void carregaPedido(){
         if(clienteLookup != null && clienteLookup.getId() != null) {
             try {
@@ -560,6 +579,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                 if(produtoLookup != null) {
                     texto_descricaoProduto.setText(produtoLookup.getDescricao());
                     texto_valor.setText(FormatUtils.formatBigDecimal(produtoLookup.getValor()));
+                    texto_quantidade.grabFocus();
                 } else {
                     JOptionPane.showMessageDialog(null, "Produto não encontrado!", "Erro!", JOptionPane.ERROR_MESSAGE);
                 }
