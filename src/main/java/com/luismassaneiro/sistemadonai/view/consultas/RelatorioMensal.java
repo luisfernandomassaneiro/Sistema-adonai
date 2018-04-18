@@ -24,6 +24,7 @@ import com.luismassaneiro.sistemadonai.view.cadastro.ClienteBrowser;
 import com.luismassaneiro.sistemadonai.view.desktop.GerenciadorJanelas;
 import com.luismassaneiro.sistemadonai.view.operacoes.PedidoForm;
 import com.luismassaneiro.sistemadonai.view.tablemodel.ConsultaDetalhadaTableModel;
+import com.luismassaneiro.sistemadonai.view.tablemodel.RelatorioMensalTableModel;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -43,17 +44,16 @@ import org.apache.commons.lang.StringUtils;
  *
  * @author luis.massaneiro
  */
-public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Selecionador<Object> {
+public class RelatorioMensal extends javax.swing.JInternalFrame implements Selecionador<Object> {
 
     private final ClienteDAO clienteDAO = DAOFactory.criaClienteDAO();
     private final PedidoItemDAO pedidoItemDAO = DAOFactory.criaPedidoItemDAO();
-    private ConsultaDetalhadaTableModel modelo;
-    private List<PedidoItem> listaDetalhada = new ArrayList<>();
+    private RelatorioMensalTableModel modelo;
+    private List<ConsultaDetalhadaCabecalhoDTO> lista = new ArrayList<>();
     private Cliente clienteLookup;
     
-    public ConsultaDetalhada() {
+    public RelatorioMensal() {
         initComponents();
-        limpar();
     }
 
     /**
@@ -71,7 +71,6 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
         jSeparator1 = new javax.swing.JSeparator();
         scrollPane = new javax.swing.JScrollPane();
         tabela_detalhada = new javax.swing.JTable();
-        botao_Pesquisar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         botao_exportar = new javax.swing.JButton();
@@ -82,19 +81,13 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
         combo_situacaoPagamento = new javax.swing.JComboBox<>();
         texto_DataInicial = new javax.swing.JFormattedTextField();
         texto_DataFinal = new javax.swing.JFormattedTextField();
-        jLabel5 = new javax.swing.JLabel();
-        texto_totalEmAberto = new javax.swing.JTextField();
-        texto_totalPago = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         botao_gerarPDF = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        texto_totalGeral = new javax.swing.JTextField();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Extrato de clientes");
+        setTitle("Relatório mensal");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
                 formInternalFrameActivated(evt);
@@ -134,14 +127,6 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
             }
         ));
         scrollPane.setViewportView(tabela_detalhada);
-
-        botao_Pesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/search26.png"))); // NOI18N
-        botao_Pesquisar.setText("Pesquisar");
-        botao_Pesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botao_PesquisarActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("Cliente");
 
@@ -205,14 +190,6 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
         }
         texto_DataFinal.setToolTipText("");
 
-        jLabel5.setText("Total em aberto:");
-
-        texto_totalEmAberto.setEditable(false);
-
-        texto_totalPago.setEditable(false);
-
-        jLabel6.setText("Total pago:");
-
         botao_gerarPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/pdf-red-24.png"))); // NOI18N
         botao_gerarPDF.setText("Gerar PDF");
         botao_gerarPDF.addActionListener(new java.awt.event.ActionListener() {
@@ -220,10 +197,6 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                 botao_gerarPDFActionPerformed(evt);
             }
         });
-
-        jLabel7.setText("Total geral:");
-
-        texto_totalGeral.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -260,34 +233,17 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                     .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(texto_totalEmAberto, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(texto_totalPago, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(botao_Pesquisar, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(botao_gerarPDF)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(botao_exportar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(botao_limpar))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(texto_totalGeral, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(botao_gerarPDF)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botao_exportar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botao_limpar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(botao_Pesquisar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(52, 52, 52)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,20 +265,8 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                                 .addComponent(texto_DataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(texto_DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(22, 22, 22)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(texto_totalEmAberto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(texto_totalPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(texto_totalGeral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                .addGap(72, 72, 72)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -339,20 +283,16 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
         limpar();
     }//GEN-LAST:event_botao_limparActionPerformed
 
-    private void botao_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_PesquisarActionPerformed
-        pesquisar();
-    }//GEN-LAST:event_botao_PesquisarActionPerformed
-
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void botao_exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_exportarActionPerformed
-        if(CollectionUtils.isNotEmpty(listaDetalhada)) {
+        if(CollectionUtils.isNotEmpty(lista)) {
             try {
                 imprimirRelatorio();
             } catch (JRException ex) {
-                Logger.getLogger(ConsultaDetalhada.class.getName()).log(Level.SEVERE, null, ex);
-                String mensagem = TrataExcecao.trataMensagemErro(ex, ConsultaDetalhada.class);
+                Logger.getLogger(RelatorioMensal.class.getName()).log(Level.SEVERE, null, ex);
+                String mensagem = TrataExcecao.trataMensagemErro(ex, RelatorioMensal.class);
                 JOptionPane.showMessageDialog(this, mensagem, "Erro ao imprimir relatório!", JOptionPane.ERROR_MESSAGE);
             }
         } else {
@@ -385,7 +325,7 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
     }//GEN-LAST:event_botao_pesquisarClienteActionPerformed
 
     private void botao_gerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_gerarPDFActionPerformed
-        if(CollectionUtils.isNotEmpty(listaDetalhada)) {
+        if(CollectionUtils.isNotEmpty(lista)) {
             try {
             JFileChooser jfc = new javax.swing.JFileChooser();  
             jfc.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);  
@@ -404,8 +344,8 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                JOptionPane.showMessageDialog(this, "É necessário selecionar o local do arquivo!", "Atenção!", JOptionPane.WARNING_MESSAGE); 
             }
         } catch (JRException ex) {
-            Logger.getLogger(ConsultaDetalhada.class.getName()).log(Level.SEVERE, null, ex);
-            String mensagem = TrataExcecao.trataMensagemErro(ex, ConsultaDetalhada.class);
+            Logger.getLogger(RelatorioMensal.class.getName()).log(Level.SEVERE, null, ex);
+            String mensagem = TrataExcecao.trataMensagemErro(ex, RelatorioMensal.class);
             JOptionPane.showMessageDialog(this, mensagem, "Erro ao gerar relatório!", JOptionPane.ERROR_MESSAGE);
         }
         } else {
@@ -421,7 +361,6 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botao_Pesquisar;
     private javax.swing.JButton botao_exportar;
     private javax.swing.JButton botao_gerarPDF;
     private javax.swing.JButton botao_limpar;
@@ -431,9 +370,6 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JScrollPane scrollPane;
@@ -442,9 +378,6 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
     private javax.swing.JFormattedTextField texto_DataInicial;
     private javax.swing.JTextField texto_codigoCliente;
     private javax.swing.JTextField texto_nomeCliente;
-    private javax.swing.JTextField texto_totalEmAberto;
-    private javax.swing.JTextField texto_totalGeral;
-    private javax.swing.JTextField texto_totalPago;
     // End of variables declaration//GEN-END:variables
 
     private void pesquisar() {
@@ -455,16 +388,15 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                 if(dataInicial != null && dataFinal != null && DataUtil.compareTo(dataInicial, dataFinal) > 0) {
                     JOptionPane.showMessageDialog(this, "Data inicial maior que data final", "Erro!", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    listaDetalhada = pedidoItemDAO.recuperaConsultaDetalhada(clienteLookup.getId(), DataUtil.zeraHora(dataInicial), DataUtil.zeraHora(dataFinal), (String) combo_situacaoPagamento.getSelectedItem());
-                    if(CollectionUtils.isEmpty(listaDetalhada))
+                    List<PedidoItem> listaItens = pedidoItemDAO.recuperaConsultaDetalhada(clienteLookup.getId(), DataUtil.zeraHora(dataInicial), DataUtil.zeraHora(dataFinal), (String) combo_situacaoPagamento.getSelectedItem());
+                    if(CollectionUtils.isEmpty(listaItens))
                         JOptionPane.showMessageDialog(this, "Não encontrou registros com os filtros informados.", "Erro!", JOptionPane.ERROR_MESSAGE);
                         
-                    reloadTable();
-                    atualizaTotal();
+                    //reloadTable();
                 }
             } catch (ParseException | ValidateException ex) {
-                Logger.getLogger(ConsultaDetalhada.class.getName()).log(Level.SEVERE, null, ex);
-                String mensagem = TrataExcecao.trataMensagemErro(ex, ConsultaDetalhada.class);
+                Logger.getLogger(RelatorioMensal.class.getName()).log(Level.SEVERE, null, ex);
+                String mensagem = TrataExcecao.trataMensagemErro(ex, RelatorioMensal.class);
                 JOptionPane.showMessageDialog(this, mensagem, "Erro!", JOptionPane.ERROR_MESSAGE);
             }
         } else {
@@ -473,10 +405,9 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
     }
 
     public void limpar() {
-        listaDetalhada = new ArrayList<>();
+        lista = new ArrayList<>();
         clienteLookup = null;
         reloadTable();
-        atualizaTotal();
         texto_codigoCliente.setText("");
         texto_nomeCliente.setText("");
         texto_DataFinal.setText("");
@@ -485,8 +416,8 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
     }
     
     private void reloadTable() {
-        modelo = new ConsultaDetalhadaTableModel();
-        modelo.reload(listaDetalhada);
+        modelo = new RelatorioMensalTableModel();
+        modelo.reload(lista);
         tabela_detalhada.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tabela_detalhada.setModel(modelo);
     }
@@ -513,32 +444,12 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
                 }
             } catch (ValidateException ex) {
                 Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);
-                String mensagem = TrataExcecao.trataMensagemErro(ex, ConsultaDetalhada.class);
+                String mensagem = TrataExcecao.trataMensagemErro(ex, RelatorioMensal.class);
                 JOptionPane.showMessageDialog(this, mensagem, "Erro!", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
     
-    private void atualizaTotal() {
-        BigDecimal totalEmAberto = BigDecimal.ZERO;
-        BigDecimal totalPago = BigDecimal.ZERO;
-        BigDecimal totalGeral = BigDecimal.ZERO;
-        if(CollectionUtils.isNotEmpty(listaDetalhada)) {
-            for (PedidoItem umItem : listaDetalhada) {
-                if(TipoSituacaoProduto.EM_ABERTO.equals(umItem.getTipoSituacaoProduto()))
-                    totalEmAberto = totalEmAberto.add(umItem.getValorTotal());
-                
-                if(TipoSituacaoProduto.PAGO.equals(umItem.getTipoSituacaoProduto()))
-                    totalPago = totalPago.add(umItem.getValorTotal());
-                
-                totalGeral = totalGeral.add(umItem.getValorTotal());
-            }
-        } 
-        texto_totalEmAberto.setText(FormatUtils.formatBigDecimal(totalEmAberto));
-        texto_totalPago.setText(FormatUtils.formatBigDecimal(totalPago));
-        texto_totalGeral.setText(FormatUtils.formatBigDecimal(totalGeral));
-    }
-
     private JasperPrint gerarRelatorio(String caminhoSalvar) throws JRException {
         return GeradorRelatorio.getInstance().gerarRelatorio(RelatorioDisponivel.CONSULTA_DETALHADA, criaListaParaRelatorio(), caminhoSalvar);
     }
@@ -548,7 +459,7 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
         ConsultaDetalhadaCabecalhoDTO cabecalho = null;
         ConsultaDetalhadaDetalheDTO detalhe;
         Integer count = 1;
-        for (PedidoItem pedidoItem : listaDetalhada) {
+        for (PedidoItem pedidoItem : lista) {
             if(cabecalho == null) {
                 cabecalho = new ConsultaDetalhadaCabecalhoDTO();
                 cabecalho.setCliente(clienteLookup.getNome());

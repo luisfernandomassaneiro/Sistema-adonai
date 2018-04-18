@@ -59,7 +59,7 @@
 			<staticText>
 				<reportElement x="430" y="0" width="65" height="20" uuid="11cd36ce-2fd4-4420-9ec3-6cbd9d9ee662"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[Total:]]></text>
 			</staticText>

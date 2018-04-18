@@ -3,8 +3,8 @@
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="consultaEmAberto_detalhe" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\luis.massaneiro\\Documents\\NetBeansProjects\\Sistema-adonai\\Sistema-adonai\\src\\main\\resources\\reports\\"]]></defaultValueExpression>
+	<parameter name="detalhe" class="java.io.InputStream" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<field name="codigoCliente" class="java.lang.String"/>
 	<field name="nomeCliente" class="java.lang.String"/>
@@ -15,7 +15,7 @@
 			<staticText>
 				<reportElement x="0" y="15" width="555" height="37" uuid="1220c35e-e7ef-4339-b329-043417a8f8c8"/>
 				<textElement textAlignment="Center">
-					<font size="24" isBold="true"/>
+					<font size="24" isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[Clientes em aberto]]></text>
 			</staticText>
@@ -29,7 +29,7 @@
 			<staticText>
 				<reportElement x="2" y="2" width="48" height="20" uuid="f5477382-6ee1-43ba-95e7-636616ae8621"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[Código:]]></text>
 			</staticText>
@@ -41,7 +41,7 @@
 			<staticText>
 				<reportElement x="2" y="22" width="48" height="20" uuid="916768b3-addb-400c-8cde-4c03e446afab"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[Nome:]]></text>
 			</staticText>
@@ -53,7 +53,7 @@
 			<staticText>
 				<reportElement x="2" y="42" width="48" height="20" uuid="5ea48e4e-4330-4de2-a194-c6c7a02fb86c"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[Período:]]></text>
 			</staticText>
@@ -69,7 +69,7 @@
 			<staticText>
 				<reportElement x="0" y="11" width="100" height="20" uuid="b0e38459-8c94-419f-8cdc-facddc5b9487"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[Código]]></text>
 			</staticText>
@@ -79,14 +79,14 @@
 			<staticText>
 				<reportElement x="100" y="11" width="395" height="20" uuid="7082994d-a60e-4fbc-91c8-43275b742d79"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[Nome]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="495" y="11" width="60" height="20" uuid="366d902d-207d-46c1-b490-1ef66a2e6a83"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font isBold="true" pdfFontName="Helvetica-Bold"/>
 				</textElement>
 				<text><![CDATA[Valor total]]></text>
 			</staticText>
@@ -97,7 +97,7 @@
 			<subreport>
 				<reportElement x="0" y="0" width="555" height="20" uuid="6ceb606c-6d2f-42ef-91ab-4956e074a40e"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{detalhe})]]></dataSourceExpression>
-				<subreportExpression><![CDATA["consultaEmAberto_detalhe.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$P{detalhe}]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

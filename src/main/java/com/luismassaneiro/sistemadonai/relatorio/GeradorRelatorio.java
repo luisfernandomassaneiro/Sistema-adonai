@@ -5,6 +5,8 @@ import com.luismassaneiro.sistemadonai.utils.FormatUtils;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -25,9 +27,11 @@ public class GeradorRelatorio {
     }
     
     public JasperPrint gerarRelatorio(RelatorioDisponivel relatorioDisponivel, Collection<?> lista, String caminhoSalvar) throws JRException {
-        //String jasper = "./src/main/resources/reports/".concat(relatorioDisponivel.getNomeRelatorio());
-        String jasper = getClass().getResource("/reports/".concat(relatorioDisponivel.getNomeRelatorio())).getFile();
-        JasperPrint print = JasperFillManager.fillReport(jasper, null, new JRBeanCollectionDataSource(lista));
+        InputStream detalhe = getClass().getResourceAsStream("/reports/".concat(relatorioDisponivel.getNomeRelatorio()).concat("_detalhe.jasper"));
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("detalhe", detalhe);
+        InputStream principal = getClass().getResourceAsStream("/reports/".concat(relatorioDisponivel.getNomeRelatorio()).concat(".jasper"));
+        JasperPrint print = JasperFillManager.fillReport(principal, parameters, new JRBeanCollectionDataSource(lista));
         if(StringUtils.isBlank(caminhoSalvar)) 
             caminhoSalvar = System.getProperty("java.io.tmpdir");
             

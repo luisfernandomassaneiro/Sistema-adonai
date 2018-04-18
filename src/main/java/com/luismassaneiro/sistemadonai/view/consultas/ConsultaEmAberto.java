@@ -7,20 +7,15 @@ package com.luismassaneiro.sistemadonai.view.consultas;
 
 import com.luismassaneiro.sistemadonai.controller.ClienteDAO;
 import com.luismassaneiro.sistemadonai.controller.DAOFactory;
-import com.luismassaneiro.sistemadonai.dto.ConsultaDetalhadaCabecalhoDTO;
-import com.luismassaneiro.sistemadonai.dto.ConsultaDetalhadaDetalheDTO;
 import com.luismassaneiro.sistemadonai.dto.ConsultaEmAbertoCabecalhoDTO;
 import com.luismassaneiro.sistemadonai.dto.ConsultaEmAbertoDTO;
 import com.luismassaneiro.sistemadonai.dto.ConsultaEmAbertoDetalheDTO;
 import com.luismassaneiro.sistemadonai.enums.RelatorioDisponivel;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
-import com.luismassaneiro.sistemadonai.model.PedidoItem;
 import com.luismassaneiro.sistemadonai.relatorio.GeradorRelatorio;
 import com.luismassaneiro.sistemadonai.utils.DataUtil;
 import com.luismassaneiro.sistemadonai.utils.FormatUtils;
 import com.luismassaneiro.sistemadonai.utils.TrataExcecao;
-import com.luismassaneiro.sistemadonai.view.desktop.GerenciadorJanelas;
-import com.luismassaneiro.sistemadonai.view.exportador.ExportadorTabelas;
 import com.luismassaneiro.sistemadonai.view.tablemodel.ConsultaEmAbertoTableModel;
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -362,6 +357,9 @@ public class ConsultaEmAberto extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Data inicial maior que data final", "Erro!", JOptionPane.ERROR_MESSAGE);
             } else {
                 listaEmAberto = dao.recuperaClienteEmAberto(texto_codigo.getText(),texto_nome.getText(), DataUtil.zeraHora(dataInicial), DataUtil.zeraHora(dataFinal));
+                if(CollectionUtils.isEmpty(listaEmAberto))
+                        JOptionPane.showMessageDialog(this, "Não encontrou registros com os filtros informados.", "Erro!", JOptionPane.ERROR_MESSAGE);
+                
                 reloadTable();
                 atualizaTotal();
             }
