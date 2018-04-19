@@ -204,6 +204,11 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
             ex.printStackTrace();
         }
         texto_DataFinal.setToolTipText("");
+        texto_DataFinal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                texto_DataFinalKeyPressed(evt);
+            }
+        });
 
         jLabel5.setText("Total em aberto:");
 
@@ -419,6 +424,12 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
         }
     }//GEN-LAST:event_texto_DataInicialKeyPressed
 
+    private void texto_DataFinalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_DataFinalKeyPressed
+        if(evt.getKeyCode() == 10) {
+           pesquisar(); 
+        }
+    }//GEN-LAST:event_texto_DataFinalKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao_Pesquisar;
@@ -482,6 +493,7 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
         texto_DataFinal.setText("");
         texto_DataInicial.setText("");
         combo_situacaoPagamento.setSelectedIndex(1);
+        texto_codigoCliente.grabFocus();
     }
     
     private void reloadTable() {
@@ -571,7 +583,7 @@ public class ConsultaDetalhada extends javax.swing.JInternalFrame implements Sel
             detalhe = new ConsultaDetalhadaDetalheDTO();
             detalhe.setDataCompra(pedidoItem.getDataCompra());
             detalhe.setDataPagamento(pedidoItem.getDataPagamento());
-            detalhe.setProduto(pedidoItem.getProduto().getDescricao());
+            detalhe.setProduto(pedidoItem.getProduto().getDescricao().concat(StringUtils.isNotBlank(pedidoItem.getObservacao()) ? " - " + pedidoItem.getObservacao() : ""));
             detalhe.setQuantidade(pedidoItem.getQuantidade());
             detalhe.setValorTotal(pedidoItem.getValorTotal());
             detalhe.setValorUnitario(pedidoItem.getValor());

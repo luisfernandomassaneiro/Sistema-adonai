@@ -150,6 +150,11 @@ public class ConsultaEmAberto extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
         texto_DataInicial.setToolTipText("");
+        texto_DataInicial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                texto_DataInicialKeyPressed(evt);
+            }
+        });
 
         try {
             texto_DataFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -157,6 +162,11 @@ public class ConsultaEmAberto extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
         texto_DataFinal.setToolTipText("");
+        texto_DataFinal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                texto_DataFinalKeyPressed(evt);
+            }
+        });
 
         jLabel5.setText("Total:");
 
@@ -327,6 +337,18 @@ public class ConsultaEmAberto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_botao_exportar1ActionPerformed
 
+    private void texto_DataInicialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_DataInicialKeyPressed
+        if(evt.getKeyCode() == 10) {
+            pesquisar();
+        }
+    }//GEN-LAST:event_texto_DataInicialKeyPressed
+
+    private void texto_DataFinalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_DataFinalKeyPressed
+        if(evt.getKeyCode() == 10) {
+            pesquisar();
+        }
+    }//GEN-LAST:event_texto_DataFinalKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao_Pesquisar;
@@ -378,6 +400,7 @@ public class ConsultaEmAberto extends javax.swing.JInternalFrame {
         texto_nome.setText("");
         texto_DataInicial.setText("");
         texto_DataFinal.setText("");
+        texto_codigo.grabFocus();
     }
     
     private void reloadTable() {

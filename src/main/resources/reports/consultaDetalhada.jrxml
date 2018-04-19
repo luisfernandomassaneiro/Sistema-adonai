@@ -65,62 +65,13 @@
 	</group>
 	<group name="CLIENTE2">
 		<groupHeader>
-			<band height="31">
-				<staticText>
-					<reportElement x="0" y="11" width="100" height="20" uuid="b0e38459-8c94-419f-8cdc-facddc5b9487"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font isBold="true" pdfFontName="Helvetica-Bold"/>
-					</textElement>
-					<text><![CDATA[Data de compra]]></text>
-				</staticText>
-				<line>
-					<reportElement x="0" y="29" width="555" height="1" uuid="eca5f4ea-1d9c-4e0e-8206-72b6814bae46"/>
-				</line>
-				<staticText>
-					<reportElement x="100" y="11" width="181" height="20" uuid="7082994d-a60e-4fbc-91c8-43275b742d79"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font isBold="true" pdfFontName="Helvetica-Bold"/>
-					</textElement>
-					<text><![CDATA[Produto]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="281" y="11" width="40" height="20" uuid="52095b34-9683-405d-aab0-bda80eb12330"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font isBold="true" pdfFontName="Helvetica-Bold"/>
-					</textElement>
-					<text><![CDATA[Qntd.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="321" y="11" width="65" height="20" uuid="7d7e5fd6-96bf-414a-9d03-a06a9c2d3dd0"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font isBold="true" pdfFontName="Helvetica-Bold"/>
-					</textElement>
-					<text><![CDATA[Valor unit.]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="386" y="11" width="65" height="20" uuid="366d902d-207d-46c1-b490-1ef66a2e6a83"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font isBold="true" pdfFontName="Helvetica-Bold"/>
-					</textElement>
-					<text><![CDATA[Valor total]]></text>
-				</staticText>
-				<staticText>
-					<reportElement x="451" y="11" width="104" height="20" uuid="3fbdb255-dd02-45e3-aad9-d997df8d38ca"/>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font isBold="true" pdfFontName="Helvetica-Bold"/>
-					</textElement>
-					<text><![CDATA[Data do pagamento]]></text>
-				</staticText>
+			<band height="32">
+				<subreport isUsingCache="true">
+					<reportElement x="0" y="12" width="555" height="20" uuid="6ceb606c-6d2f-42ef-91ab-4956e074a40e"/>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{detalhe})]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{detalhe}]]></subreportExpression>
+				</subreport>
 			</band>
 		</groupHeader>
 	</group>
-	<detail>
-		<band height="20" splitType="Stretch">
-			<subreport isUsingCache="true">
-				<reportElement x="0" y="0" width="555" height="20" uuid="6ceb606c-6d2f-42ef-91ab-4956e074a40e"/>
-				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{detalhe})]]></dataSourceExpression>
-				<subreportExpression><![CDATA[$P{detalhe}]]></subreportExpression>
-			</subreport>
-		</band>
-	</detail>
 </jasperReport>

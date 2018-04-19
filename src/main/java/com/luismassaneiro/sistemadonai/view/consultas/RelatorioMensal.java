@@ -80,6 +80,7 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
         texto_DataInicial = new javax.swing.JFormattedTextField();
         texto_DataFinal = new javax.swing.JFormattedTextField();
         botao_gerarPDF = new javax.swing.JButton();
+        botao_ExcluirItem = new javax.swing.JButton();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -201,14 +202,24 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
             }
         });
 
+        botao_ExcluirItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/delete24.png"))); // NOI18N
+        botao_ExcluirItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botao_ExcluirItemActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(botao_ExcluirItem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -232,7 +243,7 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(texto_DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30))
+                        .addGap(28, 28, 28))
                     .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -268,8 +279,10 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
                                 .addComponent(texto_DataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(texto_DataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(22, 22, 22)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
-                .addGap(72, 72, 72)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botao_ExcluirItem)
+                .addGap(33, 33, 33)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -358,7 +371,7 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
 
     private void texto_DataInicialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_DataInicialKeyPressed
         if(evt.getKeyCode() == 10) {
-           pesquisar(); 
+           adicionarCliente(); 
         }
     }//GEN-LAST:event_texto_DataInicialKeyPressed
 
@@ -366,8 +379,23 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
         // TODO add your handling code here:
     }//GEN-LAST:event_texto_DataFinalKeyPressed
 
+    private void botao_ExcluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_ExcluirItemActionPerformed
+        ConsultaDetalhadaCabecalhoDTO itemExcluir = tabela_detalhada.getSelectedRow() == -1 ? null : modelo.getConsultaDetalhadaCabecalhoDTOAt(tabela_detalhada.getSelectedRow());
+        if(itemExcluir == null) {
+            JOptionPane.showMessageDialog(this, "Nenhum item foi selecionado", "Erro!", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int resp = JOptionPane.showConfirmDialog(this, "Deseja realmente efetuar a exclusão do cliente da lista?");
+            if(resp == JOptionPane.YES_OPTION) {
+                lista.remove(itemExcluir);
+                reloadTable();
+                focoNoCodigoCliente();
+            }
+        }
+    }//GEN-LAST:event_botao_ExcluirItemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botao_ExcluirItem;
     private javax.swing.JButton botao_exportar;
     private javax.swing.JButton botao_gerarPDF;
     private javax.swing.JButton botao_limpar;
@@ -387,13 +415,14 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
     private javax.swing.JTextField texto_nomeCliente;
     // End of variables declaration//GEN-END:variables
 
-    private void pesquisar() {
+    private void adicionarCliente() {
         if(clienteLookup != null && clienteLookup.getId() != null) {
             try {
                 Date dataInicial = FormatUtils.parseDate(texto_DataInicial.getText());
                 Date dataFinal = FormatUtils.parseDate(texto_DataFinal.getText());
                 if(dataInicial != null && dataFinal != null && DataUtil.compareTo(dataInicial, dataFinal) > 0) {
                     JOptionPane.showMessageDialog(this, "Data inicial maior que data final", "Erro!", JOptionPane.ERROR_MESSAGE);
+                    texto_DataInicial.grabFocus();
                 } else {
                     List<PedidoItem> listaItens = pedidoItemDAO.recuperaConsultaDetalhada(clienteLookup.getId(), DataUtil.zeraHora(dataInicial), DataUtil.zeraHora(dataFinal), (String) combo_situacaoPagamento.getSelectedItem());
                     if(CollectionUtils.isEmpty(listaItens))
@@ -401,10 +430,7 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
                     
                     criaListaParaRelatorio(listaItens);
                     reloadTable();
-                    clienteLookup = null;
-                    texto_codigoCliente.setText("");
-                    texto_nomeCliente.setText("");
-                    texto_codigoCliente.grabFocus();
+                    focoNoCodigoCliente();
                 }
             } catch (ParseException | ValidateException ex) {
                 Logger.getLogger(RelatorioMensal.class.getName()).log(Level.SEVERE, null, ex);
@@ -413,6 +439,7 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
             }
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, informe um cliente antes de pesquisar", "Erro!", JOptionPane.ERROR_MESSAGE);
+            focoNoCodigoCliente();
         }
     }
 
@@ -425,6 +452,7 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
         texto_DataFinal.setText("");
         texto_DataInicial.setText("");
         combo_situacaoPagamento.setSelectedIndex(1);
+        focoNoCodigoCliente();
     }
     
     private void reloadTable() {
@@ -434,6 +462,13 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
         tabela_detalhada.setModel(modelo);
     }
     
+    private void focoNoCodigoCliente() {
+        clienteLookup = null;
+        texto_codigoCliente.setText("");
+        texto_nomeCliente.setText("");
+        texto_codigoCliente.grabFocus();
+    }
+    
     @Override
     public void setSelecionado(Object obj) {
         if(obj != null) {
@@ -441,7 +476,7 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
                 clienteLookup = (Cliente) obj;
                 texto_codigoCliente.setText(clienteLookup.getCodigo());
                 texto_nomeCliente.setText(clienteLookup.getNome());
-                pesquisar();
+                adicionarCliente();
             }
         }
     }
@@ -452,7 +487,7 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
                 clienteLookup = clienteDAO.recuperaClientePeloCodigo(texto_codigoCliente.getText());
                 if(clienteLookup != null) {
                     texto_nomeCliente.setText(clienteLookup.getNome());
-                    pesquisar();
+                    adicionarCliente();
                 } else {
                     JOptionPane.showMessageDialog(null, "Cliente não encontrado!", "Erro!", JOptionPane.ERROR_MESSAGE);
                 }
@@ -465,12 +500,7 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
     }
     
     private JasperPrint gerarRelatorio(String caminhoSalvar) throws JRException {
-        List<RelatorioMensalDTO> listaMensal = new ArrayList<>();
-        RelatorioMensalDTO relatorioMensalDTO = new RelatorioMensalDTO();
-        relatorioMensalDTO.setMestre(lista);
-        listaMensal.add(relatorioMensalDTO);
-        return GeradorRelatorio.getInstance().gerarRelatorio(RelatorioDisponivel.RELATORIO_MENSAL, listaMensal, caminhoSalvar);
-        //return GeradorRelatorio.getInstance().gerarRelatorio(RelatorioDisponivel.CONSULTA_DETALHADA, lista, caminhoSalvar);
+        return GeradorRelatorio.getInstance().gerarRelatorio(RelatorioDisponivel.CONSULTA_DETALHADA, lista, caminhoSalvar);
     }
     
     public void criaListaParaRelatorio(List<PedidoItem> listaItens) {
@@ -500,7 +530,7 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
             detalhe = new ConsultaDetalhadaDetalheDTO();
             detalhe.setDataCompra(pedidoItem.getDataCompra());
             detalhe.setDataPagamento(pedidoItem.getDataPagamento());
-            detalhe.setProduto(pedidoItem.getProduto().getDescricao());
+            detalhe.setProduto(pedidoItem.getProduto().getDescricao().concat(StringUtils.isNotBlank(pedidoItem.getObservacao()) ? " - " + pedidoItem.getObservacao() : ""));
             detalhe.setQuantidade(pedidoItem.getQuantidade());
             detalhe.setValorTotal(pedidoItem.getValorTotal());
             detalhe.setValorUnitario(pedidoItem.getValor());
@@ -514,7 +544,6 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
     }
     
     private void imprimirRelatorio() throws JRException {
-        JasperPrint relatorio = gerarRelatorio(null);
-        GeradorRelatorio.getInstance().imprimirRelatorio(relatorio, iconable);
+        GeradorRelatorio.getInstance().imprimirRelatorio(gerarRelatorio(null), iconable);
     }
 }

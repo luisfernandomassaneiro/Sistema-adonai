@@ -10,18 +10,15 @@ package com.luismassaneiro.sistemadonai.enums;
  * @author luis.massaneiro
  */
 public enum RelatorioDisponivel {
-    CONSULTA_DETALHADA("consultaDetalhada", "Extrato de clientes", false),
-    CONSULTA_EM_ABERTO("consultaEmAberto", "Clientes em aberto", false),
-    RELATORIO_MENSAL("consulta", "Relatório Mensal", true);
+    CONSULTA_DETALHADA("consultaDetalhada", "Extrato de clientes"),
+    CONSULTA_EM_ABERTO("consultaEmAberto", "Clientes em aberto");
 
     private String nomeRelatorio;
     private String descricaoRelatorio;
-    private boolean isMensal;
     
-    private RelatorioDisponivel(String nomeRelatorio, String descricaoRelatorio, boolean isMensal) {
+    private RelatorioDisponivel(String nomeRelatorio, String descricaoRelatorio) {
         this.nomeRelatorio = nomeRelatorio;
         this.descricaoRelatorio = descricaoRelatorio;
-        this.isMensal = isMensal;
     }
 
     public String getNomeRelatorio() {
@@ -40,12 +37,4 @@ public enum RelatorioDisponivel {
         this.descricaoRelatorio = descricaoRelatorio;
     }
 
-    public boolean isIsMensal() {
-        return isMensal;
-    }
-
-    public void setIsMensal(boolean isMensal) {
-        this.isMensal = isMensal;
-    }
-    
 }

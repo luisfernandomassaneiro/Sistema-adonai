@@ -150,6 +150,11 @@ public class Pagamento extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
         texto_DataFinal.setToolTipText("");
+        texto_DataFinal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                texto_DataFinalKeyPressed(evt);
+            }
+        });
 
         try {
             texto_DataInicial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -157,6 +162,11 @@ public class Pagamento extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
         texto_DataInicial.setToolTipText("");
+        texto_DataInicial.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                texto_DataInicialKeyPressed(evt);
+            }
+        });
 
         jLabel5.setText("Total:");
 
@@ -287,6 +297,18 @@ public class Pagamento extends javax.swing.JInternalFrame {
             pesquisar();
         }
     }//GEN-LAST:event_texto_nomeKeyPressed
+
+    private void texto_DataInicialKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_DataInicialKeyPressed
+        if(evt.getKeyCode() == 10) {
+            pesquisar();
+        }
+    }//GEN-LAST:event_texto_DataInicialKeyPressed
+
+    private void texto_DataFinalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_DataFinalKeyPressed
+        if(evt.getKeyCode() == 10) {
+            pesquisar();
+        }
+    }//GEN-LAST:event_texto_DataFinalKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

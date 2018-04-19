@@ -169,7 +169,6 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         jLabel10.setText("Quantidade");
 
         texto_quantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
-        texto_quantidade.setText("1");
         texto_quantidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 texto_quantidadeKeyPressed(evt);
@@ -394,6 +393,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         if(pedido != null) {
             gravaPedido();
             JOptionPane.showMessageDialog(this, "Pedido gravado com sucesso!");
+            texto_codigoProduto.grabFocus();
         } else {
             JOptionPane.showMessageDialog(this, "Não há pedidos para serem salvos!", "Erro!", JOptionPane.ERROR_MESSAGE);
         }
@@ -406,6 +406,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
     private void texto_quantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_quantidadeKeyPressed
         if(evt.getKeyCode() == 10) {
            adicionaProduto();
+           texto_codigoProduto.grabFocus();
         }
     }//GEN-LAST:event_texto_quantidadeKeyPressed
 
@@ -455,13 +456,14 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                     gravaPedido();
                     texto_codigoProduto.setText("");
                     texto_descricaoProduto.setText("");
-                    texto_quantidade.setText("1");
+                    texto_quantidade.setText("");
                     texto_observacao.setText("");
                     texto_valor.setText("");
                     produtoLookup = null;
+                    texto_codigoCliente.grabFocus();
                 } else {
                     JOptionPane.showMessageDialog(this, "Quantidade informada deve ser maior que zero!", "Erro!", JOptionPane.ERROR_MESSAGE);
-                    texto_quantidade.setText("1");
+                    texto_quantidade.setText("");
                 }
             } catch (Exception ex) {
                 Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -478,13 +480,16 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         texto_descricaoProduto.setText("");
         texto_codigoCliente.setText("");
         texto_nomeCliente.setText("");
-        texto_quantidade.setText("1");
+        texto_quantidade.setText("");
         texto_observacao.setText("");
         texto_valor.setText("");
         pedido = new Pedido();
+        clienteLookup = null;
+        produtoLookup = null;
         totalPedido = BigDecimal.ZERO;
         reloadTable();
         atualizaTotalCompra();
+        texto_codigoCliente.grabFocus();
     }
     
     private void reloadTable() {
@@ -536,6 +541,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                 }
                 reloadTable();
                 atualizaTotalCompra();
+                texto_codigoProduto.grabFocus();
             } catch (ValidateException ex) {
                 Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);
                 String mensagem = TrataExcecao.trataMensagemErro(ex, PedidoForm.class);
