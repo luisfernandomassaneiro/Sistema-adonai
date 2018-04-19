@@ -10,8 +10,8 @@ import com.luismassaneiro.sistemadonai.controller.DAOFactory;
 import com.luismassaneiro.sistemadonai.controller.PedidoItemDAO;
 import com.luismassaneiro.sistemadonai.dto.ConsultaDetalhadaCabecalhoDTO;
 import com.luismassaneiro.sistemadonai.dto.ConsultaDetalhadaDetalheDTO;
+import com.luismassaneiro.sistemadonai.dto.RelatorioMensalDTO;
 import com.luismassaneiro.sistemadonai.enums.RelatorioDisponivel;
-import com.luismassaneiro.sistemadonai.enums.TipoSituacaoProduto;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.model.Cliente;
 import com.luismassaneiro.sistemadonai.model.PedidoItem;
@@ -23,9 +23,7 @@ import com.luismassaneiro.sistemadonai.view.Selecionador;
 import com.luismassaneiro.sistemadonai.view.cadastro.ClienteBrowser;
 import com.luismassaneiro.sistemadonai.view.desktop.GerenciadorJanelas;
 import com.luismassaneiro.sistemadonai.view.operacoes.PedidoForm;
-import com.luismassaneiro.sistemadonai.view.tablemodel.ConsultaDetalhadaTableModel;
 import com.luismassaneiro.sistemadonai.view.tablemodel.RelatorioMensalTableModel;
-import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -189,6 +187,11 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
             ex.printStackTrace();
         }
         texto_DataFinal.setToolTipText("");
+        texto_DataFinal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                texto_DataFinalKeyPressed(evt);
+            }
+        });
 
         botao_gerarPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/pdf-red-24.png"))); // NOI18N
         botao_gerarPDF.setText("Gerar PDF");
@@ -301,7 +304,7 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
     }//GEN-LAST:event_botao_exportarActionPerformed
 
     private void texto_codigoClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_texto_codigoClienteFocusLost
-        carregaLookupCliente();
+        
     }//GEN-LAST:event_texto_codigoClienteFocusLost
 
     private void texto_codigoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_texto_codigoClienteActionPerformed
@@ -359,6 +362,10 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
         }
     }//GEN-LAST:event_texto_DataInicialKeyPressed
 
+    private void texto_DataFinalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_DataFinalKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_texto_DataFinalKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botao_exportar;
@@ -391,8 +398,13 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
                     List<PedidoItem> listaItens = pedidoItemDAO.recuperaConsultaDetalhada(clienteLookup.getId(), DataUtil.zeraHora(dataInicial), DataUtil.zeraHora(dataFinal), (String) combo_situacaoPagamento.getSelectedItem());
                     if(CollectionUtils.isEmpty(listaItens))
                         JOptionPane.showMessageDialog(this, "Não encontrou registros com os filtros informados.", "Erro!", JOptionPane.ERROR_MESSAGE);
-                        
-                    //reloadTable();
+                    
+                    criaListaParaRelatorio(listaItens);
+                    reloadTable();
+                    clienteLookup = null;
+                    texto_codigoCliente.setText("");
+                    texto_nomeCliente.setText("");
+                    texto_codigoCliente.grabFocus();
                 }
             } catch (ParseException | ValidateException ex) {
                 Logger.getLogger(RelatorioMensal.class.getName()).log(Level.SEVERE, null, ex);
@@ -429,6 +441,7 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
                 clienteLookup = (Cliente) obj;
                 texto_codigoCliente.setText(clienteLookup.getCodigo());
                 texto_nomeCliente.setText(clienteLookup.getNome());
+                pesquisar();
             }
         }
     }
@@ -439,6 +452,7 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
                 clienteLookup = clienteDAO.recuperaClientePeloCodigo(texto_codigoCliente.getText());
                 if(clienteLookup != null) {
                     texto_nomeCliente.setText(clienteLookup.getNome());
+                    pesquisar();
                 } else {
                     JOptionPane.showMessageDialog(null, "Cliente não encontrado!", "Erro!", JOptionPane.ERROR_MESSAGE);
                 }
@@ -451,15 +465,19 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
     }
     
     private JasperPrint gerarRelatorio(String caminhoSalvar) throws JRException {
-        return GeradorRelatorio.getInstance().gerarRelatorio(RelatorioDisponivel.CONSULTA_DETALHADA, criaListaParaRelatorio(), caminhoSalvar);
+        List<RelatorioMensalDTO> listaMensal = new ArrayList<>();
+        RelatorioMensalDTO relatorioMensalDTO = new RelatorioMensalDTO();
+        relatorioMensalDTO.setMestre(lista);
+        listaMensal.add(relatorioMensalDTO);
+        return GeradorRelatorio.getInstance().gerarRelatorio(RelatorioDisponivel.RELATORIO_MENSAL, listaMensal, caminhoSalvar);
+        //return GeradorRelatorio.getInstance().gerarRelatorio(RelatorioDisponivel.CONSULTA_DETALHADA, lista, caminhoSalvar);
     }
     
-    public List<ConsultaDetalhadaCabecalhoDTO> criaListaParaRelatorio() {
-        List<ConsultaDetalhadaCabecalhoDTO> lista = new ArrayList<>();
+    public void criaListaParaRelatorio(List<PedidoItem> listaItens) {
         ConsultaDetalhadaCabecalhoDTO cabecalho = null;
         ConsultaDetalhadaDetalheDTO detalhe;
         Integer count = 1;
-        for (PedidoItem pedidoItem : lista) {
+        for (PedidoItem pedidoItem : listaItens) {
             if(cabecalho == null) {
                 cabecalho = new ConsultaDetalhadaCabecalhoDTO();
                 cabecalho.setCliente(clienteLookup.getNome());
@@ -490,12 +508,13 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
             cabecalho.add(detalhe);
         }
         
-        lista.add(cabecalho);
-        return lista;
+        if(cabecalho != null) 
+            lista.add(cabecalho);
+        
     }
     
     private void imprimirRelatorio() throws JRException {
-        JasperPrint relatorio = GeradorRelatorio.getInstance().gerarRelatorio(RelatorioDisponivel.CONSULTA_DETALHADA, criaListaParaRelatorio(), null);
+        JasperPrint relatorio = gerarRelatorio(null);
         GeradorRelatorio.getInstance().imprimirRelatorio(relatorio, iconable);
     }
 }

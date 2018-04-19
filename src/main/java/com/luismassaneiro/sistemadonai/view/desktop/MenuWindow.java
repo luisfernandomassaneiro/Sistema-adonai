@@ -11,6 +11,7 @@ import com.luismassaneiro.sistemadonai.view.cadastro.ClienteBrowser;
 import com.luismassaneiro.sistemadonai.view.cadastro.ProdutoBrowser;
 import com.luismassaneiro.sistemadonai.view.consultas.ConsultaDetalhada;
 import com.luismassaneiro.sistemadonai.view.consultas.ConsultaEmAberto;
+import com.luismassaneiro.sistemadonai.view.consultas.RelatorioMensal;
 import com.luismassaneiro.sistemadonai.view.help.About;
 import com.luismassaneiro.sistemadonai.view.operacoes.Pagamento;
 import com.luismassaneiro.sistemadonai.view.operacoes.PedidoForm;
@@ -50,8 +51,9 @@ public class MenuWindow extends javax.swing.JFrame {
         produtoMenuItem = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
-        produtoFaltaMenuItem = new javax.swing.JMenuItem();
-        vendasMenuItem = new javax.swing.JMenuItem();
+        emAbertoMenuItem = new javax.swing.JMenuItem();
+        extratoClienteMenuItem = new javax.swing.JMenuItem();
+        relatorioMensalMenuItem = new javax.swing.JMenuItem();
         operacaoMenu = new javax.swing.JMenu();
         operacoesPagamento = new javax.swing.JMenuItem();
         operacoesPedido = new javax.swing.JMenuItem();
@@ -98,23 +100,32 @@ public class MenuWindow extends javax.swing.JFrame {
         editMenu.setMnemonic('c');
         editMenu.setText("Consultas");
 
-        produtoFaltaMenuItem.setMnemonic('t');
-        produtoFaltaMenuItem.setText("Em aberto");
-        produtoFaltaMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        emAbertoMenuItem.setMnemonic('t');
+        emAbertoMenuItem.setText("Em aberto");
+        emAbertoMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                produtoFaltaMenuItemActionPerformed(evt);
+                emAbertoMenuItemActionPerformed(evt);
             }
         });
-        editMenu.add(produtoFaltaMenuItem);
+        editMenu.add(emAbertoMenuItem);
 
-        vendasMenuItem.setMnemonic('y');
-        vendasMenuItem.setText("Extrato de clientes");
-        vendasMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        extratoClienteMenuItem.setMnemonic('y');
+        extratoClienteMenuItem.setText("Extrato de clientes");
+        extratoClienteMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                vendasMenuItemActionPerformed(evt);
+                extratoClienteMenuItemActionPerformed(evt);
             }
         });
-        editMenu.add(vendasMenuItem);
+        editMenu.add(extratoClienteMenuItem);
+
+        relatorioMensalMenuItem.setMnemonic('y');
+        relatorioMensalMenuItem.setText("Relatório mensal");
+        relatorioMensalMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                relatorioMensalMenuItemActionPerformed(evt);
+            }
+        });
+        editMenu.add(relatorioMensalMenuItem);
 
         menuBar.add(editMenu);
 
@@ -192,11 +203,11 @@ public class MenuWindow extends javax.swing.JFrame {
         produto.setVisible(true);
     }//GEN-LAST:event_produtoMenuItemActionPerformed
 
-    private void vendasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vendasMenuItemActionPerformed
+    private void extratoClienteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_extratoClienteMenuItemActionPerformed
         ConsultaDetalhada consultaDetalhada = (ConsultaDetalhada) GerenciadorJanelas.getInstance().abrirJanela(new ConsultaDetalhada());
         consultaDetalhada.limpar();
         consultaDetalhada.setVisible(true);
-    }//GEN-LAST:event_vendasMenuItemActionPerformed
+    }//GEN-LAST:event_extratoClienteMenuItemActionPerformed
 
     private void operacoesPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_operacoesPagamentoActionPerformed
         Pagamento pagamento = (Pagamento) GerenciadorJanelas.getInstance().abrirJanela(new Pagamento());
@@ -210,15 +221,21 @@ public class MenuWindow extends javax.swing.JFrame {
         pedidoForm.setVisible(true);
     }//GEN-LAST:event_operacoesPedidoActionPerformed
 
-    private void produtoFaltaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produtoFaltaMenuItemActionPerformed
+    private void emAbertoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emAbertoMenuItemActionPerformed
         ConsultaEmAberto consultaEmAberto = (ConsultaEmAberto) GerenciadorJanelas.getInstance().abrirJanela(new ConsultaEmAberto());
         consultaEmAberto.limpar();
         consultaEmAberto.setVisible(true);
-    }//GEN-LAST:event_produtoFaltaMenuItemActionPerformed
+    }//GEN-LAST:event_emAbertoMenuItemActionPerformed
 
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
         GerenciadorJanelas.getInstance().abrirJanela(new About()).setVisible(true);
     }//GEN-LAST:event_aboutMenuItemActionPerformed
+
+    private void relatorioMensalMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatorioMensalMenuItemActionPerformed
+        RelatorioMensal relatorioMensal = (RelatorioMensal) GerenciadorJanelas.getInstance().abrirJanela(new RelatorioMensal());
+        relatorioMensal.limpar();
+        relatorioMensal.setVisible(true);
+    }//GEN-LAST:event_relatorioMensalMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -262,15 +279,16 @@ public class MenuWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem clienteMenuItem;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu editMenu;
+    private javax.swing.JMenuItem emAbertoMenuItem;
     private javax.swing.JMenuItem exitMenuItem;
+    private javax.swing.JMenuItem extratoClienteMenuItem;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenu operacaoMenu;
     private javax.swing.JMenuItem operacoesPagamento;
     private javax.swing.JMenuItem operacoesPedido;
-    private javax.swing.JMenuItem produtoFaltaMenuItem;
     private javax.swing.JMenuItem produtoMenuItem;
-    private javax.swing.JMenuItem vendasMenuItem;
+    private javax.swing.JMenuItem relatorioMensalMenuItem;
     // End of variables declaration//GEN-END:variables
 
 }

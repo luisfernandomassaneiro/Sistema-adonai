@@ -2,11 +2,13 @@ package com.luismassaneiro.sistemadonai.relatorio;
 
 import com.luismassaneiro.sistemadonai.enums.RelatorioDisponivel;
 import com.luismassaneiro.sistemadonai.utils.FormatUtils;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -27,10 +29,20 @@ public class GeradorRelatorio {
     }
     
     public JasperPrint gerarRelatorio(RelatorioDisponivel relatorioDisponivel, Collection<?> lista, String caminhoSalvar) throws JRException {
-        InputStream detalhe = getClass().getResourceAsStream("/reports/".concat(relatorioDisponivel.getNomeRelatorio()).concat("_detalhe.jasper"));
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("detalhe", detalhe);
         InputStream principal = getClass().getResourceAsStream("/reports/".concat(relatorioDisponivel.getNomeRelatorio()).concat(".jasper"));
+        Map<String, Object> parameters = new HashMap<>();
+        if(relatorioDisponivel.isIsMensal()) {
+            InputStream mestre = getClass().getResourceAsStream("/reports/".concat(RelatorioDisponivel.CONSULTA_DETALHADA.getNomeRelatorio()).concat(".jasper"));
+            parameters.put("mestre", mestre);
+            //mestre.close();
+            InputStream detalhe = getClass().getResourceAsStream("/reports/".concat(RelatorioDisponivel.CONSULTA_DETALHADA.getNomeRelatorio()).concat("_detalhe.jasper"));
+            parameters.put("detalhe", detalhe);
+            //detalhe.close();
+        } else {
+            InputStream detalhe = getClass().getResourceAsStream("/reports/".concat(relatorioDisponivel.getNomeRelatorio()).concat("_detalhe.jasper"));
+            parameters.put("detalhe", detalhe);
+            //detalhe.close();
+        }
         JasperPrint print = JasperFillManager.fillReport(principal, parameters, new JRBeanCollectionDataSource(lista));
         if(StringUtils.isBlank(caminhoSalvar)) 
             caminhoSalvar = System.getProperty("java.io.tmpdir");

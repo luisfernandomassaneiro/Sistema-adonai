@@ -10,46 +10,53 @@
 	<field name="periodo" class="java.lang.String"/>
 	<field name="detalhe" class="java.util.List"/>
 	<field name="situacao" class="java.lang.String"/>
-	<group name="CLIENTE1">
+	<group name="CLIENTE1" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{cliente}]]></groupExpression>
 		<groupHeader>
-			<band height="65">
+			<band height="100">
+				<staticText>
+					<reportElement x="0" y="0" width="544" height="35" uuid="1220c35e-e7ef-4339-b329-043417a8f8c8"/>
+					<textElement textAlignment="Center">
+						<font size="24" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<text><![CDATA[Extrato de clientes]]></text>
+				</staticText>
 				<rectangle>
-					<reportElement x="0" y="0" width="555" height="65" uuid="e3330583-e843-4d6d-b36b-58e8dc7257cf"/>
+					<reportElement x="0" y="35" width="555" height="65" uuid="e3330583-e843-4d6d-b36b-58e8dc7257cf"/>
 				</rectangle>
 				<staticText>
-					<reportElement x="2" y="2" width="48" height="20" uuid="f5477382-6ee1-43ba-95e7-636616ae8621"/>
+					<reportElement x="2" y="37" width="48" height="20" uuid="f5477382-6ee1-43ba-95e7-636616ae8621"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font isBold="true" pdfFontName="Helvetica-Bold"/>
 					</textElement>
 					<text><![CDATA[Cliente:]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="53" y="2" width="214" height="20" uuid="a5670dc8-3fb8-4113-b447-8cf77fd12196"/>
+					<reportElement x="53" y="37" width="214" height="20" uuid="a5670dc8-3fb8-4113-b447-8cf77fd12196"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="2" y="22" width="48" height="20" uuid="916768b3-addb-400c-8cde-4c03e446afab"/>
+					<reportElement x="2" y="57" width="48" height="20" uuid="916768b3-addb-400c-8cde-4c03e446afab"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font isBold="true" pdfFontName="Helvetica-Bold"/>
 					</textElement>
 					<text><![CDATA[Período:]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="53" y="22" width="214" height="20" uuid="bc9dd22d-ea7b-44cb-9e2d-95831b06520b"/>
+					<reportElement x="53" y="57" width="214" height="20" uuid="bc9dd22d-ea7b-44cb-9e2d-95831b06520b"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{periodo}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="2" y="42" width="48" height="20" uuid="5ea48e4e-4330-4de2-a194-c6c7a02fb86c"/>
+					<reportElement x="2" y="77" width="48" height="20" uuid="5ea48e4e-4330-4de2-a194-c6c7a02fb86c"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font isBold="true" pdfFontName="Helvetica-Bold"/>
 					</textElement>
 					<text><![CDATA[Situação:]]></text>
 				</staticText>
 				<textField>
-					<reportElement x="53" y="42" width="214" height="20" uuid="b7965815-280f-45d6-8f5c-1a63646088ac"/>
+					<reportElement x="53" y="77" width="214" height="20" uuid="b7965815-280f-45d6-8f5c-1a63646088ac"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{situacao}]]></textFieldExpression>
 				</textField>
@@ -57,7 +64,6 @@
 		</groupHeader>
 	</group>
 	<group name="CLIENTE2">
-		<groupExpression><![CDATA[$F{cliente}]]></groupExpression>
 		<groupHeader>
 			<band height="31">
 				<staticText>
@@ -108,26 +114,9 @@
 			</band>
 		</groupHeader>
 	</group>
-	<title>
-		<band height="52" splitType="Stretch">
-			<staticText>
-				<reportElement x="0" y="15" width="555" height="37" uuid="1220c35e-e7ef-4339-b329-043417a8f8c8"/>
-				<textElement textAlignment="Center">
-					<font size="24" isBold="true" pdfFontName="Helvetica-Bold"/>
-				</textElement>
-				<text><![CDATA[Extrato de clientes]]></text>
-			</staticText>
-		</band>
-	</title>
-	<pageHeader>
-		<band splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
-		<band splitType="Stretch"/>
-	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
-			<subreport>
+			<subreport isUsingCache="true">
 				<reportElement x="0" y="0" width="555" height="20" uuid="6ceb606c-6d2f-42ef-91ab-4956e074a40e"/>
 				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{detalhe})]]></dataSourceExpression>
 				<subreportExpression><![CDATA[$P{detalhe}]]></subreportExpression>
