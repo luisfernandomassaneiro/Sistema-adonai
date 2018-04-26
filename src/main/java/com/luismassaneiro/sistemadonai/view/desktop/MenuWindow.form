@@ -6,7 +6,6 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="cadastroMenu">
           <Properties>
-            <Property name="mnemonic" type="int" value="99"/>
             <Property name="text" type="java.lang.String" value="Cadastro"/>
           </Properties>
           <SubComponents>

@@ -65,7 +65,6 @@ public class MenuWindow extends javax.swing.JFrame {
 
         desktopPane.setAutoscrolls(true);
 
-        cadastroMenu.setMnemonic('c');
         cadastroMenu.setText("Cadastro");
 
         clienteMenuItem.setMnemonic('c');

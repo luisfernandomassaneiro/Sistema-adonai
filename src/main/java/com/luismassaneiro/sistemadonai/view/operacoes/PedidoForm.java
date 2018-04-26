@@ -16,11 +16,17 @@ import com.luismassaneiro.sistemadonai.view.Selecionador;
 import com.luismassaneiro.sistemadonai.view.cadastro.ClienteBrowser;
 import com.luismassaneiro.sistemadonai.view.cadastro.ProdutoBrowser;
 import com.luismassaneiro.sistemadonai.view.desktop.GerenciadorJanelas;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -45,7 +51,15 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         this.pedidoDAO = DAOFactory.criaPedidoDAO();
         this.produtoDAO = DAOFactory.criaProdutoDAO();
         initComponents();
-        limpar();
+        InputMap inputMap = this.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_F10, 0),"forward");
+        this.getRootPane().setInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW, inputMap);
+        this.getRootPane().getActionMap().put("forward", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                botao_salvarPedido.doClick();
+            }
+        });
     }
 
     /**
@@ -200,6 +214,11 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         botao_salvarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botao_salvarPedidoActionPerformed(evt);
+            }
+        });
+        botao_salvarPedido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                botao_salvarPedidoKeyPressed(evt);
             }
         });
 
@@ -390,13 +409,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
     }//GEN-LAST:event_texto_codigoProdutoFocusLost
 
     private void botao_salvarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_salvarPedidoActionPerformed
-        if(pedido != null) {
-            gravaPedido();
-            JOptionPane.showMessageDialog(this, "Pedido gravado com sucesso!");
-            texto_codigoProduto.grabFocus();
-        } else {
-            JOptionPane.showMessageDialog(this, "Não há pedidos para serem salvos!", "Erro!", JOptionPane.ERROR_MESSAGE);
-        }
+        salvarPedido();
     }//GEN-LAST:event_botao_salvarPedidoActionPerformed
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
@@ -409,6 +422,12 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
            texto_codigoProduto.grabFocus();
         }
     }//GEN-LAST:event_texto_quantidadeKeyPressed
+
+    private void botao_salvarPedidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botao_salvarPedidoKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_F10) {
+            
+        }
+    }//GEN-LAST:event_botao_salvarPedidoKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -606,6 +625,16 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
             Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);
             String mensagem = TrataExcecao.trataMensagemErro(ex, PedidoForm.class);
             JOptionPane.showMessageDialog(this, mensagem, "Erro!", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void salvarPedido() {
+        if(pedido != null) {
+            gravaPedido();
+            JOptionPane.showMessageDialog(this, "Pedido gravado com sucesso!");
+            texto_codigoProduto.grabFocus();
+        } else {
+            JOptionPane.showMessageDialog(this, "Não há pedidos para serem salvos!", "Erro!", JOptionPane.ERROR_MESSAGE);
         }
     }
 }
