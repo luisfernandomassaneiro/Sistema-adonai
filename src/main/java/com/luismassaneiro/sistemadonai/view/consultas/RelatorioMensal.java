@@ -490,6 +490,7 @@ public class RelatorioMensal extends javax.swing.JInternalFrame implements Selec
                     adicionarCliente();
                 } else {
                     JOptionPane.showMessageDialog(null, "Cliente não encontrado!", "Erro!", JOptionPane.ERROR_MESSAGE);
+                    focoNoCodigoCliente();
                 }
             } catch (ValidateException ex) {
                 Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);

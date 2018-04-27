@@ -466,7 +466,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                     novoItem.setQuantidade(quantidade);
                     novoItem.setObservacao(texto_observacao.getText());
                     novoItem.setValor(FormatUtils.parseBigDecimal(texto_valor.getText()));
-                    novoItem.setValorTotal(novoItem.getValor().multiply(new BigDecimal(quantidade)));
+                    novoItem.setValorTotal(novoItem.getValor().multiply(new BigDecimal(quantidade.intValue())));
                     if(CollectionUtils.isEmpty(pedido.getItens()))
                         pedido.setItens(new ArrayList<PedidoItem>());
 

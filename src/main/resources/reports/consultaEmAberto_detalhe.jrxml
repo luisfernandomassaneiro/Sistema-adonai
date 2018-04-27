@@ -11,9 +11,9 @@
 		<variableExpression><![CDATA[$F{valorTotalDevido}]]></variableExpression>
 	</variable>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="12" splitType="Stretch">
 			<rectangle>
-				<reportElement x="0" y="0" width="555" height="20" backcolor="#CCCCCC" uuid="42a541a6-9162-40fd-abc6-1f992f456cf4">
+				<reportElement x="0" y="0" width="555" height="12" backcolor="#CCCCCC" uuid="42a541a6-9162-40fd-abc6-1f992f456cf4">
 					<printWhenExpression><![CDATA[($F{count}.intValue() % 2) == 0 ? true : false]]></printWhenExpression>
 				</reportElement>
 				<graphicElement>
@@ -21,20 +21,24 @@
 				</graphicElement>
 			</rectangle>
 			<textField pattern="">
-				<reportElement x="0" y="0" width="100" height="20" uuid="ee012e60-f57f-44b5-8c15-b530d96499af"/>
+				<reportElement x="0" y="0" width="100" height="12" uuid="ee012e60-f57f-44b5-8c15-b530d96499af"/>
 				<textElement verticalAlignment="Middle">
+					<font size="8"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{codigoCliente}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="0" width="395" height="20" uuid="84e373bb-f4ee-4e13-85bb-eadf5cc4729e"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement x="100" y="0" width="395" height="12" uuid="84e373bb-f4ee-4e13-85bb-eadf5cc4729e"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{nomeCliente}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement x="495" y="0" width="60" height="20" uuid="8cee83db-666b-4728-ab10-58bfed5f27d7"/>
+				<reportElement x="495" y="0" width="60" height="12" uuid="8cee83db-666b-4728-ab10-58bfed5f27d7"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{valorTotalDevido}]]></textFieldExpression>
