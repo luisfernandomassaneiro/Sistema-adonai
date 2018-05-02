@@ -58,6 +58,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
             @Override
             public void actionPerformed(ActionEvent e) {
                 botao_salvarPedido.doClick();
+                limpar();
             }
         });
     }
@@ -419,6 +420,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
     private void texto_quantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_quantidadeKeyPressed
         if(evt.getKeyCode() == 10) {
            adicionaProduto();
+           texto_quantidade.setText("");
            texto_codigoProduto.grabFocus();
         }
     }//GEN-LAST:event_texto_quantidadeKeyPressed
@@ -545,9 +547,10 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
     public void carregaInformacoesProduto() {
         if(produtoLookup != null) {
             texto_codigoProduto.setText(produtoLookup.getCodigo());
-                texto_descricaoProduto.setText(produtoLookup.getDescricao());
-                texto_valor.setText(FormatUtils.formatBigDecimal(produtoLookup.getValor()));
-                texto_quantidade.grabFocus();
+            texto_descricaoProduto.setText(produtoLookup.getDescricao());
+            texto_valor.setText(FormatUtils.formatBigDecimal(produtoLookup.getValor()));
+            texto_quantidade.setText("");
+            texto_quantidade.grabFocus();
         }
     }
     
@@ -633,6 +636,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
             gravaPedido();
             JOptionPane.showMessageDialog(this, "Pedido gravado com sucesso!");
             texto_codigoProduto.grabFocus();
+            texto_quantidade.setText("");
         } else {
             JOptionPane.showMessageDialog(this, "Não há pedidos para serem salvos!", "Erro!", JOptionPane.ERROR_MESSAGE);
         }
