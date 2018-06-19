@@ -67,14 +67,6 @@
 	</columnHeader>
 	<detail>
 		<band height="12" splitType="Stretch">
-			<rectangle>
-				<reportElement x="0" y="0" width="555" height="12" backcolor="#CCCCCC" uuid="42a541a6-9162-40fd-abc6-1f992f456cf4">
-					<printWhenExpression><![CDATA[($F{count}.intValue() % 2) == 0 ? true : false]]></printWhenExpression>
-				</reportElement>
-				<graphicElement>
-					<pen lineWidth="0.0"/>
-				</graphicElement>
-			</rectangle>
 			<textField pattern="dd/MM/yyyy">
 				<reportElement x="0" y="0" width="100" height="12" uuid="ee012e60-f57f-44b5-8c15-b530d96499af"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -123,12 +115,6 @@
 	</detail>
 	<lastPageFooter>
 		<band height="20">
-			<rectangle>
-				<reportElement x="0" y="0" width="555" height="20" backcolor="#999999" uuid="1993a6fd-1cb2-4adb-8e0b-3f3747f41b78"/>
-				<graphicElement>
-					<pen lineWidth="0.0"/>
-				</graphicElement>
-			</rectangle>
 			<textField pattern="#,##0.00">
 				<reportElement x="386" y="0" width="65" height="20" uuid="4344bce3-c678-47ee-8c2e-5cd745f922e8"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">

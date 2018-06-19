@@ -28,7 +28,7 @@ public class About extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Contato: luis.f.massaneiro@gmail.com");
 
-        jLabel5.setText("Versão atual: 1.0");
+        jLabel5.setText("Versão atual: 1.1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

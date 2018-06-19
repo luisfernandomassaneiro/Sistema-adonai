@@ -210,7 +210,7 @@ public class MenuWindow extends javax.swing.JFrame {
 
     private void operacoesPagamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_operacoesPagamentoActionPerformed
         Pagamento pagamento = (Pagamento) GerenciadorJanelas.getInstance().abrirJanela(new Pagamento());
-        pagamento.limpar();
+        pagamento.limpar(true);
         pagamento.setVisible(true);
     }//GEN-LAST:event_operacoesPagamentoActionPerformed
 

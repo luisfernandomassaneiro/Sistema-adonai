@@ -253,7 +253,7 @@ public class Pagamento extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botao_limparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_limparActionPerformed
-        limpar();
+        limpar(true);
     }//GEN-LAST:event_botao_limparActionPerformed
 
     private void botao_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botao_PesquisarActionPerformed
@@ -279,7 +279,7 @@ public class Pagamento extends javax.swing.JInternalFrame {
                     }
                 }
                 JOptionPane.showMessageDialog(this, "Pagamento realizado com sucesso!");
-                limpar();
+                limpar(false);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Para realizar o pagamento, é necessário que tenha itens na lista.", "Erro!", JOptionPane.ERROR_MESSAGE);
@@ -349,14 +349,16 @@ public class Pagamento extends javax.swing.JInternalFrame {
         }
     }
 
-    public void limpar() {
+    public void limpar(boolean limparDatas) {
         listaPedido = new ArrayList<>();
         reloadTable();
         atualizaTotal();
         texto_codigo.setText("");
         texto_nome.setText("");
-        texto_DataInicial.setText("");
-        texto_DataFinal.setText("");
+        if(limparDatas) {
+            texto_DataInicial.setText("");
+            texto_DataFinal.setText("");
+        }
     }
     
     private void reloadTable() {
