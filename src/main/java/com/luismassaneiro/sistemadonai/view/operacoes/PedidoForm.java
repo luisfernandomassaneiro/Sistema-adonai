@@ -84,7 +84,6 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         texto_descricaoProduto = new javax.swing.JTextField();
         botao_pesquisarProduto = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        texto_quantidade = new javax.swing.JFormattedTextField();
         jLabel13 = new javax.swing.JLabel();
         texto_observacao = new javax.swing.JTextField();
         botao_adicionarProduto = new javax.swing.JButton();
@@ -95,6 +94,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
         texto_valor = new javax.swing.JFormattedTextField();
+        texto_quantidade = new javax.swing.JTextField();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -183,13 +183,6 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
 
         jLabel10.setText("Quantidade");
 
-        texto_quantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
-        texto_quantidade.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                texto_quantidadeKeyPressed(evt);
-            }
-        });
-
         jLabel13.setText("Observação");
 
         botao_adicionarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/luismassaneiro/controleestoque/imagens/plus-green16.png"))); // NOI18N
@@ -228,6 +221,17 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         texto_valor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         texto_valor.setToolTipText("");
 
+        texto_quantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                texto_quantidadeActionPerformed(evt);
+            }
+        });
+        texto_quantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                texto_quantidadeKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -242,17 +246,12 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                         .addComponent(botao_novoPedido))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(284, 284, 284)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(texto_valor, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(texto_quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(botao_salvarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(botao_ExcluirItem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jLabel12)
@@ -266,12 +265,17 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(botao_pesquisarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(botao_pesquisarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(botao_salvarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(botao_ExcluirItem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                            .addComponent(botao_pesquisarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(284, 284, 284)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(texto_valor, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(texto_quantidade, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -312,12 +316,12 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                         .addComponent(texto_descricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(botao_pesquisarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(texto_quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(texto_observacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(texto_valor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(texto_valor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(texto_quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(botao_adicionarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -417,19 +421,21 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         
     }//GEN-LAST:event_formInternalFrameActivated
 
-    private void texto_quantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_quantidadeKeyPressed
-        if(evt.getKeyCode() == 10) {
-           adicionaProduto();
-           texto_quantidade.setText("");
-           texto_codigoProduto.grabFocus();
-        }
-    }//GEN-LAST:event_texto_quantidadeKeyPressed
-
     private void botao_salvarPedidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botao_salvarPedidoKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_F10) {
             
         }
     }//GEN-LAST:event_botao_salvarPedidoKeyPressed
+
+    private void texto_quantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_texto_quantidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_texto_quantidadeActionPerformed
+
+    private void texto_quantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_texto_quantidadeKeyPressed
+        if(evt.getKeyCode() == 10) {
+           adicionaProduto();
+        }
+    }//GEN-LAST:event_texto_quantidadeKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -453,7 +459,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
     private javax.swing.JTextField texto_descricaoProduto;
     private javax.swing.JTextField texto_nomeCliente;
     private javax.swing.JTextField texto_observacao;
-    private javax.swing.JFormattedTextField texto_quantidade;
+    private javax.swing.JTextField texto_quantidade;
     private javax.swing.JTextField texto_total;
     private javax.swing.JFormattedTextField texto_valor;
     // End of variables declaration//GEN-END:variables
@@ -477,19 +483,26 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
                     gravaPedido();
                     texto_codigoProduto.setText("");
                     texto_descricaoProduto.setText("");
-                    texto_quantidade.setText("");
                     texto_observacao.setText("");
                     texto_valor.setText("");
                     produtoLookup = null;
-                    texto_codigoCliente.grabFocus();
+                    texto_codigoProduto.grabFocus();
+                    texto_quantidade.setText("");
                 } else {
                     JOptionPane.showMessageDialog(this, "Quantidade informada deve ser maior que zero!", "Erro!", JOptionPane.ERROR_MESSAGE);
+                    texto_quantidade.grabFocus();
                     texto_quantidade.setText("");
                 }
             } catch (Exception ex) {
-                Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);
-                String mensagem = TrataExcecao.trataMensagemErro(ex, PedidoForm.class);
-                JOptionPane.showMessageDialog(this, mensagem, "Erro ao adicionar produto no pedido!", JOptionPane.ERROR_MESSAGE);
+                if(ex instanceof NumberFormatException) {
+                    JOptionPane.showMessageDialog(this, "Por favor, informe apenas número no campo de quantidade!", "Erro!", JOptionPane.ERROR_MESSAGE);
+                    texto_quantidade.setText("");
+                    texto_quantidade.grabFocus();
+                } else {
+                    Logger.getLogger(PedidoForm.class.getName()).log(Level.SEVERE, null, ex);
+                    String mensagem = TrataExcecao.trataMensagemErro(ex, PedidoForm.class);
+                    JOptionPane.showMessageDialog(this, mensagem, "Erro ao adicionar produto no pedido!", JOptionPane.ERROR_MESSAGE);
+                }
             }
         } else {
             JOptionPane.showMessageDialog(this, "Para adicionar um produto, é necessário selecionar o cliente, produto e informar a quantidade.", "Erro!", JOptionPane.ERROR_MESSAGE);
@@ -511,6 +524,7 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
         reloadTable();
         atualizaTotalCompra();
         texto_codigoCliente.grabFocus();
+        texto_quantidade.setText("");
     }
     
     private void reloadTable() {
