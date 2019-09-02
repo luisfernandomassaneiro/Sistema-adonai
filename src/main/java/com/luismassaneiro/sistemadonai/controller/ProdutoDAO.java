@@ -99,5 +99,52 @@ public class ProdutoDAO extends GenericDAO<Produto> {
             throw new ValidateException(erro);
         } 
     }
+    
+    /**
+     * Recupera a quantidade atualizada do produto.
+     * Quantidade atual - quantidade reservada
+     * @param produtoID
+     * @return 
+     */
+    public Integer recuperaQuantidadeAtualizada(Long produtoID) throws ValidateException {
+        try {
+            Map<String, Object> parameters = new HashMap<>();
+            StringBuilder hql = new StringBuilder();
+            hql.append("select p.qtdeAtual from Produto as p ");
+            hql.append(" where ");
+            hql.append(" p.id = :produtoID ");
+
+            parameters.put("produtoID", produtoID);
+            Integer qntde = find(hql.toString(), parameters);
+            return qntde;
+        } catch (Exception e) {
+            String erro = TrataExcecao.trataMensagemErro(e, ProdutoDAO.class);
+            throw new ValidateException(erro);
+        } 
+    }
+    
+    public boolean codigoBarrasProdutoDisponivel(String codigoBarras, Long produtoID, Long codigoBarraID) throws ValidateException {
+        try {
+            Map<String, Object> parameters = new HashMap<>();
+            StringBuilder hql = new StringBuilder();
+            hql.append("select count(c.id) from CodigoBarra as c ");
+            hql.append("join c.produto p");
+            hql.append(" where ");
+            hql.append(" c.codigoBarras = :codigoBarras ");
+            hql.append(" and p.id = :produtoID ");
+            if(codigoBarraID != null) {
+                hql.append(" and c.id not in (:codigoBarraID) ");
+                parameters.put("codigoBarraID", codigoBarraID);
+            }
+
+            parameters.put("codigoBarras", codigoBarras);
+            parameters.put("produtoID", produtoID);
+            Long count = find(hql.toString(), parameters);
+            return count == 0;
+        } catch (Exception e) {
+            String erro = TrataExcecao.trataMensagemErro(e, ProdutoDAO.class);
+            throw new ValidateException(erro);
+        } 
+    }
 
 }

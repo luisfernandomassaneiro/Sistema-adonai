@@ -7,6 +7,7 @@ package com.luismassaneiro.sistemadonai.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,6 +34,15 @@ public class Produto extends Base implements BusinessEntity, Serializable {
     
     @Column(name="PRO_VALOR",nullable=false,length=10)
     private BigDecimal valor;
+    
+    @Column(name="PRO_CODIGOBARRAS")
+    private String codigoBarras;
+    
+    @Column(name="PRO_VALORCOMPRA",length=10)
+    private BigDecimal valorCompra;
+    
+    @Column(name="PRO_QTDEATUAl")
+    private Integer qtdeAtual = 0;
     
     @Override
     public Long getId() {
@@ -70,6 +80,29 @@ public class Produto extends Base implements BusinessEntity, Serializable {
         this.codigo = codigo;
     }
 
+    public String getCodigoBarras() {
+        return codigoBarras;
+    }
+
+    public void setCodigoBarras(String codigoBarras) {
+        this.codigoBarras = codigoBarras;
+    }
+
+    public BigDecimal getValorCompra() {
+        return valorCompra;
+    }
+
+    public void setValorCompra(BigDecimal valorCompra) {
+        this.valorCompra = valorCompra;
+    }
+
+    public Integer getQtdeAtual() {
+        return qtdeAtual;
+    }
+
+    public void setQtdeAtual(Integer qtdeAtual) {
+        this.qtdeAtual = qtdeAtual;
+    }
 }
     
 

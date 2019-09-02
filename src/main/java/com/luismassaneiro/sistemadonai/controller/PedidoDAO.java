@@ -1,15 +1,10 @@
 package com.luismassaneiro.sistemadonai.controller;
 
-import com.luismassaneiro.sistemadonai.enums.TipoSituacaoProduto;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
 import com.luismassaneiro.sistemadonai.model.Pedido;
-import com.luismassaneiro.sistemadonai.model.PedidoItem;
 import com.luismassaneiro.sistemadonai.utils.TrataExcecao;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import org.apache.commons.collections.CollectionUtils;
 
 public class PedidoDAO extends GenericDAO<Pedido>{
 

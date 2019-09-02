@@ -51,6 +51,8 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         botao_Novo = new javax.swing.JButton();
         botao_Gravar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        texto_valorCompra = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -89,7 +91,7 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Descrição");
 
-        jLabel3.setText("Valor");
+        jLabel3.setText("Valor venda");
 
         texto_valor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         texto_valor.setToolTipText("");
@@ -119,6 +121,11 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel4.setText("Valor compra");
+
+        texto_valorCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        texto_valorCompra.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,21 +136,21 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(texto_valor, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(109, 109, 109))
-                            .addComponent(texto_Codigo, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(texto_Codigo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(texto_valorCompra))
                         .addGap(7, 7, 7)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(282, 282, 282))
-                            .addComponent(texto_Descricao))
+                            .addComponent(texto_Descricao)
+                            .addComponent(texto_valor)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addComponent(checkBox_Ativo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(504, 504, 504))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(botao_Gravar)
@@ -168,9 +175,13 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(texto_Descricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(texto_valor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(texto_valor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(texto_valorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -189,6 +200,7 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
             model.setAtivo(checkBox_Ativo.isSelected());
             model.setDescricao(texto_Descricao.getText());
             model.setValor(FormatUtils.parseBigDecimal(texto_valor.getText()));
+            model.setValorCompra(FormatUtils.parseBigDecimal(texto_valorCompra.getText()));
             ProdutoHelper.getInstance().validaCamposObrigatorios(model);
             lbMessages.setText("");
             pack();
@@ -246,11 +258,13 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbMessages;
     private javax.swing.JTextField texto_Codigo;
     private javax.swing.JTextField texto_Descricao;
     private javax.swing.JFormattedTextField texto_valor;
+    private javax.swing.JFormattedTextField texto_valorCompra;
     // End of variables declaration//GEN-END:variables
 
     private void limpar() {
@@ -258,6 +272,7 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
         texto_Codigo.setText("");
         texto_Descricao.setText("");
         texto_valor.setText("");
+        texto_valorCompra.setText("");
         checkBox_Ativo.setSelected(true);
         lbMessages.setText("");
         pack();
@@ -269,6 +284,7 @@ public class ProdutoForm extends javax.swing.JInternalFrame {
             texto_Codigo.setText(model.getCodigo());
             texto_Descricao.setText(model.getDescricao());
             texto_valor.setText(FormatUtils.formatBigDecimal(model.getValor()));
+            texto_valorCompra.setText(FormatUtils.formatBigDecimal(model.getValor()));
             checkBox_Ativo.setSelected(model.isAtivo());
         } else {
             this.model = new Produto();

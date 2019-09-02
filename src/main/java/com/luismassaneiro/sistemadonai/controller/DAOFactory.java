@@ -9,6 +9,7 @@ public class DAOFactory {
     private static PedidoDAO pedidoDAO;
     private static PedidoItemDAO pedidoItemDAO;
     private static ClienteDAO clienteDAO;
+    private static MovimentoEstoqueDAO movimentoEstoqueDAO;
     
     public static ClienteDAO criaClienteDAO() {
         if(clienteDAO == null)
@@ -36,6 +37,13 @@ public class DAOFactory {
             pedidoItemDAO = new PedidoItemDAO();
         }
         return pedidoItemDAO;
+    }
+
+    public static MovimentoEstoqueDAO criaMovimentoEstoqueDAO() {
+        if(movimentoEstoqueDAO == null) {
+            movimentoEstoqueDAO = new MovimentoEstoqueDAO();
+        }
+        return movimentoEstoqueDAO;
     }
     
 }

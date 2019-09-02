@@ -13,6 +13,7 @@ import com.luismassaneiro.sistemadonai.view.consultas.ConsultaDetalhada;
 import com.luismassaneiro.sistemadonai.view.consultas.ConsultaEmAberto;
 import com.luismassaneiro.sistemadonai.view.consultas.RelatorioMensal;
 import com.luismassaneiro.sistemadonai.view.help.About;
+import com.luismassaneiro.sistemadonai.view.operacoes.MovimentacaoEstoque;
 import com.luismassaneiro.sistemadonai.view.operacoes.Pagamento;
 import com.luismassaneiro.sistemadonai.view.operacoes.PedidoForm;
 
@@ -57,6 +58,7 @@ public class MenuWindow extends javax.swing.JFrame {
         operacaoMenu = new javax.swing.JMenu();
         operacoesPagamento = new javax.swing.JMenuItem();
         operacoesPedido = new javax.swing.JMenuItem();
+        cutMenuItem1 = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         aboutMenuItem = new javax.swing.JMenuItem();
 
@@ -149,6 +151,15 @@ public class MenuWindow extends javax.swing.JFrame {
         });
         operacaoMenu.add(operacoesPedido);
 
+        cutMenuItem1.setMnemonic('t');
+        cutMenuItem1.setText("Estoque");
+        cutMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cutMenuItem1ActionPerformed(evt);
+            }
+        });
+        operacaoMenu.add(cutMenuItem1);
+
         menuBar.add(operacaoMenu);
 
         helpMenu.setMnemonic('h');
@@ -236,6 +247,10 @@ public class MenuWindow extends javax.swing.JFrame {
         relatorioMensal.setVisible(true);
     }//GEN-LAST:event_relatorioMensalMenuItemActionPerformed
 
+    private void cutMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cutMenuItem1ActionPerformed
+        GerenciadorJanelas.getInstance().abrirJanela(new MovimentacaoEstoque()).setVisible(true);
+    }//GEN-LAST:event_cutMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -276,6 +291,7 @@ public class MenuWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenu cadastroMenu;
     private javax.swing.JMenuItem clienteMenuItem;
+    private javax.swing.JMenuItem cutMenuItem1;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem emAbertoMenuItem;

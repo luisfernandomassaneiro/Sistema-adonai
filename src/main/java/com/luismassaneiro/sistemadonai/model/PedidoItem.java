@@ -40,6 +40,9 @@ public class PedidoItem implements BusinessEntity{
     @Column(name="PIT_VALOR", nullable=false)
     private BigDecimal valor;
     
+    @Column(name="PIT_VALORCOMPRA", nullable=false)
+    private BigDecimal valorCompra;
+    
     @Column(name="PIT_DATA", nullable=false)
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCompra = new Date();
@@ -146,6 +149,14 @@ public class PedidoItem implements BusinessEntity{
 
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    public BigDecimal getValorCompra() {
+        return valorCompra;
+    }
+
+    public void setValorCompra(BigDecimal valorCompra) {
+        this.valorCompra = valorCompra;
     }
 
 }

@@ -5,6 +5,7 @@ import com.luismassaneiro.sistemadonai.controller.DAOFactory;
 import com.luismassaneiro.sistemadonai.controller.PedidoDAO;
 import com.luismassaneiro.sistemadonai.controller.ProdutoDAO;
 import com.luismassaneiro.sistemadonai.exceptions.ValidateException;
+import com.luismassaneiro.sistemadonai.helper.ProdutoHelper;
 import com.luismassaneiro.sistemadonai.model.Cliente;
 import com.luismassaneiro.sistemadonai.model.Pedido;
 import com.luismassaneiro.sistemadonai.model.PedidoItem;
@@ -469,11 +470,15 @@ public class PedidoForm extends javax.swing.JInternalFrame implements Selecionad
             try {
                 Integer quantidade = Integer.valueOf(texto_quantidade.getText());
                 if(quantidade > 0) {
+                    ProdutoHelper.getInstance().verificaQuantidadeEmEstoque(produtoLookup, quantidade);
+                    ProdutoHelper.getInstance().atualizaQuantidadeAtual(produtoLookup, quantidade, false);
+                    
                     PedidoItem novoItem = new PedidoItem();
                     novoItem.setProduto(produtoLookup);
                     novoItem.setQuantidade(quantidade);
                     novoItem.setObservacao(texto_observacao.getText());
                     novoItem.setValor(FormatUtils.parseBigDecimal(texto_valor.getText()));
+                    novoItem.setValorCompra(produtoLookup.getValorCompra());
                     novoItem.setValorTotal(novoItem.getValor().multiply(new BigDecimal(quantidade.intValue())));
                     if(CollectionUtils.isEmpty(pedido.getItens()))
                         pedido.setItens(new ArrayList<PedidoItem>());

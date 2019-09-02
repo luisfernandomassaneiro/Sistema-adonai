@@ -6,6 +6,8 @@
     <class>com.luismassaneiro.sistemadonai.model.Produto</class>
     <class>com.luismassaneiro.sistemadonai.model.Pedido</class>
     <class>com.luismassaneiro.sistemadonai.model.PedidoItem</class>
+    <class>com.luismassaneiro.sistemadonai.model.CodigoBarra</class>
+    <class>com.luismassaneiro.sistemadonai.model.MovimentoEstoque</class>
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>
       <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:file:C:/SistemaAdonai/BancoDeDados/adonai"/>
